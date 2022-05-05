@@ -8,8 +8,8 @@ import (
 	"golang.org/x/exp/slices"
 )
 
-func NewCwppClient(baseUrl string, apiVersion string, sslVerify bool, schema string) (*CwppClient, error) {
-	cwppBaseUrl, err := buildBaseUrl(baseUrl, apiVersion)
+func NewCwppClient(consoleUrl string, apiVersion string, sslVerify bool, schema string) (*CwppClient, error) {
+	cwppBaseUrl, err := buildBaseUrl(consoleUrl, apiVersion)
 	if err != nil {
 		return nil, err
 	}
@@ -17,8 +17,8 @@ func NewCwppClient(baseUrl string, apiVersion string, sslVerify bool, schema str
 	return &CwppClient{baseClient: *baseClient, apiVersion: apiVersion}, nil
 }
 
-func NewCwppClientWithCustomMaxRetries(baseUrl string, apiVersion string, sslVerify bool, maxRetries int, schema string) (*CwppClient, error) {
-	cwppBaseUrl, err := buildBaseUrl(baseUrl, apiVersion)
+func NewCwppClientWithCustomMaxRetries(consoleUrl string, apiVersion string, sslVerify bool, maxRetries int, schema string) (*CwppClient, error) {
+	cwppBaseUrl, err := buildBaseUrl(consoleUrl, apiVersion)
 	if err != nil {
 		return nil, err
 	}
