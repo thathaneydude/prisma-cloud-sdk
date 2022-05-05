@@ -18,7 +18,7 @@ func (c *CspmClient) Login(username string, password string, customerName string
 		Username:     username,
 	}
 	var loginResponse LoginResponse
-	err := c.PostWithResponseInterface(loginEndpoint, utils.ToBytes(loginRequest), loginResponse)
+	err := c.PostWithResponseInterface(loginEndpoint, utils.ToBytes(loginRequest), &loginResponse)
 	if err != nil {
 		return nil, &pkg.GenericError{Msg: err.Error()}
 	}

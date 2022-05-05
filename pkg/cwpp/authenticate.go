@@ -2,11 +2,12 @@ package cwpp
 
 import (
 	"PrismaCloud/pkg/utils"
+	"fmt"
 )
 
 const (
-	authHeader = "Authorization"
-	endpoint   = "/authenticate"
+	authHeader           = "Authorization"
+	authenticateEndpoint = "/authenticate"
 )
 
 func (c *CwppClient) Authenticate(username string, password string) (*AuthenticateResponse, error) {
@@ -18,10 +19,11 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	}
 
 	var authResponse AuthenticateResponse
-	err := c.PostWithResponseInterface(endpoint, utils.ToBytes(authRequest), authResponse)
+	err := c.PostWithResponseInterface(authenticateEndpoint, utils.ToBytes(authRequest), &authResponse)
 	if err != nil {
 		return nil, err
 	}
+	c.baseClient.Headers.Set(authHeader, fmt.Sprintf("Bearer %v", authResponse.Token))
 
 	return &authResponse, nil
 }

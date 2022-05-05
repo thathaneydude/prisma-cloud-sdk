@@ -1,8 +1,8 @@
 package cspm
 
 import (
+	"PrismaCloud/pkg"
 	bc "PrismaCloud/pkg/client"
-	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
 	"testing"
@@ -12,7 +12,7 @@ func TestCspmClient_ExtendAuthTokenSuccessful(t *testing.T) {
 	teardown := setup()
 	defer teardown()
 
-	mux.HandleFunc(fmt.Sprintf("/%v", authExtendEndpoint), func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(authExtendEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(bc.ContentTypeHeader, bc.ApplicationJSON)
 		w.Header().Set(authHeader, "foo")
 		w.WriteHeader(http.StatusOK)
@@ -24,27 +24,11 @@ func TestCspmClient_ExtendAuthTokenSuccessful(t *testing.T) {
 	assert.Equal(t, loginResponse.Token, "12345")
 }
 
-func TestCspmClient_ExtendAuthTokenExpired(t *testing.T) {
-	teardown := setup()
-	defer teardown()
-
-	mux.HandleFunc(fmt.Sprintf("/%v", authExtendEndpoint), func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set(bc.ContentTypeHeader, bc.ApplicationJSON)
-		w.Header().Set(authHeader, "foo")
-		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte(`token_expired`))
-	})
-
-	loginResponse, err := client.ExtendAuthToken()
-	assert.Nil(t, loginResponse)
-	assert.Error(t, &LoginError{}, err)
-}
-
 func TestCspmClient_ExtendAuthTokenInternalServerError(t *testing.T) {
 	teardown := setup()
 	defer teardown()
 
-	mux.HandleFunc(fmt.Sprintf("/%v", authExtendEndpoint), func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc(authExtendEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(bc.ContentTypeHeader, bc.ApplicationJSON)
 		w.Header().Set(authHeader, "foo")
 		w.WriteHeader(http.StatusInternalServerError)
@@ -53,5 +37,5 @@ func TestCspmClient_ExtendAuthTokenInternalServerError(t *testing.T) {
 
 	loginResponse, err := client.ExtendAuthToken()
 	assert.Nil(t, loginResponse)
-	assert.Error(t, &LoginError{}, err)
+	assert.Error(t, &pkg.GenericError{}, err)
 }

@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -117,7 +117,8 @@ func (c *CwppClient) cwppDoWithRetry(req http.Request, currentAttempt int) (*htt
 
 func (c *CwppClient) unmarshalResponse(httpResponse *http.Response, response interface{}) error {
 	defer httpResponse.Body.Close()
-	tmp, readErr := ioutil.ReadAll(httpResponse.Body)
+	tmp, readErr := io.ReadAll(httpResponse.Body)
+	logrus.Debugf(string(tmp))
 	if readErr != nil {
 		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
 	}

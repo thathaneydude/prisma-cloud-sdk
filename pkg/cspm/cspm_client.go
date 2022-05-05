@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -28,7 +28,7 @@ func (c *CspmClient) PostWithResponseInterface(endpoint string, body []byte, res
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, response)
+	return c.unmarshalResponse(resp, &response)
 }
 
 func (c *CspmClient) PutWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -113,14 +113,25 @@ func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*htt
 }
 
 func (c *CspmClient) unmarshalResponse(httpResponse *http.Response, response interface{}) error {
+	if httpResponse == nil {
+		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response: No data found")}
+	}
+
 	defer httpResponse.Body.Close()
-	tmp, readErr := ioutil.ReadAll(httpResponse.Body)
+	tmp, readErr := io.ReadAll(httpResponse.Body)
+	logrus.Debugf(string(tmp))
 	if readErr != nil {
 		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
 	}
-	unmarshalErr := json.Unmarshal(tmp, response)
-	if unmarshalErr != nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
+	if len(tmp) > 0 {
+		unmarshalErr := json.Unmarshal(tmp, response)
+		if unmarshalErr != nil {
+			return &pkg.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
+		}
 	}
 	return nil
+}
+
+func (c *CspmClient) buildBaseUrl() string {
+	return fmt.Sprintf("%v://%v", c.baseClient.Schema, c.baseClient.BaseUrl)
 }
