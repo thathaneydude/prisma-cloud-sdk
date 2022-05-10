@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
-	"prisma-cloud-sdk/pkg"
-	bc "prisma-cloud-sdk/pkg/client"
+	bc "prisma-cloud-sdk/client"
+	"prisma-cloud-sdk/internal"
 	"testing"
 )
 
@@ -45,5 +45,5 @@ func Test_BuildBaseUrlSuccessful(t *testing.T) {
 func Test_BuildBaseUrlInvalidAPIVersion(t *testing.T) {
 	client, err := NewCwppClient("foo", "bar", false, "http")
 	assert.Nil(t, client)
-	assert.Error(t, &pkg.GenericError{}, err)
+	assert.Error(t, &internal.GenericError{}, err)
 }

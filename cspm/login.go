@@ -1,8 +1,8 @@
 package cspm
 
 import (
-	"prisma-cloud-sdk/pkg"
-	"prisma-cloud-sdk/pkg/utils"
+	"prisma-cloud-sdk/internal"
+	"prisma-cloud-sdk/utils"
 )
 
 const (
@@ -18,7 +18,7 @@ func (c *CspmClient) Login(username string, password string) (*LoginResponse, er
 	var loginResponse LoginResponse
 	err := c.PostWithResponseInterface(loginEndpoint, utils.ToBytes(loginRequest), &loginResponse)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: err.Error()}
+		return nil, &internal.GenericError{Msg: err.Error()}
 	}
 
 	c.BaseClient.Headers.Set(authHeader, loginResponse.Token)

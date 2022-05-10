@@ -6,7 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
-	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/internal"
 )
 
 func ToBytes[T any](obj T) []byte {
@@ -19,18 +19,18 @@ func ToBytes[T any](obj T) []byte {
 
 func UnmarshalResponse(httpResponse *http.Response, response interface{}) error {
 	if httpResponse == nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response: No data found")}
+		return &internal.GenericError{Msg: fmt.Sprintf("Error while reading response: No data found")}
 	}
 
 	defer httpResponse.Body.Close()
 	tmp, readErr := io.ReadAll(httpResponse.Body)
 	logrus.Debugf("Response: %v", string(tmp))
 	if readErr != nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
+		return &internal.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
 	}
 	unmarshalErr := json.Unmarshal(tmp, response)
 	if unmarshalErr != nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
+		return &internal.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
 	}
 	return nil
 }

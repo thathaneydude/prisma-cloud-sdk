@@ -4,13 +4,13 @@ import (
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
-	bc "prisma-cloud-sdk/pkg/client"
-	"prisma-cloud-sdk/pkg/utils"
+	"prisma-cloud-sdk/client"
+	"prisma-cloud-sdk/utils"
 )
 
 type CspmClient struct {
 	baseUrl    string
-	BaseClient bc.BaseClientImpl
+	BaseClient client.BaseClientImpl
 }
 
 func (c *CspmClient) GetWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
@@ -95,7 +95,7 @@ func (c *CspmClient) Delete(endpoint string, params url.Values) (*http.Response,
 
 func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*http.Response, error) {
 	resp, err := c.BaseClient.DoWithRetry(req, currentAttempt)
-	sErr, _ := err.(*bc.UnauthorizedError)
+	sErr, _ := err.(*client.UnauthorizedError)
 	if sErr != nil {
 		logrus.Debugf("Auth token may have expired. Attempting to refresh token")
 		_, err = c.ExtendAuthToken()

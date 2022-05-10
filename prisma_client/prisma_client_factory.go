@@ -3,11 +3,11 @@ package prisma_client
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"prisma-cloud-sdk/pkg"
-	"prisma-cloud-sdk/pkg/client"
-	"prisma-cloud-sdk/pkg/constants"
-	"prisma-cloud-sdk/pkg/cspm"
-	"prisma-cloud-sdk/pkg/cwpp"
+	"prisma-cloud-sdk/client"
+	"prisma-cloud-sdk/constants"
+	"prisma-cloud-sdk/cspm"
+	"prisma-cloud-sdk/cwpp"
+	"prisma-cloud-sdk/internal"
 )
 
 func NewDefaultPrismaCloudClient(apiUrl string, username string, password string, sslVerify bool) (*PrismaCloudClient, error) {
@@ -32,7 +32,7 @@ func NewPrismaCloudClient(apiUrl string, schema string, username string, passwor
 
 	cwppClient, err := cwpp.NewCwppClient(resp.TwistlockUrl, cwppApiVersion, sslVerify, schema)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Failed to initialize CWPP client using meta_info: %v", err)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to initialize CWPP client using meta_info: %v", err)}
 	}
 
 	cwppClient.BaseClient = *baseClient

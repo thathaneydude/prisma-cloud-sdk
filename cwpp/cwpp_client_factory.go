@@ -3,9 +3,9 @@ package cwpp
 import (
 	"fmt"
 	"golang.org/x/exp/slices"
-	"prisma-cloud-sdk/pkg"
-	bc "prisma-cloud-sdk/pkg/client"
-	"prisma-cloud-sdk/pkg/constants"
+	bc "prisma-cloud-sdk/client"
+	"prisma-cloud-sdk/constants"
+	"prisma-cloud-sdk/internal"
 )
 
 func NewCwppClient(consoleUrl string, apiVersion string, sslVerify bool, schema string) (*CwppClient, error) {
@@ -44,7 +44,7 @@ func buildBaseUrl(baseUrl string, apiVersion string) (string, error) {
 
 func validateApiVersion(apiVersion string) (string, error) {
 	if !slices.Contains(constants.APIVersions, apiVersion) {
-		return "", &pkg.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, constants.APIVersions)}
+		return "", &internal.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, constants.APIVersions)}
 	}
 	return apiVersion, nil
 }

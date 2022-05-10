@@ -5,7 +5,7 @@ import (
 	"github.com/gorilla/schema"
 	"github.com/sirupsen/logrus"
 	"net/url"
-	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/internal"
 	"time"
 )
 
@@ -16,7 +16,7 @@ func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 	params := url.Values{}
 	err := encoder.Encode(query, params)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
 	}
 	var imagesResponse []Image
 	logrus.Infof("Encoded struct: %v", params)

@@ -5,7 +5,7 @@ import (
 	"crypto/x509"
 	"log"
 	"net/http"
-	"prisma-cloud-sdk/pkg/constants"
+	"prisma-cloud-sdk/constants"
 )
 
 const (

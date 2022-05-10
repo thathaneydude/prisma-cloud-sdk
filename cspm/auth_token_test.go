@@ -3,8 +3,8 @@ package cspm
 import (
 	"github.com/stretchr/testify/assert"
 	"net/http"
-	"prisma-cloud-sdk/pkg"
-	bc "prisma-cloud-sdk/pkg/client"
+	bc "prisma-cloud-sdk/client"
+	"prisma-cloud-sdk/internal"
 	"testing"
 )
 
@@ -19,7 +19,7 @@ func TestCspmClient_ExtendAuthTokenSuccessful(t *testing.T) {
 		w.Write([]byte(`{"customerNames":[{"customerName":"PANW","prismaId":"4321","tosAccepted":true}],"message":"foo","roles":["admin"],"token":"12345"}`))
 	})
 
-	loginResponse, err := client.ExtendAuthToken()
+	loginResponse, err := cspmClient.ExtendAuthToken()
 	assert.Nil(t, err)
 	assert.Equal(t, loginResponse.Token, "12345")
 }
@@ -35,7 +35,7 @@ func TestCspmClient_ExtendAuthTokenInternalServerError(t *testing.T) {
 		w.Write([]byte(`login_failed_unknown_error`))
 	})
 
-	loginResponse, err := client.ExtendAuthToken()
+	loginResponse, err := cspmClient.ExtendAuthToken()
 	assert.Nil(t, loginResponse)
-	assert.Error(t, &pkg.GenericError{}, err)
+	assert.Error(t, &internal.GenericError{}, err)
 }

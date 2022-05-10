@@ -1,7 +1,7 @@
 package cspm
 
 import (
-	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/internal"
 )
 
 const authExtendEndpoint = "/auth_token/extend"
@@ -11,7 +11,7 @@ func (c *CspmClient) ExtendAuthToken() (*LoginResponse, error) {
 	var authTokenExtendResponse LoginResponse
 	err := c.GetWithResponseInterface(authExtendEndpoint, nil, &authTokenExtendResponse)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: err.Error()}
+		return nil, &internal.GenericError{Msg: err.Error()}
 	}
 	return &authTokenExtendResponse, nil
 }

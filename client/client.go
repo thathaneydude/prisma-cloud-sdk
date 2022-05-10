@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"prisma-cloud-sdk/pkg"
-	"prisma-cloud-sdk/pkg/constants"
+	"prisma-cloud-sdk/constants"
+	"prisma-cloud-sdk/internal"
 	"time"
 )
 
@@ -73,12 +73,12 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 
 func (c BaseClientImpl) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
 	if !slices.Contains(constants.SupportedHttpMethods, method) {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
 	}
 
 	base, err := url.Parse(baseUrl)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while parsing base url provided \"%v\": %v", baseUrl, err)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Error while parsing base url provided \"%v\": %v", baseUrl, err)}
 	}
 
 	if base.Scheme == "" {
@@ -96,7 +96,7 @@ func (c BaseClientImpl) BuildRequest(baseUrl string, method string, endpoint str
 	req, reqErr := http.NewRequest(method, base.String(), payload)
 
 	if reqErr != nil {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while building request: %v", reqErr)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Error while building request: %v", reqErr)}
 	}
 	logrus.Debugf("Request: %v", req)
 	return req, nil
