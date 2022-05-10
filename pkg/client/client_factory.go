@@ -1,11 +1,11 @@
 package client
 
 import (
-	"PrismaCloud/pkg/constants"
 	"crypto/tls"
 	"crypto/x509"
 	"log"
 	"net/http"
+	"prisma-cloud-sdk/pkg/constants"
 )
 
 const (

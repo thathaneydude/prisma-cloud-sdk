@@ -1,7 +1,7 @@
 package cspm
 
 import (
-	"PrismaCloud/pkg"
+	"prisma-cloud-sdk/pkg"
 )
 
 const authExtendEndpoint = "/auth_token/extend"

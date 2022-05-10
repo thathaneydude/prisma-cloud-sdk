@@ -1,11 +1,11 @@
 package cspm
 
 import (
-	"PrismaCloud/pkg"
-	bc "PrismaCloud/pkg/client"
-	"PrismaCloud/pkg/constants"
 	"fmt"
 	"golang.org/x/exp/slices"
+	"prisma-cloud-sdk/pkg"
+	bc "prisma-cloud-sdk/pkg/client"
+	"prisma-cloud-sdk/pkg/constants"
 )
 
 func NewCSPMClient(apiUrl string, sslVerify bool, schema string, maxRetries int) (*CspmClient, error) {

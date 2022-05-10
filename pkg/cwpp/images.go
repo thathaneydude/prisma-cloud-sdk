@@ -1,11 +1,11 @@
 package cwpp
 
 import (
-	"PrismaCloud/pkg"
 	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/sirupsen/logrus"
 	"net/url"
+	"prisma-cloud-sdk/pkg"
 	"time"
 )
 

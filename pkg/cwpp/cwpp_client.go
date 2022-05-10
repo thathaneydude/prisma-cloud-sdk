@@ -1,11 +1,11 @@
 package cwpp
 
 import (
-	bc "PrismaCloud/pkg/client"
-	"PrismaCloud/pkg/utils"
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
+	bc "prisma-cloud-sdk/pkg/client"
+	"prisma-cloud-sdk/pkg/utils"
 )
 
 type CwppClient struct {

@@ -1,11 +1,11 @@
 package cwpp
 
 import (
-	"PrismaCloud/pkg"
-	bc "PrismaCloud/pkg/client"
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"net/http"
+	"prisma-cloud-sdk/pkg"
+	bc "prisma-cloud-sdk/pkg/client"
 	"testing"
 )
 

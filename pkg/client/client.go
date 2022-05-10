@@ -1,8 +1,6 @@
 package client
 
 import (
-	"PrismaCloud/pkg"
-	"PrismaCloud/pkg/constants"
 	"bytes"
 	"fmt"
 	"github.com/sirupsen/logrus"
@@ -10,6 +8,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/pkg/constants"
 	"time"
 )
 

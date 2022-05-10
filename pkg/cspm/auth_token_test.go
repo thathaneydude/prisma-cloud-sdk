@@ -1,10 +1,10 @@
 package cspm
 
 import (
-	"PrismaCloud/pkg"
-	bc "PrismaCloud/pkg/client"
 	"github.com/stretchr/testify/assert"
 	"net/http"
+	"prisma-cloud-sdk/pkg"
+	bc "prisma-cloud-sdk/pkg/client"
 	"testing"
 )
 

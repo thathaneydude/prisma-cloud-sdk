@@ -1,13 +1,13 @@
 package prisma_client
 
 import (
-	"PrismaCloud/pkg"
-	"PrismaCloud/pkg/client"
-	"PrismaCloud/pkg/constants"
-	"PrismaCloud/pkg/cspm"
-	"PrismaCloud/pkg/cwpp"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/pkg/client"
+	"prisma-cloud-sdk/pkg/constants"
+	"prisma-cloud-sdk/pkg/cspm"
+	"prisma-cloud-sdk/pkg/cwpp"
 )
 
 func NewDefaultPrismaCloudClient(apiUrl string, username string, password string, sslVerify bool) (*PrismaCloudClient, error) {

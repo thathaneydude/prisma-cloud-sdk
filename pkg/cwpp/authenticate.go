@@ -1,9 +1,9 @@
 package cwpp
 
 import (
-	"PrismaCloud/pkg/utils"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"prisma-cloud-sdk/pkg/utils"
 )
 
 const (

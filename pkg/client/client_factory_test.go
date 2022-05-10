@@ -1,13 +1,13 @@
 package client
 
 import (
-	"PrismaCloud/pkg/constants"
 	"github.com/stretchr/testify/assert"
+	"prisma-cloud-sdk/pkg/constants"
 	"testing"
 )
 
 func TestNewBaseClient_HTTP(t *testing.T) {
-	baseUrl := "foo"
+	//baseUrl := "foo"
 	schema := "http"
 
 	c := NewBaseClient(false, constants.DefaultMaxRetries, "http")
@@ -17,7 +17,7 @@ func TestNewBaseClient_HTTP(t *testing.T) {
 }
 
 func TestNewBaseClient_HTTPS(t *testing.T) {
-	baseUrl := "foo"
+	//baseUrl := "foo"
 	schema := "https"
 
 	c := NewBaseClient(false, constants.DefaultMaxRetries, "https")

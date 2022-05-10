@@ -1,4 +1,4 @@
-module PrismaCloud
+module prisma-cloud-sdk
 
 go 1.18
 

@@ -1,8 +1,8 @@
 package cspm
 
 import (
-	"PrismaCloud/pkg"
-	"PrismaCloud/pkg/utils"
+	"prisma-cloud-sdk/pkg"
+	"prisma-cloud-sdk/pkg/utils"
 )
 
 const (
