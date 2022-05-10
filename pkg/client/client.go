@@ -2,8 +2,8 @@ package client
 
 import (
 	"PrismaCloud/pkg"
+	"PrismaCloud/pkg/constants"
 	"bytes"
-	"encoding/json"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/exp/slices"
@@ -18,8 +18,7 @@ const sleepDuration = 5
 type BaseClientImpl struct {
 	httpClient *http.Client
 	Headers    *http.Header
-	BaseUrl    string
-	Schema     string
+	schema     string
 	maxRetries int
 }
 
@@ -50,47 +49,51 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 		}
 	case http.StatusUnauthorized:
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return nil, &UnauthorizedError{msg: string(respBody)}
+		err = &UnauthorizedError{msg: string(respBody)}
+		logrus.Errorf(err.Error())
+		return nil, err
 	case http.StatusInternalServerError:
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return nil, &InternalServerError{msg: string(respBody)}
+		err = &InternalServerError{msg: string(respBody)}
+		logrus.Errorf(err.Error())
+		return nil, err
 	case http.StatusNotFound:
 		respBody, _ := ioutil.ReadAll(resp.Body)
-		return nil, &NotFoundError{msg: string(respBody)}
+		err = &NotFoundError{msg: string(respBody)}
+		logrus.Errorf(err.Error())
+		return nil, err
+	case http.StatusMethodNotAllowed:
+		respBody, _ := ioutil.ReadAll(resp.Body)
+		err = &NotAllowedError{msg: string(respBody)}
+		logrus.Errorf(err.Error())
+		return nil, err
 	}
 	return resp, nil
 }
 
-func (c BaseClientImpl) BuildRequest(method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
-	if !slices.Contains([]string{http.MethodGet, http.MethodPost, http.MethodPatch, http.MethodPut, http.MethodDelete}, method) {
+func (c BaseClientImpl) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
+	if !slices.Contains(constants.SupportedHttpMethods, method) {
 		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
 	}
 
-	base, err := url.Parse(c.BaseUrl)
+	base, err := url.Parse(baseUrl)
 	if err != nil {
-		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while parsing base url provided \"%v\": %v", c.BaseUrl, err)}
+		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while parsing base url provided \"%v\": %v", baseUrl, err)}
 	}
 
 	if base.Scheme == "" {
-		base.Scheme = c.Schema
+		base.Scheme = c.schema
 	}
 	// Require client func to provide separating "/"
 	base.Path += endpoint
 
-	var payload bytes.Buffer
-	if data != nil {
-		jsonData, marshalErr := json.Marshal(data)
-		if marshalErr != nil {
-			return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while converting provided body to JSON: %v", marshalErr)}
-		}
-		payload = *bytes.NewBuffer(jsonData)
-	}
+	payload := bytes.NewBuffer(data)
 
 	if params != nil {
 		base.RawQuery = params.Encode()
 	}
 
-	req, reqErr := http.NewRequest(method, base.String(), &payload)
+	req, reqErr := http.NewRequest(method, base.String(), payload)
 
 	if reqErr != nil {
 		return nil, &pkg.GenericError{Msg: fmt.Sprintf("Error while building request: %v", reqErr)}

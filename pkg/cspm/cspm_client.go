@@ -1,18 +1,16 @@
 package cspm
 
 import (
-	"PrismaCloud/pkg"
 	bc "PrismaCloud/pkg/client"
-	"encoding/json"
-	"fmt"
+	"PrismaCloud/pkg/utils"
 	"github.com/sirupsen/logrus"
-	"io"
 	"net/http"
 	"net/url"
 )
 
 type CspmClient struct {
-	baseClient bc.BaseClientImpl
+	baseUrl    string
+	BaseClient bc.BaseClientImpl
 }
 
 func (c *CspmClient) GetWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
@@ -20,7 +18,7 @@ func (c *CspmClient) GetWithResponseInterface(endpoint string, params url.Values
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, response)
+	return utils.UnmarshalResponse(resp, response)
 }
 
 func (c *CspmClient) PostWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -28,7 +26,7 @@ func (c *CspmClient) PostWithResponseInterface(endpoint string, body []byte, res
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, &response)
+	return utils.UnmarshalResponse(resp, &response)
 }
 
 func (c *CspmClient) PutWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -36,7 +34,7 @@ func (c *CspmClient) PutWithResponseInterface(endpoint string, body []byte, resp
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, response)
+	return utils.UnmarshalResponse(resp, response)
 }
 
 func (c *CspmClient) PatchWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -44,7 +42,7 @@ func (c *CspmClient) PatchWithResponseInterface(endpoint string, body []byte, re
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, response)
+	return utils.UnmarshalResponse(resp, response)
 }
 
 func (c *CspmClient) DeleteWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
@@ -52,11 +50,11 @@ func (c *CspmClient) DeleteWithResponseInterface(endpoint string, params url.Val
 	if err != nil {
 		return err
 	}
-	return c.unmarshalResponse(resp, response)
+	return utils.UnmarshalResponse(resp, response)
 }
 
 func (c *CspmClient) Get(endpoint string, params url.Values) (*http.Response, error) {
-	req, err := c.baseClient.BuildRequest("GET", endpoint, params, nil)
+	req, err := c.BaseClient.BuildRequest(c.baseUrl, http.MethodGet, endpoint, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -64,7 +62,7 @@ func (c *CspmClient) Get(endpoint string, params url.Values) (*http.Response, er
 }
 
 func (c *CspmClient) Post(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.baseClient.BuildRequest("POST", endpoint, nil, body)
+	req, err := c.BaseClient.BuildRequest(c.baseUrl, http.MethodPost, endpoint, nil, body)
 	if err != nil {
 		return nil, err
 	}
@@ -72,7 +70,7 @@ func (c *CspmClient) Post(endpoint string, body []byte) (*http.Response, error) 
 }
 
 func (c *CspmClient) Put(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.baseClient.BuildRequest("PUT", endpoint, nil, body)
+	req, err := c.BaseClient.BuildRequest(c.baseUrl, http.MethodPut, endpoint, nil, body)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +78,7 @@ func (c *CspmClient) Put(endpoint string, body []byte) (*http.Response, error) {
 }
 
 func (c *CspmClient) Patch(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.baseClient.BuildRequest("PATCH", endpoint, nil, body)
+	req, err := c.BaseClient.BuildRequest(c.baseUrl, http.MethodPatch, endpoint, nil, body)
 	if err != nil {
 		return nil, err
 	}
@@ -88,7 +86,7 @@ func (c *CspmClient) Patch(endpoint string, body []byte) (*http.Response, error)
 }
 
 func (c *CspmClient) Delete(endpoint string, params url.Values) (*http.Response, error) {
-	req, err := c.baseClient.BuildRequest("DELETE", endpoint, params, nil)
+	req, err := c.BaseClient.BuildRequest(c.baseUrl, http.MethodDelete, endpoint, params, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -96,7 +94,7 @@ func (c *CspmClient) Delete(endpoint string, params url.Values) (*http.Response,
 }
 
 func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*http.Response, error) {
-	resp, err := c.baseClient.DoWithRetry(req, currentAttempt)
+	resp, err := c.BaseClient.DoWithRetry(req, currentAttempt)
 	sErr, _ := err.(*bc.UnauthorizedError)
 	if sErr != nil {
 		logrus.Debugf("Auth token may have expired. Attempting to refresh token")
@@ -104,7 +102,7 @@ func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*htt
 		if err != nil {
 			return nil, err
 		}
-		resp, err = c.baseClient.DoWithRetry(req, currentAttempt)
+		resp, err = c.BaseClient.Do(req)
 		if err != nil {
 			return nil, err
 		}
@@ -112,26 +110,10 @@ func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*htt
 	return resp, nil
 }
 
-func (c *CspmClient) unmarshalResponse(httpResponse *http.Response, response interface{}) error {
-	if httpResponse == nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response: No data found")}
-	}
-
-	defer httpResponse.Body.Close()
-	tmp, readErr := io.ReadAll(httpResponse.Body)
-	logrus.Debugf(string(tmp))
-	if readErr != nil {
-		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
-	}
-	if len(tmp) > 0 {
-		unmarshalErr := json.Unmarshal(tmp, response)
-		if unmarshalErr != nil {
-			return &pkg.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
-		}
-	}
-	return nil
+func (c *CspmClient) SetHeader(headerName string, headerValue string) {
+	c.BaseClient.Headers.Set(headerName, headerValue)
 }
 
-func (c *CspmClient) buildBaseUrl() string {
-	return fmt.Sprintf("%v://%v", c.baseClient.Schema, c.baseClient.BaseUrl)
+func (c *CspmClient) getBaseUrl() string {
+	return c.baseUrl
 }

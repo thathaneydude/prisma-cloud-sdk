@@ -10,13 +10,13 @@ import (
 var (
 	mux    *http.ServeMux
 	server *httptest.Server
-	client CspmClient
+	client *CspmClient
 )
 
 func setup() func() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	client = NewCSPMClient(server.URL, false, "http")
+	client, _ = NewCSPMClient(server.URL, false, "http")
 	logrus.SetOutput(ioutil.Discard)
 
 	return func() {

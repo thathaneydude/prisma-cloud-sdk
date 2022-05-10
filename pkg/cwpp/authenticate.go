@@ -3,6 +3,7 @@ package cwpp
 import (
 	"PrismaCloud/pkg/utils"
 	"fmt"
+	"github.com/sirupsen/logrus"
 )
 
 const (
@@ -23,14 +24,14 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	if err != nil {
 		return nil, err
 	}
-	c.baseClient.Headers.Set(authHeader, fmt.Sprintf("Bearer %v", authResponse.Token))
-
+	c.BaseClient.Headers.Set(authHeader, fmt.Sprintf("Bearer %v", authResponse.Token))
+	logrus.Debugf("Setting %v header to %v", authHeader, authResponse.Token)
 	return &authResponse, nil
 }
 
 type AuthenticateRequest struct {
 	Password string `json:"password"`
-	Token    string `json:"token"`
+	Token    string `json:"token,omitempty"`
 	Username string `json:"username"`
 }
 

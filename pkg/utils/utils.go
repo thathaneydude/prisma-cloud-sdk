@@ -1,8 +1,12 @@
 package utils
 
 import (
+	"PrismaCloud/pkg"
 	"encoding/json"
+	"fmt"
 	"github.com/sirupsen/logrus"
+	"io"
+	"net/http"
 )
 
 func ToBytes[T any](obj T) []byte {
@@ -11,4 +15,22 @@ func ToBytes[T any](obj T) []byte {
 		logrus.Errorf("Failed to convert object to bytes: %v", err)
 	}
 	return ret
+}
+
+func UnmarshalResponse(httpResponse *http.Response, response interface{}) error {
+	if httpResponse == nil {
+		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response: No data found")}
+	}
+
+	defer httpResponse.Body.Close()
+	tmp, readErr := io.ReadAll(httpResponse.Body)
+	logrus.Debugf("Response: %v", string(tmp))
+	if readErr != nil {
+		return &pkg.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
+	}
+	unmarshalErr := json.Unmarshal(tmp, response)
+	if unmarshalErr != nil {
+		return &pkg.GenericError{Msg: fmt.Sprintf("Error while unmarshaling response: %v", unmarshalErr)}
+	}
+	return nil
 }

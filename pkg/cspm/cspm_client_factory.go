@@ -1,16 +1,21 @@
 package cspm
 
 import (
+	"PrismaCloud/pkg"
 	bc "PrismaCloud/pkg/client"
 	"PrismaCloud/pkg/constants"
+	"fmt"
+	"golang.org/x/exp/slices"
 )
 
-func NewCSPMClient(apiUrl string, sslVerify bool, schema string) CspmClient {
-	baseClient := bc.NewBaseClient(apiUrl, sslVerify, constants.DefaultMaxRetries, schema)
-	return CspmClient{baseClient: *baseClient}
-}
+func NewCSPMClient(apiUrl string, sslVerify bool, schema string, maxRetries int) (*CspmClient, error) {
+	if !slices.Contains(constants.SupportedAPIURLs, apiUrl) {
+		return nil, &pkg.GenericError{Msg: fmt.Sprintf("API url provided \"%v\" is not supported. Please reference %v for more information", apiUrl, constants.SupportedAPIURLLink)}
+	}
 
-func NewCSPMClientWithCustomMaxRetries(apiUrl string, sslVerify bool, maxRetries int, schema string) CspmClient {
-	baseClient := bc.NewBaseClient(apiUrl, sslVerify, maxRetries, schema)
-	return CspmClient{baseClient: *baseClient}
+	baseClient := bc.NewBaseClient(sslVerify, maxRetries, schema)
+	return &CspmClient{
+		BaseClient: *baseClient,
+		baseUrl:    apiUrl,
+	}, nil
 }

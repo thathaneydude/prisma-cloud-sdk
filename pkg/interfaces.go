@@ -8,7 +8,7 @@ import (
 type BaseClient interface {
 	Do(req http.Request) (*http.Response, error)
 	DoWithRetry(req http.Request, currentAttempt int) (*http.Response, error)
-	BuildRequest(method string, endpoint string, params url.Values, data []byte) (*http.Request, error)
+	BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error)
 }
 
 type Client interface {

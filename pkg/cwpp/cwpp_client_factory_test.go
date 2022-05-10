@@ -30,7 +30,7 @@ func TestCwppClient_Authenticate(t *testing.T) {
 	resp, err := client.Authenticate("palo", "alto")
 	assert.Nil(t, err)
 	assert.Equal(t, "12345", resp.Token)
-	assert.Equal(t, "Bearer 12345", client.baseClient.Headers.Get(authHeader))
+	assert.Equal(t, "Bearer 12345", client.BaseClient.Headers.Get(authHeader))
 
 }
 
@@ -39,7 +39,7 @@ func Test_BuildBaseUrlSuccessful(t *testing.T) {
 	assert.Nil(t, err)
 
 	expectedBaseUrl := "foo/api/v22.01"
-	assert.Equal(t, expectedBaseUrl, client.baseClient.BaseUrl)
+	assert.Equal(t, expectedBaseUrl, client.BaseClient.BaseUrl)
 }
 
 func Test_BuildBaseUrlInvalidAPIVersion(t *testing.T) {

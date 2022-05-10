@@ -10,9 +10,8 @@ func TestNewBaseClient_HTTP(t *testing.T) {
 	baseUrl := "foo"
 	schema := "http"
 
-	c := NewBaseClient(baseUrl, false, constants.DefaultMaxRetries, "http")
-	assert.Equal(t, baseUrl, c.BaseUrl)
-	assert.Equal(t, schema, c.Schema)
+	c := NewBaseClient(false, constants.DefaultMaxRetries, "http")
+	assert.Equal(t, schema, c.schema)
 	assert.Equal(t, constants.DefaultMaxRetries, c.maxRetries)
 	assert.NotNil(t, c.httpClient)
 }
@@ -21,9 +20,8 @@ func TestNewBaseClient_HTTPS(t *testing.T) {
 	baseUrl := "foo"
 	schema := "https"
 
-	c := NewBaseClient(baseUrl, false, constants.DefaultMaxRetries, "https")
-	assert.Equal(t, baseUrl, c.BaseUrl)
-	assert.Equal(t, schema, c.Schema)
+	c := NewBaseClient(false, constants.DefaultMaxRetries, "https")
+	assert.Equal(t, schema, c.schema)
 	assert.Equal(t, constants.DefaultMaxRetries, c.maxRetries)
 	assert.NotNil(t, c.httpClient)
 }

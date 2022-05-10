@@ -5,6 +5,11 @@ import (
 	"net/http"
 )
 
+type HttpError struct {
+	Code string
+	Msg  string
+}
+
 type UnauthorizedError struct {
 	msg string
 }
@@ -18,6 +23,10 @@ type TooManyRequestError struct {
 }
 
 type NotFoundError struct {
+	msg string
+}
+
+type NotAllowedError struct {
 	msg string
 }
 
@@ -35,4 +44,8 @@ func (m *TooManyRequestError) Error() string {
 
 func (m *NotFoundError) Error() string {
 	return fmt.Sprintf("%v resource not found: %v", http.StatusNotFound, m.msg)
+}
+
+func (m *NotAllowedError) Error() string {
+	return fmt.Sprintf("%v Method Not Allowed %v", http.StatusMethodNotAllowed, m.msg)
 }

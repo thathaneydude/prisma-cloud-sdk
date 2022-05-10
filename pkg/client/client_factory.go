@@ -1,6 +1,7 @@
 package client
 
 import (
+	"PrismaCloud/pkg/constants"
 	"crypto/tls"
 	"crypto/x509"
 	"log"
@@ -9,12 +10,14 @@ import (
 
 const (
 	ContentTypeHeader = "Content-Type"
+	UserAgentHeader   = "UserAgent"
 	ApplicationJSON   = "application/json"
 )
 
-func NewBaseClient(baseUrl string, sslVerify bool, maxRetries int, schema string) *BaseClientImpl {
+func NewBaseClient(sslVerify bool, maxRetries int, schema string) *BaseClientImpl {
 	headers := &http.Header{}
 	headers.Set(ContentTypeHeader, ApplicationJSON)
+	headers.Set(UserAgentHeader, constants.UserAgent)
 	var tlsConfig tls.Config
 	if !sslVerify {
 		tlsConfig = tls.Config{
@@ -40,7 +43,6 @@ func NewBaseClient(baseUrl string, sslVerify bool, maxRetries int, schema string
 	return &BaseClientImpl{
 		httpClient,
 		headers,
-		baseUrl,
 		schema,
 		maxRetries,
 	}

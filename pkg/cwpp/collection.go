@@ -1,6 +1,6 @@
 package cwpp
 
-const collectionEndpoint = "collections"
+const collectionEndpoint = "/collections"
 
 func (c *CwppClient) ListCollections() ([]Collection, error) {
 	var collections []Collection

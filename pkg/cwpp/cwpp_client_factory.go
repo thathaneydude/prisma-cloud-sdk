@@ -13,8 +13,13 @@ func NewCwppClient(consoleUrl string, apiVersion string, sslVerify bool, schema 
 	if err != nil {
 		return nil, err
 	}
-	baseClient := bc.NewBaseClient(cwppBaseUrl, sslVerify, constants.DefaultMaxRetries, schema)
-	return &CwppClient{baseClient: *baseClient, apiVersion: apiVersion}, nil
+
+	baseClient := bc.NewBaseClient(sslVerify, constants.DefaultMaxRetries, schema)
+	return &CwppClient{
+		BaseClient: *baseClient,
+		consoleUrl: cwppBaseUrl,
+		apiVersion: apiVersion,
+	}, nil
 }
 
 func NewCwppClientWithCustomMaxRetries(consoleUrl string, apiVersion string, sslVerify bool, maxRetries int, schema string) (*CwppClient, error) {
@@ -22,8 +27,11 @@ func NewCwppClientWithCustomMaxRetries(consoleUrl string, apiVersion string, ssl
 	if err != nil {
 		return nil, err
 	}
-	baseClient := bc.NewBaseClient(cwppBaseUrl, sslVerify, maxRetries, schema)
-	return &CwppClient{baseClient: *baseClient}, nil
+	baseClient := bc.NewBaseClient(sslVerify, maxRetries, schema)
+	return &CwppClient{
+		BaseClient: *baseClient,
+		consoleUrl: cwppBaseUrl,
+	}, nil
 }
 
 func buildBaseUrl(baseUrl string, apiVersion string) (string, error) {
@@ -35,7 +43,6 @@ func buildBaseUrl(baseUrl string, apiVersion string) (string, error) {
 }
 
 func validateApiVersion(apiVersion string) (string, error) {
-
 	if !slices.Contains(constants.APIVersions, apiVersion) {
 		return "", &pkg.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, constants.APIVersions)}
 	}

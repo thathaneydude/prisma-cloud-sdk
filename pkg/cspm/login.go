@@ -10,12 +10,10 @@ const (
 	authHeader    = "x-redlock-auth"
 )
 
-func (c *CspmClient) Login(username string, password string, customerName string, prismaId string) (*LoginResponse, error) {
+func (c *CspmClient) Login(username string, password string) (*LoginResponse, error) {
 	loginRequest := LoginRequest{
-		CustomerName: customerName,
-		Password:     password,
-		PrismaID:     prismaId,
-		Username:     username,
+		Username: username,
+		Password: password,
 	}
 	var loginResponse LoginResponse
 	err := c.PostWithResponseInterface(loginEndpoint, utils.ToBytes(loginRequest), &loginResponse)
@@ -23,15 +21,13 @@ func (c *CspmClient) Login(username string, password string, customerName string
 		return nil, &pkg.GenericError{Msg: err.Error()}
 	}
 
-	c.baseClient.Headers.Set(authHeader, loginResponse.Token)
+	c.BaseClient.Headers.Set(authHeader, loginResponse.Token)
 	return &loginResponse, nil
 }
 
 type LoginRequest struct {
-	CustomerName string `json:"customerName,omitempty"`
-	Password     string `json:"password"`
-	PrismaID     string `json:"prismaId,omitempty"`
-	Username     string `json:"username"`
+	Username string `json:"username"`
+	Password string `json:"password"`
 }
 
 type LoginResponse struct {

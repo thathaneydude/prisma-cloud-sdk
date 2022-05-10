@@ -18,7 +18,7 @@ var (
 func setup() func() {
 	mux = http.NewServeMux()
 	server = httptest.NewServer(mux)
-	client = NewBaseClient(server.URL, false, 3, "http")
+	client = NewBaseClient(false, 3, "http")
 	logrus.SetOutput(ioutil.Discard)
 
 	return func() {
@@ -36,7 +36,7 @@ func TestBaseClientImpl_DoWithRetry200(t *testing.T) {
 		w.Write([]byte(`blah`))
 	})
 
-	req, err := client.BuildRequest("GET", "foo", nil, nil)
+	req, err := client.BuildRequest(server.URL, "GET", "foo", nil, nil)
 	assert.Nil(t, err)
 	resp, err := client.DoWithRetry(*req, 1)
 	assert.Nil(t, err)
@@ -52,7 +52,7 @@ func TestBaseClientImpl_DoWithRetry404(t *testing.T) {
 		w.WriteHeader(http.StatusNotFound)
 	})
 
-	req, err := client.BuildRequest("GET", "foo", nil, nil)
+	req, err := client.BuildRequest(server.URL, "GET", "foo", nil, nil)
 	assert.Nil(t, err)
 	resp, err := client.DoWithRetry(*req, 1)
 	assert.Equal(t, &NotFoundError{}, err)
@@ -68,7 +68,7 @@ func TestBaseClientImpl_DoWithRetry500(t *testing.T) {
 		w.WriteHeader(http.StatusInternalServerError)
 	})
 
-	req, err := client.BuildRequest("GET", "foo", nil, nil)
+	req, err := client.BuildRequest(server.URL, "GET", "foo", nil, nil)
 	assert.Nil(t, err)
 	resp, err := client.DoWithRetry(*req, 1)
 	assert.Equal(t, &InternalServerError{}, err)
@@ -84,7 +84,7 @@ func TestBaseClientImpl_DoWithRetry401(t *testing.T) {
 		w.WriteHeader(http.StatusUnauthorized)
 	})
 
-	req, err := client.BuildRequest("GET", "foo", nil, nil)
+	req, err := client.BuildRequest(server.URL, "GET", "foo", nil, nil)
 	assert.Nil(t, err)
 	resp, err := client.DoWithRetry(*req, 1)
 	assert.Equal(t, &UnauthorizedError{}, err)
