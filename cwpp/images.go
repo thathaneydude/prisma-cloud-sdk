@@ -3,8 +3,8 @@ package cwpp
 import (
 	"fmt"
 	"github.com/gorilla/schema"
-	"github.com/prisma-cloud-sdk/internal"
 	"github.com/sirupsen/logrus"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/url"
 	"time"
 )

@@ -1,9 +1,9 @@
 package cspm
 
 import (
-	bc "github.com/prisma-cloud-sdk/client"
-	"github.com/prisma-cloud-sdk/internal"
 	"github.com/stretchr/testify/assert"
+	bc "github.com/thathaneydude/prisma-cloud-sdk/client"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/http"
 	"testing"
 )

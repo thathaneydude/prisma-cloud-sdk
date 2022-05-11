@@ -3,9 +3,9 @@ package client
 import (
 	"bytes"
 	"fmt"
-	"github.com/prisma-cloud-sdk/constants"
-	"github.com/prisma-cloud-sdk/internal"
 	"github.com/sirupsen/logrus"
+	"github.com/thathaneydude/prisma-cloud-sdk/constants"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"golang.org/x/exp/slices"
 	"io/ioutil"
 	"net/http"

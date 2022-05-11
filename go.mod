@@ -1,4 +1,4 @@
-module github.com/prisma-cloud-sdk
+module github.com/thathaneydude/prisma-cloud-sdk
 
 go 1.18
 

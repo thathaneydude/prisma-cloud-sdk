@@ -2,9 +2,9 @@ package cwpp
 
 import (
 	"fmt"
-	bc "github.com/prisma-cloud-sdk/client"
-	"github.com/prisma-cloud-sdk/constants"
-	"github.com/prisma-cloud-sdk/internal"
+	bc "github.com/thathaneydude/prisma-cloud-sdk/client"
+	"github.com/thathaneydude/prisma-cloud-sdk/constants"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"golang.org/x/exp/slices"
 )
 

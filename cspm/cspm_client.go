@@ -1,9 +1,9 @@
 package cspm
 
 import (
-	"github.com/prisma-cloud-sdk/client"
-	"github.com/prisma-cloud-sdk/utils"
 	"github.com/sirupsen/logrus"
+	"github.com/thathaneydude/prisma-cloud-sdk/client"
+	"github.com/thathaneydude/prisma-cloud-sdk/utils"
 	"net/http"
 	"net/url"
 )
