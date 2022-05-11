@@ -3,13 +3,13 @@ package client
 import (
 	"bytes"
 	"fmt"
+	"github.com/prisma-cloud-sdk/constants"
+	"github.com/prisma-cloud-sdk/internal"
 	"github.com/sirupsen/logrus"
 	"golang.org/x/exp/slices"
 	"io/ioutil"
 	"net/http"
 	"net/url"
-	"prisma-cloud-sdk/constants"
-	"prisma-cloud-sdk/internal"
 	"time"
 )
 

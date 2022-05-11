@@ -2,10 +2,10 @@ package cwpp
 
 import (
 	"fmt"
+	bc "github.com/prisma-cloud-sdk/client"
+	"github.com/prisma-cloud-sdk/internal"
 	"github.com/stretchr/testify/assert"
 	"net/http"
-	bc "prisma-cloud-sdk/client"
-	"prisma-cloud-sdk/internal"
 	"testing"
 )
 
@@ -39,7 +39,7 @@ func Test_BuildBaseUrlSuccessful(t *testing.T) {
 	assert.Nil(t, err)
 
 	expectedBaseUrl := "foo/api/v22.01"
-	assert.Equal(t, expectedBaseUrl, client.BaseClient.BaseUrl)
+	assert.Equal(t, expectedBaseUrl, client.consoleUrl)
 }
 
 func Test_BuildBaseUrlInvalidAPIVersion(t *testing.T) {

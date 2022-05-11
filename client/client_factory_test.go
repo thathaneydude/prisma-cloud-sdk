@@ -1,8 +1,8 @@
 package client
 
 import (
+	"github.com/prisma-cloud-sdk/constants"
 	"github.com/stretchr/testify/assert"
-	"prisma-cloud-sdk/constants"
 	"testing"
 )
 

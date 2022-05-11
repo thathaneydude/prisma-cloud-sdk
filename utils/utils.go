@@ -3,10 +3,10 @@ package utils
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/prisma-cloud-sdk/internal"
 	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
-	"prisma-cloud-sdk/internal"
 )
 
 func ToBytes[T any](obj T) []byte {

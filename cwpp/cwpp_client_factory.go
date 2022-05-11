@@ -2,10 +2,10 @@ package cwpp
 
 import (
 	"fmt"
+	bc "github.com/prisma-cloud-sdk/client"
+	"github.com/prisma-cloud-sdk/constants"
+	"github.com/prisma-cloud-sdk/internal"
 	"golang.org/x/exp/slices"
-	bc "prisma-cloud-sdk/client"
-	"prisma-cloud-sdk/constants"
-	"prisma-cloud-sdk/internal"
 )
 
 func NewCwppClient(consoleUrl string, apiVersion string, sslVerify bool, schema string) (*CwppClient, error) {

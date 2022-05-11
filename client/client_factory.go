@@ -3,9 +3,9 @@ package client
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"github.com/prisma-cloud-sdk/constants"
 	"log"
 	"net/http"
-	"prisma-cloud-sdk/constants"
 )
 
 const (
