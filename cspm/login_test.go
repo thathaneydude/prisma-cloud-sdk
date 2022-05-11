@@ -11,7 +11,7 @@ import (
 func TestCspmClient_LoginFullRequest(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-
+	cspmClient, err := NewCSPMClient(server.URL, false, "http", 3)
 	mux.HandleFunc(loginEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(client.ContentTypeHeader, client.ApplicationJSON)
 		w.WriteHeader(http.StatusOK)
@@ -26,7 +26,7 @@ func TestCspmClient_LoginFullRequest(t *testing.T) {
 func TestCspmClient_LoginInvalidCredentials(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-
+	cspmClient, err := NewCSPMClient(server.URL, false, "http", 3)
 	mux.HandleFunc(fmt.Sprintf("/%v", loginEndpoint), func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(client.ContentTypeHeader, client.ApplicationJSON)
 		w.WriteHeader(http.StatusUnauthorized)
@@ -41,7 +41,7 @@ func TestCspmClient_LoginInvalidCredentials(t *testing.T) {
 func TestCspmClient_LoginInternalServerError(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-
+	cspmClient, err := NewCSPMClient(server.URL, false, "http", 3)
 	mux.HandleFunc(fmt.Sprintf("/%v", loginEndpoint), func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(client.ContentTypeHeader, client.ApplicationJSON)
 		w.WriteHeader(http.StatusInternalServerError)

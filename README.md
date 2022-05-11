@@ -3,7 +3,7 @@
 ##Creating a New Default Prisma Cloud Client
 ```go
 // Your CWPP console will be automatically determined
-client, err := prisma_client.NewDefaultPrismaCloudClient(
+client, err := prisma.NewDefaultPrismaCloudClient(
 	"api.prismacloud.io", // API URL to connect to. More info here: https://prisma.pan.dev/api/cloud/api-urls 
 	"API-KEY-ID", // https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/manage-prisma-cloud-administrators/create-access-keys
 	"API-SECRET", 
@@ -13,7 +13,7 @@ client, err := prisma_client.NewDefaultPrismaCloudClient(
 ## Create a custom Client
 ```go
 // Your CWPP console will be automatically determined
-client, err := prisma_client.NewPrismaCloudClient(
+client, err := prisma.NewPrismaCloudClient(
     "api.prismacloud.io", // API URL to connect to. More info here: https://prisma.pan.dev/api/cloud/api-urls
     "https", // typically, only changed for testing
     "API-KEY-ID", // https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/manage-prisma-cloud-administrators/create-access-keys

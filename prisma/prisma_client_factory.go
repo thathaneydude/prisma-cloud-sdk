@@ -1,4 +1,4 @@
-package prisma_client
+package prisma
 
 import (
 	"fmt"
