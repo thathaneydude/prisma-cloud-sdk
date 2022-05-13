@@ -110,5 +110,8 @@ func (c *CwppClient) cwppDoWithRetry(req http.Request) (*http.Response, error) {
 			return nil, err
 		}
 	}
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }

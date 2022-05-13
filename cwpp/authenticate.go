@@ -3,7 +3,9 @@ package cwpp
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"github.com/thathaneydude/prisma-cloud-sdk/utils"
+	"net/http"
 )
 
 const (
@@ -20,7 +22,12 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	}
 
 	var authResponse AuthenticateResponse
-	err := c.PostWithResponseInterface(authenticateEndpoint, utils.ToBytes(authRequest), &authResponse)
+	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodPost, authenticateEndpoint, nil, utils.ToBytes(authRequest))
+	resp, err := c.BaseClient.Do(*req)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to authenticate: %v", err.Error())}
+	}
+	err = utils.UnmarshalResponse(resp, &authResponse)
 	if err != nil {
 		return nil, err
 	}

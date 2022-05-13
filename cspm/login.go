@@ -1,14 +1,12 @@
 package cspm
 
 import (
+	"github.com/thathaneydude/prisma-cloud-sdk/constants"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"github.com/thathaneydude/prisma-cloud-sdk/utils"
 )
 
-const (
-	loginEndpoint = "/login"
-	authHeader    = "x-redlock-auth"
-)
+const loginEndpoint = "/login"
 
 func (c *CspmClient) Login(username string, password string) (*LoginResponse, error) {
 	loginRequest := LoginRequest{
@@ -21,7 +19,7 @@ func (c *CspmClient) Login(username string, password string) (*LoginResponse, er
 		return nil, &internal.GenericError{Msg: err.Error()}
 	}
 
-	c.BaseClient.Headers.Set(authHeader, loginResponse.Token)
+	c.BaseClient.Headers.Set(constants.AuthHeader, loginResponse.Token)
 	return &loginResponse, nil
 }
 

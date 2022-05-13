@@ -25,6 +25,10 @@ func NewPrismaCloudClient(apiUrl string, schema string, username string, passwor
 	cspmClient.BaseClient = *baseClient
 
 	_, err = cspmClient.Login(username, password)
+	if err != nil {
+		return nil, err
+	}
+
 	resp, err := cspmClient.GetMetaInfo()
 	if err != nil {
 		return nil, err

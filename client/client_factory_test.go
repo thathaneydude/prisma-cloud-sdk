@@ -7,7 +7,6 @@ import (
 )
 
 func TestNewBaseClient_HTTP(t *testing.T) {
-	//baseUrl := "foo"
 	schema := "http"
 
 	c := NewBaseClient(false, constants.DefaultMaxRetries, "http")
@@ -17,7 +16,6 @@ func TestNewBaseClient_HTTP(t *testing.T) {
 }
 
 func TestNewBaseClient_HTTPS(t *testing.T) {
-	//baseUrl := "foo"
 	schema := "https"
 
 	c := NewBaseClient(false, constants.DefaultMaxRetries, "https")

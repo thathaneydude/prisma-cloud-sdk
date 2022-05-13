@@ -107,6 +107,9 @@ func (c *CspmClient) cspmDoWithRetry(req http.Request, currentAttempt int) (*htt
 			return nil, err
 		}
 	}
+	if err != nil {
+		return nil, err
+	}
 	return resp, nil
 }
 
