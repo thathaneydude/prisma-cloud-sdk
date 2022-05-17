@@ -3,7 +3,6 @@ package cwpp
 import (
 	"fmt"
 	"github.com/gorilla/schema"
-	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/url"
 	"time"
@@ -19,7 +18,6 @@ func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
 	}
 	var imagesResponse []Image
-	logrus.Infof("Encoded struct: %v", params)
 	err = c.GetWithResponseInterface(imagesEndpoint, params, &imagesResponse)
 	if err != nil {
 		return nil, err
@@ -28,26 +26,26 @@ func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 }
 
 type ImageQuery struct {
-	Offset          string   `schema:"offset"`
-	Limit           string   `schema:"limit"`
-	Search          string   `schema:"search"`
-	Sort            string   `schema:"sort"`
-	Reverse         bool     `schema:"reverse"`
-	Collections     []string `schema:"collections"`
-	AccountIDs      []string `schema:"accountIDs"`
-	Fields          []string `schema:"fields"`
-	Id              []string `schema:"id"`
-	Hostname        []string `schema:"hostname"`
-	Repository      []string `schema:"repository"`
-	Registry        []string `schema:"registry"`
-	Name            []string `schema:"name"`
-	Layers          bool     `schema:"layers"`
-	FilterBaseImage bool     `schema:"filterBaseImage"`
-	Compact         bool     `schema:"compact"`
-	TrustStatuses   []string `schema:"trustStatuses"`
-	Clusters        []string `schema:"clusters"`
-	ComplianceIds   []int    `schema:"complianceIds"`
-	AppEmbedded     bool     `schema:"appEmbedded"`
+	Offset          string   `schema:"offset,omitempty"`
+	Limit           string   `schema:"limit,omitempty"`
+	Search          string   `schema:"search,omitempty"`
+	Sort            string   `schema:"sort,omitempty"`
+	Reverse         bool     `schema:"reverse,omitempty"`
+	Collections     []string `schema:"collections,omitempty"`
+	AccountIDs      []string `schema:"accountIDs,omitempty"`
+	Fields          []string `schema:"fields,omitempty"`
+	Id              []string `schema:"id,omitempty"`
+	Hostname        []string `schema:"hostname,omitempty"`
+	Repository      []string `schema:"repository,omitempty"`
+	Registry        []string `schema:"registry,omitempty"`
+	Name            []string `schema:"name,omitempty"`
+	Layers          bool     `schema:"layers,omitempty"`
+	FilterBaseImage bool     `schema:"filterBaseImage,omitempty"`
+	Compact         bool     `schema:"compact,omitempty"`
+	TrustStatuses   []string `schema:"trustStatuses,omitempty"`
+	Clusters        []string `schema:"clusters,omitempty"`
+	ComplianceIds   []int    `schema:"complianceIds,omitempty"`
+	AppEmbedded     bool     `schema:"appEmbedded,omitempty"`
 }
 
 type Image struct {
