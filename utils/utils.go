@@ -24,7 +24,6 @@ func UnmarshalResponse(httpResponse *http.Response, response interface{}) error 
 
 	defer httpResponse.Body.Close()
 	tmp, readErr := io.ReadAll(httpResponse.Body)
-	logrus.Debugf("Response: %v", string(tmp))
 	if readErr != nil {
 		return &internal.GenericError{Msg: fmt.Sprintf("Error while reading response body: %v", readErr)}
 	}
