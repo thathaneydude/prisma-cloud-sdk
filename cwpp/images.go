@@ -268,18 +268,11 @@ type Image struct {
 		Repo     string    `json:"repo"`
 		Registry string    `json:"registry"`
 	} `json:"instances"`
-	Hosts struct {
-		MasterSelfhostedPphonpaseuthDemoTwistlockCom struct {
-			Modified   time.Time `json:"modified"`
-			Cluster    string    `json:"cluster"`
-			Namespaces []string  `json:"namespaces"`
-			AccountID  string    `json:"accountID"`
-		} `json:"master-selfhosted-pphonpaseuth-demo-twistlock-com"`
-	} `json:"hosts"`
-	Err                string   `json:"err"`
-	Collections        []string `json:"collections"`
-	ScanID             int      `json:"scanID"`
-	TrustStatus        string   `json:"trustStatus"`
+	Hosts              interface{} `json:"hosts"`
+	Err                string      `json:"err"`
+	Collections        []string    `json:"collections"`
+	ScanID             int         `json:"scanID"`
+	TrustStatus        string      `json:"trustStatus"`
 	FirewallProtection struct {
 		Enabled   bool `json:"enabled"`
 		Supported bool `json:"supported"`
