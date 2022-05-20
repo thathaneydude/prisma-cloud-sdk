@@ -17,7 +17,7 @@ TAGS = "containers_image_openpgp"
 
 .PHONY: unit-test
 unit-test: require-go
-	go test -v ./... -tags ${TAGS}
+	go test -v ./... -tags ${TAGS} --cover
 
 .PHONY: lint
 lint: require-go lint-project

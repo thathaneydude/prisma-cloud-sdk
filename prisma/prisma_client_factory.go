@@ -5,6 +5,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/client"
 	"github.com/thathaneydude/prisma-cloud-sdk/constants"
+	"github.com/thathaneydude/prisma-cloud-sdk/cs"
 	"github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/cwpp"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
@@ -41,11 +42,14 @@ func NewPrismaCloudClient(apiUrl string, schema string, username string, passwor
 
 	cwppClient.BaseClient = *baseClient
 
+	csClient := cs.CsClientWithCspmInjected(cspmClient)
+
 	return &PrismaCloudClient{
 		cwppBaseUrl:    resp.TwistlockUrl,
 		cwppApiVersion: cwppApiVersion,
 		cspmBaseUrl:    apiUrl,
 		Cwpp:           cwppClient,
 		Cspm:           cspmClient,
+		Cs:             csClient,
 	}, nil
 }
