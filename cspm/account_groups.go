@@ -2,6 +2,7 @@ package cspm
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/utils"
 	"net/url"
 )
@@ -26,6 +27,15 @@ func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupRe
 		return nil, err
 	}
 	return &accountGroupResp, nil
+}
+
+func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup AccountGroup) error {
+	logrus.Debugf("Updating Account Group %v --> %v", accountGroupId, newAccountGroup)
+	_, err := c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), utils.ToBytes(newAccountGroup))
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func NewAccountGroup(name string, accountIds []string) AccountGroup {
