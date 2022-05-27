@@ -37,7 +37,12 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 	if err != nil {
 		return nil, err
 	}
-	logrus.Debugf("Response [%v] - Body %v", resp.Status, getResponseBodySizeKB(*resp))
+	var b bytes.Buffer
+	if err = resp.Write(&b); err != nil {
+		return nil, err
+	}
+
+	logrus.Debugf("Response: Status Code [%v] Body Size [%v KB]", resp.Status, b.Len())
 	switch resp.StatusCode {
 	case http.StatusTooManyRequests:
 		if currentAttempt < c.maxRetries {
