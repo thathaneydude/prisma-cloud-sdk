@@ -60,9 +60,9 @@ func newAccountGroup(name string, accountIds []string, description string) Accou
 }
 
 type AccountGroup struct {
-	Name        string   `schema:"name"`
-	AccountIds  []string `schema:"accountIds"`
-	Description string   `schema:"description,omitempty"`
+	Name        string   `json:"name"`
+	AccountIds  []string `json:"accountIds"`
+	Description string   `json:"description,omitempty"`
 }
 
 type AccountGroupResponse struct {
