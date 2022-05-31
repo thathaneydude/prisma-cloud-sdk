@@ -2,9 +2,9 @@ package cwpp
 
 import "time"
 
-func (c *CwppClient) ListDefenders() {
-
-}
+//func (c *CwppClient) ListDefenders() {
+//
+//}
 
 type DefendersList struct {
 	Category              []string  `json:"category"`

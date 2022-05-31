@@ -1,19 +1,19 @@
 # Prisma Cloud SDK (Work in progress)
 
-##Creating a New Default Prisma Cloud Client
+## Creating a New Default Prisma Cloud Client
 ```go
 // Your CWPP console will be automatically determined
-client, err := prisma.NewDefaultPrismaCloudClient(
+prisma_client, err := prisma.NewDefaultPrismaCloudClient(
 	"api.prismacloud.io", // API URL to connect to. More info here: https://prisma.pan.dev/api/cloud/api-urls 
 	"API-KEY-ID", // https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/manage-prisma-cloud-administrators/create-access-keys
 	"API-SECRET", 
 	false) // Setting to true will use the local system default cert pool unless the env vars SSL_CERT_FILE and SSL_CERT_DIR are set		
 ```
 
-## Create a custom Client
+## Create a Custom Client
 ```go
 // Your CWPP console will be automatically determined
-client, err := prisma.NewPrismaCloudClient(
+prisma_client, err := prisma.NewPrismaCloudClient(
     "api.prismacloud.io", // API URL to connect to. More info here: https://prisma.pan.dev/api/cloud/api-urls
     "https", // typically, only changed for testing
     "API-KEY-ID", // https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin/manage-prisma-cloud-administrators/create-access-keys
@@ -29,7 +29,25 @@ client, err := cwpp.NewCwppClient(
     "console.palo.com",
     "v22.01",
     false,
-    "https",
-    )
+    "https")
 _, err = client.Authenticate("API-KEY-ID", "API-SECRET")
+```
+
+## List Images
+```go
+query := cwpp.ImageQuery{
+    Offset:      "0",
+    Limit:       "10",
+    Collections: []string{"collection_one"},
+}
+images, err := prisma_client.Cwpp.ListImages(query)
+if err != nil {
+    fmt.Println(err)
+}
+fmt.Println(fmt.Sprintf("First 10 images in collection_one: %v", images))
+```
+
+## List Account Groups
+```go
+
 ```

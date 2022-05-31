@@ -35,3 +35,12 @@ var SupportedAPIURLs = []string{
 	"api.uk.prismacloud.io",
 	"api.ind.prismacloud.io",
 }
+
+var CloudTypes = []string{
+	"ALL",
+	"AWS",
+	"AZURE",
+	"GCP",
+	"ALIBABA_CLOUD",
+	"OCI",
+}

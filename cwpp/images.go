@@ -10,6 +10,12 @@ import (
 
 const imagesEndpoint = "/images"
 
+// ListImages retrieves image scan reports
+//
+// Request requires an ImageQuery. By default, the resource fetches the first 50 images. Pagination can be done using
+// the Offset & Limit attributes of the ImageQuery.
+//
+// Documentation: https://prisma.pan.dev/api/cloud/cwpp/images#operation/get-images
 func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 	var encoder = schema.NewEncoder()
 	params := url.Values{}
