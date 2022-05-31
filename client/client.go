@@ -13,7 +13,10 @@ import (
 	"time"
 )
 
-const sleepDuration = 5
+const (
+	sleepDuration          = 5
+	redLockRequestIdHeader = "x-redlock-request-id"
+)
 
 type BaseClientImpl struct {
 	httpClient *http.Client
@@ -37,8 +40,14 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 	if err != nil {
 		return nil, err
 	}
+	var respMsg string
+	if resp.Header.Get(redLockRequestIdHeader) != "" {
+		respMsg = fmt.Sprintf("Response: Status [%v]", resp.Status)
+	} else {
+		respMsg = fmt.Sprintf("Response: Status [%v] Request-ID [%v]", resp.Status, resp.Header.Get(redLockRequestIdHeader))
+	}
 
-	logrus.Debugf("Response: Status Code [%v]", resp.Status)
+	logrus.Debugf(respMsg)
 	switch resp.StatusCode {
 	case http.StatusTooManyRequests:
 		if currentAttempt < c.maxRetries {
