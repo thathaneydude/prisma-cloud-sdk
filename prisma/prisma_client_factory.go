@@ -10,9 +10,15 @@ import (
 	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 )
 
-// NewPrismaCloudClient creates a CWPP, CSPM, and Code Security client with the given credentials. This factory
-// allows full configuration of the PrismaCloudClient.
-func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
+// NewPrismaCloudClient creates a Prisma Cloud client with the given Options for interacting with CSPM, CWPP, and CS APIs.
+// Generally API Url, Username (access key) and Password (secret key) should be all that needs to be defined however
+// other options are available. If you are a multi-tenant user and the body parameters of your login request include
+// a user name and password instead of an access key ID and secret key.
+// You will also need to provide the prismaId or the customerName. Specifying just the prismaId is preferred, but specifying
+// customerName is an acceptable alternative. Your prismaId is available from the license information in the
+// Prisma Cloud console. It's unnecessary to specify both prismaId and customerName, but if you do specify both,
+// the parameters must indicate the same tenant.
+func NewPrismaCloudClient(o *Options) (*prismaCloudClient, error) {
 	if o.Schema == "" {
 		o.Schema = internal.DefaultSchema
 	}
@@ -43,9 +49,20 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 		logrus.Errorf(err.Error())
 		return nil, err
 	}
-	cspmClient.BaseClient = *baseClient
+	cspmClient.OverwriteBaseClient(baseClient)
+	cspmLoginReq := &cspm.LoginRequest{
+		Username: o.Username,
+		Password: o.Password,
+	}
+	// Prisma ID / Customer Name should be
+	if o.PrismaId != "" {
+		cspmLoginReq.PrismaId = o.PrismaId
+	}
+	if o.CustomerName != "" {
+		cspmLoginReq.CustomerName = o.CustomerName
+	}
 
-	_, err = cspmClient.Login(o.Username, o.Password)
+	_, err = cspmClient.Login(cspmLoginReq)
 	if err != nil {
 		return nil, err
 	}
@@ -67,12 +84,12 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to initialize CWPP client using meta_info: %v", err)}
 	}
 
-	cwppClient.BaseClient = *baseClient
+	cwppClient.OverwriteBaseClient(baseClient)
 
 	// Code Security is basically just a CSPM client but with specifically exported functions relevant to Code Security
 	csClient := cs.CsClientWithCspmInjected(cspmClient)
 
-	return &PrismaCloudClient{
+	return &prismaCloudClient{
 		cwppBaseUrl:    resp.TwistlockUrl,
 		cwppApiVersion: o.CwppApiVersion,
 		cspmBaseUrl:    o.ApiUrl,
@@ -90,4 +107,6 @@ type Options struct {
 	CwppApiVersion string
 	MaxRetries     int
 	SslVerify      bool
+	CustomerName   string
+	PrismaId       string
 }

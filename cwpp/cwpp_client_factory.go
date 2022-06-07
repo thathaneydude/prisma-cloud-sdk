@@ -15,6 +15,8 @@ type ClientOptions struct {
 	Schema     string
 }
 
+// NewCwppClient creates a CwppClient from the ClientOptions provided. The client will need to Authenticate first
+// before making any requests
 func NewCwppClient(o *ClientOptions) (*CwppClient, error) {
 	cwppBaseUrl, err := buildBaseUrl(o.ConsoleUrl, o.ApiVersion)
 	if err != nil {
@@ -23,7 +25,7 @@ func NewCwppClient(o *ClientOptions) (*CwppClient, error) {
 
 	baseClient := bc.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 	return &CwppClient{
-		BaseClient: *baseClient,
+		baseClient: *baseClient,
 		consoleUrl: cwppBaseUrl,
 		apiVersion: o.ApiVersion,
 	}, nil

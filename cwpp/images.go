@@ -15,7 +15,7 @@ const imagesEndpoint = "/images"
 // Request requires an ImageQuery. By default, the resource fetches the first 50 images. Pagination can be done using
 // the Offset & Limit attributes of the ImageQuery.
 //
-// Documentation: https://prisma.pan.dev/api/cloud/cwpp/images#operation/get-images
+// https://prisma.pan.dev/api/cloud/cwpp/images#operation/get-images
 func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 	var encoder = schema.NewEncoder()
 	params := url.Values{}
@@ -24,7 +24,7 @@ func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
 	}
 	var imagesResponse []Image
-	err = c.GetWithResponseInterface(imagesEndpoint, params, &imagesResponse)
+	err = c.getWithResponseInterface(imagesEndpoint, params, &imagesResponse)
 	if err != nil {
 		return nil, err
 	}

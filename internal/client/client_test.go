@@ -12,7 +12,7 @@ import (
 var (
 	mux    *http.ServeMux
 	server *httptest.Server
-	client *BaseClientImpl
+	client *BaseClient
 )
 
 func setup() func() {

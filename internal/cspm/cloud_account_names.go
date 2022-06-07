@@ -9,6 +9,10 @@ import (
 
 const cloudAccountNamesEndpoint = "/cloud/name"
 
+// ListCloudAccountNames Returns a list of cloud account IDs and names based on the provided
+// ListCloudAccountNamesQuery
+//
+// https://prisma.pan.dev/api/cloud/cspm/cloud-accounts#operation/get-cloud-account-names
 func (c *CspmClient) ListCloudAccountNames(query ListCloudAccountNamesQuery) ([]CloudAccountResponse, error) {
 	var encoder = schema.NewEncoder()
 	params := url.Values{}
@@ -17,7 +21,7 @@ func (c *CspmClient) ListCloudAccountNames(query ListCloudAccountNamesQuery) ([]
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
 	}
 	var cloudAccountNames []CloudAccountResponse
-	err = c.GetWithResponseInterface(cloudAccountNamesEndpoint, params, &cloudAccountNames)
+	err = c.getWithResponseInterface(cloudAccountNamesEndpoint, params, &cloudAccountNames)
 	if err != nil {
 		return nil, err
 	}

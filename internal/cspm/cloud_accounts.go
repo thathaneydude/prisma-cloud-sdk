@@ -7,11 +7,14 @@ import (
 
 const cloudAccountEndpoint = "/cloud"
 
+// ListCloudAccounts Lists all cloud accounts onboarded onto the Prisma Cloud platform
+//
+// https://prisma.pan.dev/api/cloud/cspm/cloud-accounts#operation/get-cloud-accounts
 func (c *CspmClient) ListCloudAccounts(excludeAccountGroupDetails bool) ([]CloudAccountResponse, error) {
 	var cloudAccounts []CloudAccountResponse
 	params := url.Values{}
 	params.Set("excludeAccountGroupDetails", fmt.Sprintf("%v", excludeAccountGroupDetails))
-	err := c.GetWithResponseInterface(cloudAccountEndpoint, params, &cloudAccounts)
+	err := c.getWithResponseInterface(cloudAccountEndpoint, params, &cloudAccounts)
 	if err != nil {
 		return nil, err
 	}

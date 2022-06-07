@@ -6,7 +6,7 @@ import (
 	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 )
 
-type PrismaCloudClient struct {
+type prismaCloudClient struct {
 	cwppBaseUrl    string
 	cspmBaseUrl    string
 	cwppApiVersion string

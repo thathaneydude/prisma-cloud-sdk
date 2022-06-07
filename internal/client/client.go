@@ -17,14 +17,14 @@ const (
 	redLockRequestIdHeader = "x-redlock-request-id"
 )
 
-type BaseClientImpl struct {
+type BaseClient struct {
 	httpClient *http.Client
 	Headers    *http.Header
 	schema     string
 	maxRetries int
 }
 
-func (c BaseClientImpl) Do(req http.Request) (*http.Response, error) {
+func (c *BaseClient) Do(req http.Request) (*http.Response, error) {
 	req.Header = *c.Headers
 	resp, err := c.httpClient.Do(&req)
 	if err != nil {
@@ -34,7 +34,7 @@ func (c BaseClientImpl) Do(req http.Request) (*http.Response, error) {
 	return resp, nil
 }
 
-func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http.Response, error) {
+func (c *BaseClient) DoWithRetry(req http.Request, currentAttempt int) (*http.Response, error) {
 	resp, err := c.Do(req)
 	if err != nil {
 		return nil, err
@@ -81,7 +81,7 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 	return resp, nil
 }
 
-func (c BaseClientImpl) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
+func (c *BaseClient) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
 	if !slices.Contains(internal.SupportedHttpMethods, method) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
 	}

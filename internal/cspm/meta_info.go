@@ -2,9 +2,11 @@ package cspm
 
 const metaInfoEndpoint = "/meta_info"
 
+// GetMetaInfo fetches the metadata pertaining to the authenticated JWT. Used primarily to determine the Twistlock URL
+// for CWPP SaaS
 func (c *CspmClient) GetMetaInfo() (*MetaInfoResponse, error) {
 	var metaInfoResponse MetaInfoResponse
-	err := c.GetWithResponseInterface(metaInfoEndpoint, nil, &metaInfoResponse)
+	err := c.getWithResponseInterface(metaInfoEndpoint, nil, &metaInfoResponse)
 	if err != nil {
 		return nil, err
 	}

@@ -12,7 +12,7 @@ const defendedEndpoint = "/defenders"
 
 // ListDefenders retrieves all deployed Defenders with the required DefenderQuery.
 //
-// Documentation: https://prisma.pan.dev/api/cloud/cwpp/defenders#operation/get-defenders
+// https://prisma.pan.dev/api/cloud/cwpp/defenders#operation/get-defenders
 func (c *CwppClient) ListDefenders(query DefenderQuery) ([]Defender, error) {
 	var encoder = schema.NewEncoder()
 	params := url.Values{}
@@ -21,7 +21,7 @@ func (c *CwppClient) ListDefenders(query DefenderQuery) ([]Defender, error) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode Defender query provided: %v", err)}
 	}
 	var defendersResponse []Defender
-	err = c.GetWithResponseInterface(defendedEndpoint, params, &defendersResponse)
+	err = c.getWithResponseInterface(defendedEndpoint, params, &defendersResponse)
 	if err != nil {
 		return nil, err
 	}

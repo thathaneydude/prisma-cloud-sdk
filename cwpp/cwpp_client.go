@@ -3,20 +3,65 @@ package cwpp
 import (
 	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	client2 "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"net/url"
 )
 
 type CwppClient struct {
-	BaseClient client2.BaseClientImpl
+	baseClient client.BaseClient
 	consoleUrl string
 	apiVersion string
 	username   string
 	password   string
 }
 
-func (c *CwppClient) GetWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
+// Get allows the client to skip automatic unmarshalling of the http response and return it as-is
+func (c *CwppClient) Get(endpoint string, params url.Values) (*http.Response, error) {
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodGet, endpoint, params, nil)
+	if err != nil {
+		return nil, err
+	}
+	return c.cwppDoWithRetry(*req)
+}
+
+// Post allows the client to skip automatic unmarshalling of the http response and return it as-is
+func (c *CwppClient) Post(endpoint string, body []byte) (*http.Response, error) {
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPost, endpoint, nil, body)
+	if err != nil {
+		return nil, err
+	}
+	return c.cwppDoWithRetry(*req)
+}
+
+// Put allows the client to skip automatic unmarshalling of the http response and return it as-is
+func (c *CwppClient) Put(endpoint string, body []byte) (*http.Response, error) {
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPut, endpoint, nil, body)
+	if err != nil {
+		return nil, err
+	}
+	return c.cwppDoWithRetry(*req)
+}
+
+// Patch allows the client to skip automatic unmarshalling of the http response and return it as-is
+func (c *CwppClient) Patch(endpoint string, body []byte) (*http.Response, error) {
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPatch, endpoint, nil, body)
+	if err != nil {
+		return nil, err
+	}
+	return c.cwppDoWithRetry(*req)
+}
+
+// Delete allows the client to skip automatic unmarshalling of the http response and return it as-is
+func (c *CwppClient) Delete(endpoint string, params url.Values) (*http.Response, error) {
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodDelete, endpoint, params, nil)
+	if err != nil {
+		return nil, err
+	}
+	return c.cwppDoWithRetry(*req)
+}
+
+func (c *CwppClient) getWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
 	resp, err := c.Get(endpoint, params)
 	if err != nil {
 		return err
@@ -24,7 +69,7 @@ func (c *CwppClient) GetWithResponseInterface(endpoint string, params url.Values
 	return internal.UnmarshalResponse(resp, response)
 }
 
-func (c *CwppClient) PostWithResponseInterface(endpoint string, body []byte, response interface{}) error {
+func (c *CwppClient) postWithResponseInterface(endpoint string, body []byte, response interface{}) error {
 	resp, err := c.Post(endpoint, body)
 	if err != nil {
 		return err
@@ -32,7 +77,7 @@ func (c *CwppClient) PostWithResponseInterface(endpoint string, body []byte, res
 	return internal.UnmarshalResponse(resp, response)
 }
 
-func (c *CwppClient) PutWithResponseInterface(endpoint string, body []byte, response interface{}) error {
+func (c *CwppClient) putWithResponseInterface(endpoint string, body []byte, response interface{}) error {
 	resp, err := c.Put(endpoint, body)
 	if err != nil {
 		return err
@@ -40,7 +85,7 @@ func (c *CwppClient) PutWithResponseInterface(endpoint string, body []byte, resp
 	return internal.UnmarshalResponse(resp, response)
 }
 
-func (c *CwppClient) PatchWithResponseInterface(endpoint string, body []byte, response interface{}) error {
+func (c *CwppClient) patchWithResponseInterface(endpoint string, body []byte, response interface{}) error {
 	resp, err := c.Patch(endpoint, body)
 	if err != nil {
 		return err
@@ -48,7 +93,7 @@ func (c *CwppClient) PatchWithResponseInterface(endpoint string, body []byte, re
 	return internal.UnmarshalResponse(resp, response)
 }
 
-func (c *CwppClient) DeleteWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
+func (c *CwppClient) deleteWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
 	resp, err := c.Delete(endpoint, params)
 	if err != nil {
 		return err
@@ -56,56 +101,20 @@ func (c *CwppClient) DeleteWithResponseInterface(endpoint string, params url.Val
 	return internal.UnmarshalResponse(resp, response)
 }
 
-func (c *CwppClient) Get(endpoint string, params url.Values) (*http.Response, error) {
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodGet, endpoint, params, nil)
-	if err != nil {
-		return nil, err
-	}
-	return c.cwppDoWithRetry(*req)
-}
-
-func (c *CwppClient) Post(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodPost, endpoint, nil, body)
-	if err != nil {
-		return nil, err
-	}
-	return c.cwppDoWithRetry(*req)
-}
-
-func (c *CwppClient) Put(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodPut, endpoint, nil, body)
-	if err != nil {
-		return nil, err
-	}
-	return c.cwppDoWithRetry(*req)
-}
-
-func (c *CwppClient) Patch(endpoint string, body []byte) (*http.Response, error) {
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodPatch, endpoint, nil, body)
-	if err != nil {
-		return nil, err
-	}
-	return c.cwppDoWithRetry(*req)
-}
-
-func (c *CwppClient) Delete(endpoint string, params url.Values) (*http.Response, error) {
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodDelete, endpoint, params, nil)
-	if err != nil {
-		return nil, err
-	}
-	return c.cwppDoWithRetry(*req)
+func (c *CwppClient) OverwriteBaseClient(b *client.BaseClient) {
+	c.baseClient = *b
 }
 
 func (c *CwppClient) cwppDoWithRetry(req http.Request) (*http.Response, error) {
-	resp, err := c.BaseClient.DoWithRetry(req, 1)
-	sErr, _ := err.(*client2.UnauthorizedError)
+	resp, err := c.baseClient.DoWithRetry(req, 1)
+	sErr, _ := err.(*client.UnauthorizedError)
 	if sErr != nil {
 		logrus.Debugf("Auth token may have expired. Attempting to refresh token")
 		_, err = c.Authenticate(c.username, c.password)
 		if err != nil {
 			return nil, err
 		}
-		resp, err = c.BaseClient.Do(req)
+		resp, err = c.baseClient.Do(req)
 		if err != nil {
 			return nil, err
 		}

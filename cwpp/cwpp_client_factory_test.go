@@ -35,7 +35,7 @@ func TestCwppClient_Authenticate(t *testing.T) {
 	resp, err := client.Authenticate("palo", "alto")
 	assert.Nil(t, err)
 	assert.Equal(t, "12345", resp.Token)
-	assert.Equal(t, "Bearer 12345", client.BaseClient.Headers.Get(authHeader))
+	assert.Equal(t, "Bearer 12345", client.baseClient.Headers.Get(authHeader))
 
 }
 

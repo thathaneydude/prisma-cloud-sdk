@@ -9,26 +9,37 @@ import (
 
 const accountGroupsEndpoint = "/cloud/group"
 
+// ListAccountGroups Returns an array of accessible account groups
+//
+// https://prisma.pan.dev/api/cloud/cspm/account-groups#operation/get-account-groups
 func (c *CspmClient) ListAccountGroups(excludeCloudAccountDetails bool) ([]AccountGroupResponse, error) {
 	var accountGroups []AccountGroupResponse
 	params := url.Values{}
 	params.Set("excludeCloudAccountDetails", fmt.Sprintf("%v", excludeCloudAccountDetails))
-	err := c.GetWithResponseInterface(accountGroupsEndpoint, params, &accountGroups)
+	err := c.getWithResponseInterface(accountGroupsEndpoint, params, &accountGroups)
 	if err != nil {
 		return nil, err
 	}
 	return accountGroups, nil
 }
 
+// AddAccountGroup Create a new account group on the Prisma Cloud platform specifying the attributes in
+// an AccountGroup
+//
+// https://prisma.pan.dev/api/cloud/cspm/account-groups#operation/add-account-group
 func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupResponse, error) {
 	var accountGroupResp AccountGroupResponse
-	err := c.PostWithResponseInterface(accountGroupsEndpoint, internal.ToBytes(accountGroup), &accountGroupResp)
+	err := c.postWithResponseInterface(accountGroupsEndpoint, internal.ToBytes(accountGroup), &accountGroupResp)
 	if err != nil {
 		return nil, err
 	}
 	return &accountGroupResp, nil
 }
 
+// UpdateAccountGroup Update information related to an existing account group with the attributes of the provided
+// AccountGroup
+//
+// https://prisma.pan.dev/api/cloud/cspm/account-groups#operation/update-account-group
 func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup AccountGroup) error {
 	logrus.Debugf("Updating Account Group %v --> %v", accountGroupId, newAccountGroup)
 	_, err := c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), internal.ToBytes(newAccountGroup))

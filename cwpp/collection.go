@@ -4,10 +4,10 @@ const collectionEndpoint = "/collections"
 
 // ListCollections retrieves all collections
 //
-// Documentation: https://prisma.pan.dev/api/cloud/cwpp/collections#operation/get-collections
+// https://prisma.pan.dev/api/cloud/cwpp/collections#operation/get-collections
 func (c *CwppClient) ListCollections() ([]Collection, error) {
 	var collections []Collection
-	err := c.GetWithResponseInterface(collectionEndpoint, nil, &collections)
+	err := c.getWithResponseInterface(collectionEndpoint, nil, &collections)
 	if err != nil {
 		return nil, err
 	}

@@ -12,6 +12,10 @@ const (
 	authenticateEndpoint = "/authenticate"
 )
 
+// Authenticate Requests a JWT from Twistlock with the username and password provided. API Keys should be used if possible.
+// If the request is successful, the Authorization Bearer token will be updated with the response
+//
+// https://prisma.pan.dev/api/cloud/cwpp/authenticate#operation/post-authenticate
 func (c *CwppClient) Authenticate(username string, password string) (*AuthenticateResponse, error) {
 	c.username = username
 	c.password = password
@@ -21,8 +25,8 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	}
 
 	var authResponse AuthenticateResponse
-	req, err := c.BaseClient.BuildRequest(c.consoleUrl, http.MethodPost, authenticateEndpoint, nil, internal.ToBytes(authRequest))
-	resp, err := c.BaseClient.Do(*req)
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPost, authenticateEndpoint, nil, internal.ToBytes(authRequest))
+	resp, err := c.baseClient.Do(*req)
 	if err != nil {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to authenticate: %v", err.Error())}
 	}
@@ -30,7 +34,7 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	if err != nil {
 		return nil, err
 	}
-	c.BaseClient.Headers.Set(authHeader, fmt.Sprintf("Bearer %v", authResponse.Token))
+	c.baseClient.Headers.Set(authHeader, fmt.Sprintf("Bearer %v", authResponse.Token))
 	logrus.Debugf("Setting %v header to %v", authHeader, authResponse.Token)
 	return &authResponse, nil
 }

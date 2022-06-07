@@ -14,7 +14,7 @@ const (
 	ApplicationJSON   = "application/json"
 )
 
-func NewBaseClient(sslVerify bool, maxRetries int, schema string) *BaseClientImpl {
+func NewBaseClient(sslVerify bool, maxRetries int, schema string) *BaseClient {
 	headers := &http.Header{}
 	headers.Set(ContentTypeHeader, ApplicationJSON)
 	headers.Set(UserAgentHeader, internal.UserAgent)
@@ -40,7 +40,7 @@ func NewBaseClient(sslVerify bool, maxRetries int, schema string) *BaseClientImp
 			TLSClientConfig: &tlsConfig,
 		},
 	}
-	return &BaseClientImpl{
+	return &BaseClient{
 		httpClient,
 		headers,
 		schema,

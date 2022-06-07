@@ -14,7 +14,6 @@ type ClientOptions struct {
 	MaxRetries int
 }
 
-// NewCSPMClient should really only be used by the
 func NewCSPMClient(o *ClientOptions) (*CspmClient, error) {
 	if o.Schema == "https" && !slices.Contains(internal.SupportedAPIURLs, o.ApiUrl) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("API url provided \"%v\" is not supported. Please reference %v for more information", o.ApiUrl, internal.SupportedAPIURLLink)}
@@ -22,7 +21,7 @@ func NewCSPMClient(o *ClientOptions) (*CspmClient, error) {
 
 	baseClient := bc.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 	return &CspmClient{
-		BaseClient: *baseClient,
+		baseClient: *baseClient,
 		baseUrl:    o.ApiUrl,
 	}, nil
 }

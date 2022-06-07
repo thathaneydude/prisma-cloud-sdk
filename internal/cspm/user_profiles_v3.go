@@ -6,18 +6,24 @@ import (
 
 const listUserV3Endpoint = "/v3/user"
 
+// ListUsersV3 Lists all users and service accounts for your tenant.
+//
+// https://prisma.pan.dev/api/cloud/cspm/user-profile#operation/get-user-profiles-v3
 func (c *CspmClient) ListUsersV3() ([]UserV3, error) {
 	var userListV3 []UserV3
-	err := c.GetWithResponseInterface(listUserV3Endpoint, nil, &userListV3)
+	err := c.getWithResponseInterface(listUserV3Endpoint, nil, &userListV3)
 	if err != nil {
 		return nil, err
 	}
 	return userListV3, nil
 }
 
+// AddUserV3 Adds either a user profile or a service account profile
+//
+// https://prisma.pan.dev/api/cloud/cspm/user-profile#operation/add-user-v3
 func (c *CspmClient) AddUserV3(req AddUserV3Request) (*AddUserV3Response, error) {
 	var addUserV3 AddUserV3Response
-	err := c.PostWithResponseInterface(listUserV3Endpoint, internal.ToBytes(req), &addUserV3)
+	err := c.postWithResponseInterface(listUserV3Endpoint, internal.ToBytes(req), &addUserV3)
 	if err != nil {
 		return nil, err
 	}
