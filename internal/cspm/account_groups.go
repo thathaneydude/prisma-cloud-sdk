@@ -3,7 +3,7 @@ package cspm
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"github.com/thathaneydude/prisma-cloud-sdk/utils"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/url"
 )
 
@@ -22,7 +22,7 @@ func (c *CspmClient) ListAccountGroups(excludeCloudAccountDetails bool) ([]Accou
 
 func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupResponse, error) {
 	var accountGroupResp AccountGroupResponse
-	err := c.PostWithResponseInterface(accountGroupsEndpoint, utils.ToBytes(accountGroup), &accountGroupResp)
+	err := c.PostWithResponseInterface(accountGroupsEndpoint, internal.ToBytes(accountGroup), &accountGroupResp)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupRe
 
 func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup AccountGroup) error {
 	logrus.Debugf("Updating Account Group %v --> %v", accountGroupId, newAccountGroup)
-	_, err := c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), utils.ToBytes(newAccountGroup))
+	_, err := c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), internal.ToBytes(newAccountGroup))
 	if err != nil {
 		return err
 	}

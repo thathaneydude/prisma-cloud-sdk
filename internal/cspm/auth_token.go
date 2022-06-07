@@ -2,7 +2,6 @@ package cspm
 
 import (
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	"github.com/thathaneydude/prisma-cloud-sdk/utils"
 	"net/http"
 )
 
@@ -16,7 +15,7 @@ func (c *CspmClient) ExtendAuthToken() (*LoginResponse, error) {
 	if err != nil {
 		return nil, &internal.GenericError{Msg: err.Error()}
 	}
-	err = utils.UnmarshalResponse(resp, &authTokenExtendResponse)
+	err = internal.UnmarshalResponse(resp, &authTokenExtendResponse)
 	if err != nil {
 		return nil, err
 	}

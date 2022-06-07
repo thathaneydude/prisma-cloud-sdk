@@ -1,6 +1,8 @@
 package cspm
 
-import "github.com/thathaneydude/prisma-cloud-sdk/utils"
+import (
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+)
 
 const listUserV3Endpoint = "/v3/user"
 
@@ -15,7 +17,7 @@ func (c *CspmClient) ListUsersV3() ([]UserV3, error) {
 
 func (c *CspmClient) AddUserV3(req AddUserV3Request) (*AddUserV3Response, error) {
 	var addUserV3 AddUserV3Response
-	err := c.PostWithResponseInterface(listUserV3Endpoint, utils.ToBytes(req), &addUserV3)
+	err := c.PostWithResponseInterface(listUserV3Endpoint, internal.ToBytes(req), &addUserV3)
 	if err != nil {
 		return nil, err
 	}

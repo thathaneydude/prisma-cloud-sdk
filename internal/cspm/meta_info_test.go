@@ -2,8 +2,8 @@ package cspm
 
 import (
 	"github.com/stretchr/testify/assert"
-	bc "github.com/thathaneydude/prisma-cloud-sdk/client"
-	"github.com/thathaneydude/prisma-cloud-sdk/constants"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"testing"
 )
@@ -11,11 +11,16 @@ import (
 func TestCspmClient_GetMetaInfo(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-	cspmClient, err := NewCSPMClient(server.URL, false, "http", 3)
+	cspmClient, err := NewCSPMClient(&ClientOptions{
+		ApiUrl:     server.URL,
+		SslVerify:  false,
+		Schema:     "http",
+		MaxRetries: 3,
+	})
 	assert.Nil(t, err)
 	mux.HandleFunc(metaInfoEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(bc.ContentTypeHeader, bc.ApplicationJSON)
-		w.Header().Set(constants.AuthHeader, "foo")
+		w.Header().Set(internal.AuthHeader, "foo")
 		w.WriteHeader(http.StatusOK)
 		w.Write([]byte(`{"licenseType":"enterprise","marketplace":"Palo Alto Networks Marketplace","startTs":1539027762524,"endTs":1667174400000,"twistlockUrl":"https://us-east1.cloud.twistlock.com/12345"}`))
 	})
@@ -30,11 +35,16 @@ func TestCspmClient_GetMetaInfo(t *testing.T) {
 func TestCspmClient_GetMetaInfoFailsWithError(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-	cspmClient, err := NewCSPMClient(server.URL, false, "http", 3)
+	cspmClient, err := NewCSPMClient(&ClientOptions{
+		ApiUrl:     server.URL,
+		SslVerify:  false,
+		Schema:     "http",
+		MaxRetries: 3,
+	})
 	assert.Nil(t, err)
 	mux.HandleFunc(metaInfoEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(bc.ContentTypeHeader, bc.ApplicationJSON)
-		w.Header().Set(constants.AuthHeader, "foo")
+		w.Header().Set(internal.AuthHeader, "foo")
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(`internal server error`))
 	})

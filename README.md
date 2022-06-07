@@ -1,5 +1,16 @@
-# Prisma Cloud SDK (Work in progress)
+# Prisma Cloud SDK 
+prisma-cloud-sdk is the unofficial Prisma Cloud SDK for the Go programming language.
 
+# Installation
+Use `go get` to retrieve the SDK and addit to your `GOPATH` workspace, or project's Go module dependencies.
+```
+$ go get -u https://github.com/thathaneydude/prisma-cloud-sdk
+```
+
+## Dependencies
+
+
+# Creating a Client
 ## Creating a New Default Prisma Cloud Client
 ```go
 // Your CWPP console will be automatically determined
@@ -23,31 +34,4 @@ prisma_client, err := prisma.NewPrismaCloudClient(
     false)
 ```
 
-## Create a CWPP Self-Hosted Client
-```go
-client, err := cwpp.NewCwppClient(
-    "console.palo.com",
-    "v22.01",
-    false,
-    "https")
-_, err = client.Authenticate("API-KEY-ID", "API-SECRET")
-```
-
-## List Images
-```go
-query := cwpp.ImageQuery{
-    Offset:      "0",
-    Limit:       "10",
-    Collections: []string{"collection_one"},
-}
-images, err := prisma_client.Cwpp.ListImages(query)
-if err != nil {
-    fmt.Println(err)
-}
-fmt.Println(fmt.Sprintf("First 10 images in collection_one: %v", images))
-```
-
-## List Account Groups
-```go
-
-```
+## Examples

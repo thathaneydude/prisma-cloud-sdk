@@ -2,35 +2,30 @@ package cwpp
 
 import (
 	"fmt"
-	bc "github.com/thathaneydude/prisma-cloud-sdk/client"
-	"github.com/thathaneydude/prisma-cloud-sdk/constants"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"golang.org/x/exp/slices"
 )
 
-func NewCwppClient(consoleUrl string, apiVersion string, sslVerify bool, schema string) (*CwppClient, error) {
-	cwppBaseUrl, err := buildBaseUrl(consoleUrl, apiVersion)
-	if err != nil {
-		return nil, err
-	}
-
-	baseClient := bc.NewBaseClient(sslVerify, constants.DefaultMaxRetries, schema)
-	return &CwppClient{
-		BaseClient: *baseClient,
-		consoleUrl: cwppBaseUrl,
-		apiVersion: apiVersion,
-	}, nil
+type ClientOptions struct {
+	ConsoleUrl string
+	ApiVersion string
+	SslVerify  bool
+	MaxRetries int
+	Schema     string
 }
 
-func NewCwppClientWithCustomMaxRetries(consoleUrl string, apiVersion string, sslVerify bool, maxRetries int, schema string) (*CwppClient, error) {
-	cwppBaseUrl, err := buildBaseUrl(consoleUrl, apiVersion)
+func NewCwppClient(o *ClientOptions) (*CwppClient, error) {
+	cwppBaseUrl, err := buildBaseUrl(o.ConsoleUrl, o.ApiVersion)
 	if err != nil {
 		return nil, err
 	}
-	baseClient := bc.NewBaseClient(sslVerify, maxRetries, schema)
+
+	baseClient := bc.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 	return &CwppClient{
 		BaseClient: *baseClient,
 		consoleUrl: cwppBaseUrl,
+		apiVersion: o.ApiVersion,
 	}, nil
 }
 
@@ -43,8 +38,8 @@ func buildBaseUrl(baseUrl string, apiVersion string) (string, error) {
 }
 
 func validateApiVersion(apiVersion string) (string, error) {
-	if !slices.Contains(constants.APIVersions, apiVersion) {
-		return "", &internal.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, constants.APIVersions)}
+	if !slices.Contains(internal.APIVersions, apiVersion) {
+		return "", &internal.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, internal.APIVersions)}
 	}
 	return apiVersion, nil
 }

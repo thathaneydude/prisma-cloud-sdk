@@ -1,9 +1,9 @@
 package prisma
 
 import (
-	"github.com/thathaneydude/prisma-cloud-sdk/cs"
-	"github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/cwpp"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal/cs"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 )
 
 type PrismaCloudClient struct {

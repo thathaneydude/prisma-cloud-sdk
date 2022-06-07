@@ -3,7 +3,7 @@ package client
 import (
 	"crypto/tls"
 	"crypto/x509"
-	"github.com/thathaneydude/prisma-cloud-sdk/constants"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"log"
 	"net/http"
 )
@@ -17,7 +17,7 @@ const (
 func NewBaseClient(sslVerify bool, maxRetries int, schema string) *BaseClientImpl {
 	headers := &http.Header{}
 	headers.Set(ContentTypeHeader, ApplicationJSON)
-	headers.Set(UserAgentHeader, constants.UserAgent)
+	headers.Set(UserAgentHeader, internal.UserAgent)
 	var tlsConfig tls.Config
 	if !sslVerify {
 		tlsConfig = tls.Config{

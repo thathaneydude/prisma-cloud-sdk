@@ -3,19 +3,24 @@ package cwpp
 import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
-	bc "github.com/thathaneydude/prisma-cloud-sdk/client"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"testing"
 )
+
+const apiVersion = "22.01"
 
 func TestCwppClient_Authenticate(t *testing.T) {
 	teardown := setup()
 	defer teardown()
 
-	apiVersion := "22.01"
-
-	client, err := NewCwppClient(server.URL, apiVersion, false, "http")
+	client, err := NewCwppClient(&ClientOptions{
+		ConsoleUrl: server.URL,
+		ApiVersion: apiVersion,
+		MaxRetries: 0,
+		Schema:     "http",
+	})
 	assert.Nil(t, err)
 
 	fullUri := fmt.Sprintf("/api/v%v%v", apiVersion, authenticateEndpoint)
@@ -35,7 +40,12 @@ func TestCwppClient_Authenticate(t *testing.T) {
 }
 
 func Test_BuildBaseUrlSuccessful(t *testing.T) {
-	client, err := NewCwppClient("foo", "22.01", false, "http")
+	client, err := NewCwppClient(&ClientOptions{
+		ConsoleUrl: "foo",
+		ApiVersion: apiVersion,
+		MaxRetries: 0,
+		Schema:     "https",
+	})
 	assert.Nil(t, err)
 
 	expectedBaseUrl := "foo/api/v22.01"
@@ -43,7 +53,12 @@ func Test_BuildBaseUrlSuccessful(t *testing.T) {
 }
 
 func Test_BuildBaseUrlInvalidAPIVersion(t *testing.T) {
-	client, err := NewCwppClient("foo", "bar", false, "http")
+	client, err := NewCwppClient(&ClientOptions{
+		ConsoleUrl: "foo",
+		ApiVersion: "boo",
+		MaxRetries: 0,
+		Schema:     "http",
+	})
 	assert.Nil(t, client)
 	assert.Error(t, &internal.GenericError{}, err)
 }

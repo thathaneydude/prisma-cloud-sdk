@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"github.com/thathaneydude/prisma-cloud-sdk/constants"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"golang.org/x/exp/slices"
 	"io/ioutil"
@@ -58,6 +57,7 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 			logrus.Errorf("Maximum number of retry attempts (%v) exceeded", c.maxRetries)
 		}
 	case http.StatusUnauthorized:
+		// TODO: close response
 		respBody, _ := ioutil.ReadAll(resp.Body)
 		err = &UnauthorizedError{msg: string(respBody)}
 		logrus.Errorf(err.Error())
@@ -82,7 +82,7 @@ func (c BaseClientImpl) DoWithRetry(req http.Request, currentAttempt int) (*http
 }
 
 func (c BaseClientImpl) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
-	if !slices.Contains(constants.SupportedHttpMethods, method) {
+	if !slices.Contains(internal.SupportedHttpMethods, method) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
 	}
 

@@ -2,14 +2,14 @@ package cwpp
 
 import (
 	"github.com/sirupsen/logrus"
-	"github.com/thathaneydude/prisma-cloud-sdk/client"
-	"github.com/thathaneydude/prisma-cloud-sdk/utils"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+	client2 "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"net/url"
 )
 
 type CwppClient struct {
-	BaseClient client.BaseClientImpl
+	BaseClient client2.BaseClientImpl
 	consoleUrl string
 	apiVersion string
 	username   string
@@ -21,7 +21,7 @@ func (c *CwppClient) GetWithResponseInterface(endpoint string, params url.Values
 	if err != nil {
 		return err
 	}
-	return utils.UnmarshalResponse(resp, response)
+	return internal.UnmarshalResponse(resp, response)
 }
 
 func (c *CwppClient) PostWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -29,7 +29,7 @@ func (c *CwppClient) PostWithResponseInterface(endpoint string, body []byte, res
 	if err != nil {
 		return err
 	}
-	return utils.UnmarshalResponse(resp, response)
+	return internal.UnmarshalResponse(resp, response)
 }
 
 func (c *CwppClient) PutWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -37,7 +37,7 @@ func (c *CwppClient) PutWithResponseInterface(endpoint string, body []byte, resp
 	if err != nil {
 		return err
 	}
-	return utils.UnmarshalResponse(resp, response)
+	return internal.UnmarshalResponse(resp, response)
 }
 
 func (c *CwppClient) PatchWithResponseInterface(endpoint string, body []byte, response interface{}) error {
@@ -45,7 +45,7 @@ func (c *CwppClient) PatchWithResponseInterface(endpoint string, body []byte, re
 	if err != nil {
 		return err
 	}
-	return utils.UnmarshalResponse(resp, response)
+	return internal.UnmarshalResponse(resp, response)
 }
 
 func (c *CwppClient) DeleteWithResponseInterface(endpoint string, params url.Values, response interface{}) error {
@@ -53,7 +53,7 @@ func (c *CwppClient) DeleteWithResponseInterface(endpoint string, params url.Val
 	if err != nil {
 		return err
 	}
-	return utils.UnmarshalResponse(resp, response)
+	return internal.UnmarshalResponse(resp, response)
 }
 
 func (c *CwppClient) Get(endpoint string, params url.Values) (*http.Response, error) {
@@ -98,7 +98,7 @@ func (c *CwppClient) Delete(endpoint string, params url.Values) (*http.Response,
 
 func (c *CwppClient) cwppDoWithRetry(req http.Request) (*http.Response, error) {
 	resp, err := c.BaseClient.DoWithRetry(req, 1)
-	sErr, _ := err.(*client.UnauthorizedError)
+	sErr, _ := err.(*client2.UnauthorizedError)
 	if sErr != nil {
 		logrus.Debugf("Auth token may have expired. Attempting to refresh token")
 		_, err = c.Authenticate(c.username, c.password)

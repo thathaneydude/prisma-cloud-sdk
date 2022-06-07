@@ -2,7 +2,7 @@ package cspm
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/thathaneydude/prisma-cloud-sdk/client"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"testing"
 )
@@ -10,7 +10,12 @@ import (
 func TestCspmClient_ListAccountGroups(t *testing.T) {
 	teardown := setup()
 	defer teardown()
-	c, err := NewCSPMClient(server.URL, false, "http", 3)
+	c, err := NewCSPMClient(&ClientOptions{
+		ApiUrl:     server.URL,
+		SslVerify:  false,
+		Schema:     "http",
+		MaxRetries: 3,
+	})
 	assert.Nil(t, err)
 	mux.HandleFunc(accountGroupsEndpoint, func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set(client.ContentTypeHeader, client.ApplicationJSON)
