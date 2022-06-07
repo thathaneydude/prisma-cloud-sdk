@@ -5,11 +5,10 @@ Examples coming soon...
 
 ### Self-Hosted Instance 
 ```go
-client, err := cwpp.NewCwppClient(
-    "console.palo.com",
-    "v22.01",
-    false,
-    "https")
+client, err := cwpp.NewCwppClient(&ClientOptions{
+    ConsoleUrl: "console.palo.com",
+    ApiVersion: apiVersion,
+})
 authResp, err = client.Authenticate("API-KEY-ID", "API-SECRET")
 ```
 ### Listing Images
