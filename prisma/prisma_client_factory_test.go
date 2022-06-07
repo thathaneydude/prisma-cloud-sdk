@@ -43,12 +43,12 @@ func TestNewPrismaCloudClient(t *testing.T) {
 		w.Write([]byte(`{"licenseType":"enterprise","marketplace":"Palo Alto Networks Marketplace","startTs":1539027762524,"endTs":1667174400000,"twistlockUrl":"https://us-east1.cloud.twistlock.com/12345"}`))
 	})
 	c, err := NewPrismaCloudClient(&Options{
-		apiUrl:         server.URL,
-		schema:         "http",
-		username:       "foo",
-		password:       "bar",
-		cwppApiVersion: "22.01",
-		maxRetries:     3,
+		ApiUrl:         server.URL,
+		Schema:         "http",
+		Username:       "foo",
+		Password:       "bar",
+		CwppApiVersion: "22.01",
+		MaxRetries:     3,
 	})
 	assert.Nil(t, err)
 	assert.NotNil(t, c)
@@ -79,12 +79,12 @@ func TestNewPrismaCloudClient_AuthFail(t *testing.T) {
 	})
 
 	c, err := NewPrismaCloudClient(&Options{
-		apiUrl:         server.URL,
-		schema:         "http",
-		username:       "foo",
-		password:       "bar",
-		cwppApiVersion: "22.01",
-		maxRetries:     3,
+		ApiUrl:         server.URL,
+		Schema:         "http",
+		Username:       "foo",
+		Password:       "bar",
+		CwppApiVersion: "22.01",
+		MaxRetries:     3,
 	})
 	assert.Nil(t, c)
 	assert.Error(t, &internal.GenericError{}, err)

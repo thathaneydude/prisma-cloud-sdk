@@ -33,5 +33,3 @@ prisma_client, err := prisma.NewPrismaCloudClient(
     5, // Number of times the SDK will retry a request if a 429 is returned
     false)
 ```
-
-## Examples

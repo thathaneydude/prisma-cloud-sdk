@@ -13,31 +13,31 @@ import (
 // NewPrismaCloudClient creates a CWPP, CSPM, and Code Security client with the given credentials. This factory
 // allows full configuration of the PrismaCloudClient.
 func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
-	if o.schema == "" {
-		o.schema = internal.DefaultSchema
+	if o.Schema == "" {
+		o.Schema = internal.DefaultSchema
 	}
 
-	if o.maxRetries == 0 {
-		o.maxRetries = internal.DefaultMaxRetries
+	if o.MaxRetries == 0 {
+		o.MaxRetries = internal.DefaultMaxRetries
 	}
 
-	if o.cwppApiVersion == "" {
-		o.cwppApiVersion = internal.DefaultCwppApiVersion
+	if o.CwppApiVersion == "" {
+		o.CwppApiVersion = internal.DefaultCwppApiVersion
 	}
 
-	if o.apiUrl == "" || o.username == "" || o.password == "" {
+	if o.ApiUrl == "" || o.Username == "" || o.Password == "" {
 		return nil, &internal.GenericError{Msg: "Required Client fields not correctly populated. API Url, " +
 			"Username (Access Key ID), and Password (Secret Access Key) must be set"}
 	}
 
 	// Re-use the same base http client for each CSPM, CWPP, and CS clients
-	baseClient := client.NewBaseClient(o.sslVerify, o.maxRetries, o.schema)
+	baseClient := client.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 
 	cspmClient, err := cspm.NewCSPMClient(&cspm.ClientOptions{
-		ApiUrl:     o.apiUrl,
-		SslVerify:  o.sslVerify,
-		Schema:     o.schema,
-		MaxRetries: o.maxRetries,
+		ApiUrl:     o.ApiUrl,
+		SslVerify:  o.SslVerify,
+		Schema:     o.Schema,
+		MaxRetries: o.MaxRetries,
 	})
 	if err != nil {
 		logrus.Errorf(err.Error())
@@ -45,7 +45,7 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 	}
 	cspmClient.BaseClient = *baseClient
 
-	_, err = cspmClient.Login(o.username, o.password)
+	_, err = cspmClient.Login(o.Username, o.Password)
 	if err != nil {
 		return nil, err
 	}
@@ -58,10 +58,10 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 
 	cwppClient, err := cwpp.NewCwppClient(&cwpp.ClientOptions{
 		ConsoleUrl: resp.TwistlockUrl,
-		ApiVersion: o.cwppApiVersion,
-		SslVerify:  o.sslVerify,
-		MaxRetries: o.maxRetries,
-		Schema:     o.schema,
+		ApiVersion: o.CwppApiVersion,
+		SslVerify:  o.SslVerify,
+		MaxRetries: o.MaxRetries,
+		Schema:     o.Schema,
 	})
 	if err != nil {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to initialize CWPP client using meta_info: %v", err)}
@@ -74,8 +74,8 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 
 	return &PrismaCloudClient{
 		cwppBaseUrl:    resp.TwistlockUrl,
-		cwppApiVersion: o.cwppApiVersion,
-		cspmBaseUrl:    o.apiUrl,
+		cwppApiVersion: o.CwppApiVersion,
+		cspmBaseUrl:    o.ApiUrl,
 		Cwpp:           cwppClient,
 		Cspm:           cspmClient,
 		Cs:             csClient,
@@ -83,11 +83,11 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 }
 
 type Options struct {
-	apiUrl         string
-	schema         string
-	username       string
-	password       string
-	cwppApiVersion string
-	maxRetries     int
-	sslVerify      bool
+	ApiUrl         string
+	Schema         string
+	Username       string
+	Password       string
+	CwppApiVersion string
+	MaxRetries     int
+	SslVerify      bool
 }
