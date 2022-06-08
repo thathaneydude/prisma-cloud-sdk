@@ -49,7 +49,7 @@ func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup A
 	return nil
 }
 
-func (c *CspmClient) NewAccountGroup(name string, accountIds []string, description string) *AccountGroup {
+func NewAccountGroup(name string, accountIds []string, description string) *AccountGroup {
 	return &AccountGroup{
 		name,
 		accountIds,

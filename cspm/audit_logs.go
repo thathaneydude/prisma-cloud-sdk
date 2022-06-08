@@ -32,7 +32,7 @@ func (c *CspmClient) ListAuditLogs(q *AuditLogQuery) ([]AuditLog, error) {
 }
 
 // NewAuditLogQuery creates a query used with ListAuditLogs
-func (c *CspmClient) NewAuditLogQuery(timeAmount string, timeUnit string) (*AuditLogQuery, error) {
+func NewAuditLogQuery(timeAmount string, timeUnit string) (*AuditLogQuery, error) {
 	possibleUnits := []string{"minute", "hour", "day", "week", "month", "year"}
 	if !slices.Contains(possibleUnits, timeUnit) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Incorrect time unit provided %v. "+

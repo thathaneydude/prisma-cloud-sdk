@@ -36,7 +36,7 @@ func (c *CspmClient) AddUserV3(req AddUserV3Request) (*AddUserV3Response, error)
 }
 
 // NewUserAccountV3Request creates the AddUserV3Request needed when running AddUserV3 for a user account
-func (c *CspmClient) NewUserAccountV3Request(email string, firstName string, lastName string, roleIds []string, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
+func NewUserAccountV3Request(email string, firstName string, lastName string, roleIds []string, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
 	if email == "" || firstName == "" || len(roleIds) == 0 || defaultRoleId == "" || timeZone == "" {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("All User Account parameters must be populated")}
 	}
@@ -52,7 +52,7 @@ func (c *CspmClient) NewUserAccountV3Request(email string, firstName string, las
 }
 
 // NewServiceAccountV3Request creates the AddUserV3Request needed when running AddUserV3 for a service account
-func (c *CspmClient) NewServiceAccountV3Request(username string, accessKeyName string, enableKeyExpiration bool, accessKeyExpiration int, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
+func NewServiceAccountV3Request(username string, accessKeyName string, enableKeyExpiration bool, accessKeyExpiration int, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
 	if username == "" || accessKeyName == "" || (enableKeyExpiration == true && accessKeyExpiration == 0) || defaultRoleId == "" || timeZone == "" {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("All Service Account parameters must be populated")}
 	}

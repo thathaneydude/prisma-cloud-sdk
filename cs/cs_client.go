@@ -1,8 +1,8 @@
 package cs
 
 import (
+	"github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 	"net/http"
 	"net/url"
 )

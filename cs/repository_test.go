@@ -2,9 +2,9 @@ package cs
 
 import (
 	"github.com/stretchr/testify/assert"
+	"github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 	"net/http"
 	"testing"
 )

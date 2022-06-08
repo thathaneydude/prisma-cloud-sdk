@@ -30,7 +30,7 @@ func (c *CspmClient) ListCloudAccountNames(query ListCloudAccountNamesQuery) ([]
 }
 
 // NewListCloudAccountNamesQuery creates a query for use with ListCloudAccountNames
-func (c *CspmClient) NewListCloudAccountNamesQuery(onlyActive bool, amountGroupIds []string, cloudType string) (*ListCloudAccountNamesQuery, error) {
+func NewListCloudAccountNamesQuery(onlyActive bool, amountGroupIds []string, cloudType string) (*ListCloudAccountNamesQuery, error) {
 	if !slices.Contains(internal.CloudTypes, cloudType) {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Cloud type %v provided is not supported. Must be one of the following: %v", cloudType, internal.CloudTypes)}
 	}

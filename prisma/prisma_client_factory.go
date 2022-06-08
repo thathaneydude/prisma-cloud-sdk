@@ -3,11 +3,11 @@ package prisma
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"github.com/thathaneydude/prisma-cloud-sdk/cs"
+	cspm2 "github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/cwpp"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal/cs"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal/cspm"
 )
 
 // NewPrismaCloudClient creates a Prisma Cloud client with the given Options for interacting with CSPM, CWPP, and CS APIs.
@@ -18,7 +18,7 @@ import (
 // customerName is an acceptable alternative. Your prismaId is available from the license information in the
 // Prisma Cloud console. It's unnecessary to specify both prismaId and customerName, but if you do specify both,
 // the parameters must indicate the same tenant.
-func NewPrismaCloudClient(o *Options) (*prismaCloudClient, error) {
+func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 	if o.Schema == "" {
 		o.Schema = internal.DefaultSchema
 	}
@@ -39,7 +39,7 @@ func NewPrismaCloudClient(o *Options) (*prismaCloudClient, error) {
 	// Re-use the same base http client for each CSPM, CWPP, and CS clients
 	baseClient := client.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 
-	cspmClient, err := cspm.NewCSPMClient(&cspm.ClientOptions{
+	cspmClient, err := cspm2.NewCSPMClient(&cspm2.ClientOptions{
 		ApiUrl:     o.ApiUrl,
 		SslVerify:  o.SslVerify,
 		Schema:     o.Schema,
@@ -50,7 +50,7 @@ func NewPrismaCloudClient(o *Options) (*prismaCloudClient, error) {
 		return nil, err
 	}
 	cspmClient.OverwriteBaseClient(baseClient)
-	cspmLoginReq := &cspm.LoginRequest{
+	cspmLoginReq := &cspm2.LoginRequest{
 		Username: o.Username,
 		Password: o.Password,
 	}
@@ -89,7 +89,7 @@ func NewPrismaCloudClient(o *Options) (*prismaCloudClient, error) {
 	// Code Security is basically just a CSPM client but with specifically exported functions relevant to Code Security
 	csClient := cs.CsClientWithCspmInjected(cspmClient)
 
-	return &prismaCloudClient{
+	return &PrismaCloudClient{
 		cwppBaseUrl:    resp.TwistlockUrl,
 		cwppApiVersion: o.CwppApiVersion,
 		cspmBaseUrl:    o.ApiUrl,
