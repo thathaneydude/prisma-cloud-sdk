@@ -21,7 +21,7 @@ func (c *CwppClient) ListImages(query ImageQuery) ([]Image, error) {
 	params := url.Values{}
 	err := encoder.Encode(query, params)
 	if err != nil {
-		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode query provided: %v", err)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to decode Images query provided: %v", err)}
 	}
 	var imagesResponse []Image
 	err = c.getWithResponseInterface(imagesEndpoint, params, &imagesResponse)
