@@ -4,11 +4,13 @@ import (
 	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+	"golang.org/x/exp/slices"
 	"net/url"
 )
 
 const (
 	auditLogEndpoint = "/audit/redlock"
+	timeType         = "relative"
 )
 
 // ListAuditLogs Returns audit logs for events that took place on the Prisma Cloud platform
@@ -27,6 +29,20 @@ func (c *CspmClient) ListAuditLogs(q *AuditLogQuery) ([]AuditLog, error) {
 		return nil, err
 	}
 	return auditLogs, nil
+}
+
+// NewAuditLogQuery creates a query used with ListAuditLogs
+func (c *CspmClient) NewAuditLogQuery(timeAmount string, timeUnit string) (*AuditLogQuery, error) {
+	possibleUnits := []string{"minute", "hour", "day", "week", "month", "year"}
+	if !slices.Contains(possibleUnits, timeUnit) {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Incorrect time unit provided %v. "+
+			"Must be on of the following: %v", timeUnit, possibleUnits)}
+	}
+	return &AuditLogQuery{
+		TimeType:   timeType,
+		TimeAmount: timeAmount,
+		TimeUnit:   timeUnit,
+	}, nil
 }
 
 type AuditLogQuery struct {

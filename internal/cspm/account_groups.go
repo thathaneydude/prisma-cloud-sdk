@@ -49,6 +49,14 @@ func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup A
 	return nil
 }
 
+func (c *CspmClient) NewAccountGroup(name string, accountIds []string, description string) *AccountGroup {
+	return &AccountGroup{
+		name,
+		accountIds,
+		description,
+	}
+}
+
 type AccountGroup struct {
 	Name        string   `json:"name"`
 	AccountIds  []string `json:"accountIds"`
