@@ -1,10 +1,15 @@
 package cspm
 
 import (
+	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 )
 
-const listUserV3Endpoint = "/v3/user"
+const (
+	listUserV3Endpoint = "/v3/user"
+	userAccountType    = "USER_ACCOUNT"
+	serviceAccountType = "SERVICE_ACCOUNT"
+)
 
 // ListUsersV3 Lists all users and service accounts for your tenant.
 //
@@ -28,6 +33,43 @@ func (c *CspmClient) AddUserV3(req AddUserV3Request) (*AddUserV3Response, error)
 		return nil, err
 	}
 	return &addUserV3, nil
+}
+
+// NewUserAccountV3Request creates the AddUserV3Request needed when running AddUserV3 for a user account
+func (c *CspmClient) NewUserAccountV3Request(email string, firstName string, lastName string, roleIds []string, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
+	if email == "" || firstName == "" || len(roleIds) == 0 || defaultRoleId == "" || timeZone == "" {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("All User Account parameters must be populated")}
+	}
+	return &AddUserV3Request{
+		DefaultRoleId: defaultRoleId,
+		Email:         email,
+		FirstName:     firstName,
+		LastName:      lastName,
+		RoleIds:       roleIds,
+		TimeZone:      timeZone,
+		Type:          userAccountType,
+	}, nil
+}
+
+// NewServiceAccountV3Request creates the AddUserV3Request needed when running AddUserV3 for a service account
+func (c *CspmClient) NewServiceAccountV3Request(username string, accessKeyName string, enableKeyExpiration bool, accessKeyExpiration int, defaultRoleId string, timeZone string) (*AddUserV3Request, error) {
+	if username == "" || accessKeyName == "" || (enableKeyExpiration == true && accessKeyExpiration == 0) || defaultRoleId == "" || timeZone == "" {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("All Service Account parameters must be populated")}
+	}
+
+	req := &AddUserV3Request{
+		AccessKeyName: accessKeyName,
+		DefaultRoleId: defaultRoleId,
+		TimeZone:      timeZone,
+		Type:          serviceAccountType,
+		Username:      username,
+	}
+
+	if enableKeyExpiration {
+		req.EnableKeyExpiration = true
+		req.AccessKeyExpiration = accessKeyExpiration
+	}
+	return req, nil
 }
 
 type AddUserV3Request struct {
