@@ -45,485 +45,201 @@ type HostsQuery struct {
 }
 
 type Host struct {
-	Secrets       []string `json:"Secrets"`
-	Id            string   `json:"_id"`
-	Agentless     bool     `json:"agentless"`
-	AllCompliance struct {
+	Id       string    `json:"_id"`
+	Type     string    `json:"type"`
+	Hostname string    `json:"hostname"`
+	ScanTime time.Time `json:"scanTime"`
+	Binaries []struct {
+		Name     string   `json:"name"`
+		Path     string   `json:"path"`
+		Md5      string   `json:"md5"`
+		CveCount int      `json:"cveCount"`
+		Services []string `json:"services,omitempty"`
+	} `json:"binaries"`
+	Secrets         interface{}   `json:"Secrets"`
+	StartupBinaries []interface{} `json:"startupBinaries"`
+	OsDistro        string        `json:"osDistro"`
+	OsDistroVersion string        `json:"osDistroVersion"`
+	OsDistroRelease string        `json:"osDistroRelease"`
+	Distro          string        `json:"distro"`
+	Packages        []struct {
+		PkgsType string `json:"pkgsType"`
+		Pkgs     []struct {
+			Version    string   `json:"version"`
+			Name       string   `json:"name"`
+			CveCount   int      `json:"cveCount"`
+			License    string   `json:"license"`
+			LayerTime  int      `json:"layerTime"`
+			BinaryPkgs []string `json:"binaryPkgs,omitempty"`
+			BinaryIdx  []int    `json:"binaryIdx,omitempty"`
+		} `json:"pkgs"`
+	} `json:"packages"`
+	Files          interface{} `json:"files"`
+	PackageManager bool        `json:"packageManager"`
+	Applications   []struct {
+		Name                 string `json:"name"`
+		Version              string `json:"version"`
+		Path                 string `json:"path"`
+		LayerTime            int    `json:"layerTime"`
+		KnownVulnerabilities int    `json:"knownVulnerabilities"`
+	} `json:"applications"`
+	Image struct {
+		Created time.Time `json:"created"`
+	} `json:"image"`
+	History          []interface{} `json:"history"`
+	ComplianceIssues interface{}   `json:"complianceIssues"`
+	AllCompliance    struct {
 		Compliance []struct {
-			ApplicableRules []string  `json:"applicableRules"`
-			BinaryPkgs      []string  `json:"binaryPkgs"`
-			Block           bool      `json:"block"`
-			Cause           string    `json:"cause"`
-			Cri             bool      `json:"cri"`
-			Custom          bool      `json:"custom"`
-			Cve             string    `json:"cve"`
-			Cvss            int       `json:"cvss"`
-			Description     string    `json:"description"`
-			Discovered      time.Time `json:"discovered"`
-			Exploit         []string  `json:"exploit"`
-			FixDate         int       `json:"fixDate"`
-			FixLink         string    `json:"fixLink"`
-			FunctionLayer   string    `json:"functionLayer"`
-			GracePeriodDays int       `json:"gracePeriodDays"`
-			Id              int       `json:"id"`
-			LayerTime       int       `json:"layerTime"`
-			Link            string    `json:"link"`
-			PackageName     string    `json:"packageName"`
-			PackageVersion  string    `json:"packageVersion"`
-			Published       int       `json:"published"`
-			RiskFactors     struct {
-				Property1 string `json:"property1"`
-				Property2 string `json:"property2"`
-			} `json:"riskFactors"`
-			Severity     string     `json:"severity"`
-			Status       string     `json:"status"`
-			Templates    [][]string `json:"templates"`
-			Text         string     `json:"text"`
-			Title        string     `json:"title"`
-			Twistlock    bool       `json:"twistlock"`
-			Type         []string   `json:"type"`
-			VecStr       string     `json:"vecStr"`
-			VulnTagInfos []struct {
-				Color   string `json:"color"`
-				Comment string `json:"comment"`
-				Name    string `json:"name"`
-			} `json:"vulnTagInfos"`
+			Text           string      `json:"text"`
+			Id             int         `json:"id"`
+			Severity       string      `json:"severity"`
+			Cvss           int         `json:"cvss"`
+			Status         string      `json:"status"`
+			Cve            string      `json:"cve"`
+			Cause          string      `json:"cause"`
+			Description    string      `json:"description"`
+			Title          string      `json:"title"`
+			VecStr         string      `json:"vecStr"`
+			Exploit        string      `json:"exploit"`
+			RiskFactors    interface{} `json:"riskFactors"`
+			Link           string      `json:"link"`
+			Type           string      `json:"type"`
+			PackageName    string      `json:"packageName"`
+			PackageVersion string      `json:"packageVersion"`
+			LayerTime      int         `json:"layerTime"`
+			Templates      []string    `json:"templates"`
+			Twistlock      bool        `json:"twistlock"`
+			Cri            bool        `json:"cri"`
+			Published      int         `json:"published"`
+			FixDate        int         `json:"fixDate"`
+			Discovered     time.Time   `json:"discovered"`
+			FunctionLayer  string      `json:"functionLayer"`
+			Custom         bool        `json:"custom,omitempty"`
 		} `json:"compliance"`
 		Enabled bool `json:"enabled"`
 	} `json:"allCompliance"`
-	AppEmbedded  bool `json:"appEmbedded"`
-	Applications []struct {
-		KnownVulnerabilities int    `json:"knownVulnerabilities"`
-		LayerTime            int    `json:"layerTime"`
-		Name                 string `json:"name"`
-		Path                 string `json:"path"`
-		Version              string `json:"version"`
-	} `json:"applications"`
-	BaseImage string `json:"baseImage"`
-	Binaries  []struct {
-		Altered       bool     `json:"altered"`
-		CveCount      int      `json:"cveCount"`
-		Deps          []string `json:"deps"`
-		FunctionLayer string   `json:"functionLayer"`
-		Md5           string   `json:"md5"`
-		MissingPkg    bool     `json:"missingPkg"`
-		Name          string   `json:"name"`
-		Path          string   `json:"path"`
-		PkgRootDir    string   `json:"pkgRootDir"`
-		Services      []string `json:"services"`
-		Version       string   `json:"version"`
-	} `json:"binaries"`
-	CloudMetadata struct {
-		AccountID string `json:"accountID"`
-		Image     string `json:"image"`
-		Labels    []struct {
-			Key        string    `json:"key"`
-			SourceName string    `json:"sourceName"`
-			SourceType []string  `json:"sourceType"`
-			Timestamp  time.Time `json:"timestamp"`
-			Value      string    `json:"value"`
-		} `json:"labels"`
-		Name        string   `json:"name"`
-		Provider    []string `json:"provider"`
-		Region      string   `json:"region"`
-		ResourceID  string   `json:"resourceID"`
-		ResourceURL string   `json:"resourceURL"`
-		Type        string   `json:"type"`
-		VmID        string   `json:"vmID"`
-	} `json:"cloudMetadata"`
-	Clusters               []string `json:"clusters"`
-	Collections            []string `json:"collections"`
-	ComplianceDistribution struct {
-		Critical int `json:"critical"`
-		High     int `json:"high"`
-		Low      int `json:"low"`
-		Medium   int `json:"medium"`
-		Total    int `json:"total"`
-	} `json:"complianceDistribution"`
-	ComplianceIssues []struct {
-		ApplicableRules []string  `json:"applicableRules"`
-		BinaryPkgs      []string  `json:"binaryPkgs"`
-		Block           bool      `json:"block"`
-		Cause           string    `json:"cause"`
-		Cri             bool      `json:"cri"`
-		Custom          bool      `json:"custom"`
-		Cve             string    `json:"cve"`
-		Cvss            int       `json:"cvss"`
-		Description     string    `json:"description"`
-		Discovered      time.Time `json:"discovered"`
-		Exploit         []string  `json:"exploit"`
-		FixDate         int       `json:"fixDate"`
-		FixLink         string    `json:"fixLink"`
-		FunctionLayer   string    `json:"functionLayer"`
-		GracePeriodDays int       `json:"gracePeriodDays"`
-		Id              int       `json:"id"`
-		LayerTime       int       `json:"layerTime"`
-		Link            string    `json:"link"`
-		PackageName     string    `json:"packageName"`
-		PackageVersion  string    `json:"packageVersion"`
-		Published       int       `json:"published"`
-		RiskFactors     struct {
-			Property1 string `json:"property1"`
-			Property2 string `json:"property2"`
-		} `json:"riskFactors"`
-		Severity     string     `json:"severity"`
-		Status       string     `json:"status"`
-		Templates    [][]string `json:"templates"`
-		Text         string     `json:"text"`
-		Title        string     `json:"title"`
-		Twistlock    bool       `json:"twistlock"`
-		Type         []string   `json:"type"`
-		VecStr       string     `json:"vecStr"`
-		VulnTagInfos []struct {
-			Color   string `json:"color"`
-			Comment string `json:"comment"`
-			Name    string `json:"name"`
-		} `json:"vulnTagInfos"`
-	} `json:"complianceIssues"`
-	ComplianceIssuesCount int       `json:"complianceIssuesCount"`
-	ComplianceRiskScore   int       `json:"complianceRiskScore"`
-	CreationTime          time.Time `json:"creationTime"`
-	Distro                string    `json:"distro"`
-	EcsClusterName        string    `json:"ecsClusterName"`
-	Err                   string    `json:"err"`
-	ExternalLabels        []struct {
-		Key        string    `json:"key"`
-		SourceName string    `json:"sourceName"`
-		SourceType []string  `json:"sourceType"`
-		Timestamp  time.Time `json:"timestamp"`
-		Value      string    `json:"value"`
-	} `json:"externalLabels"`
-	Files []struct {
-		Md5    string `json:"md5"`
-		Path   string `json:"path"`
-		Sha1   string `json:"sha1"`
-		Sha256 string `json:"sha256"`
-	} `json:"files"`
-	FirewallProtection struct {
-		Enabled              bool     `json:"enabled"`
-		OutOfBandMode        []string `json:"outOfBandMode"`
-		Ports                []int    `json:"ports"`
-		Supported            bool     `json:"supported"`
-		TlsPorts             []int    `json:"tlsPorts"`
-		UnprotectedProcesses []struct {
-			Port    int    `json:"port"`
-			Process string `json:"process"`
-			Tls     bool   `json:"tls"`
-		} `json:"unprotectedProcesses"`
-	} `json:"firewallProtection"`
-	FirstScanTime time.Time `json:"firstScanTime"`
-	History       []struct {
-		BaseLayer       bool     `json:"baseLayer"`
-		Created         int      `json:"created"`
-		EmptyLayer      bool     `json:"emptyLayer"`
-		Id              string   `json:"id"`
-		Instruction     string   `json:"instruction"`
-		SizeBytes       int      `json:"sizeBytes"`
-		Tags            []string `json:"tags"`
-		Vulnerabilities []struct {
-			ApplicableRules []string  `json:"applicableRules"`
-			BinaryPkgs      []string  `json:"binaryPkgs"`
-			Block           bool      `json:"block"`
-			Cause           string    `json:"cause"`
-			Cri             bool      `json:"cri"`
-			Custom          bool      `json:"custom"`
-			Cve             string    `json:"cve"`
-			Cvss            int       `json:"cvss"`
-			Description     string    `json:"description"`
-			Discovered      time.Time `json:"discovered"`
-			Exploit         []string  `json:"exploit"`
-			FixDate         int       `json:"fixDate"`
-			FixLink         string    `json:"fixLink"`
-			FunctionLayer   string    `json:"functionLayer"`
-			GracePeriodDays int       `json:"gracePeriodDays"`
-			Id              int       `json:"id"`
-			LayerTime       int       `json:"layerTime"`
-			Link            string    `json:"link"`
-			PackageName     string    `json:"packageName"`
-			PackageVersion  string    `json:"packageVersion"`
-			Published       int       `json:"published"`
-			RiskFactors     struct {
-				Property1 string `json:"property1"`
-				Property2 string `json:"property2"`
-			} `json:"riskFactors"`
-			Severity     string     `json:"severity"`
-			Status       string     `json:"status"`
-			Templates    [][]string `json:"templates"`
-			Text         string     `json:"text"`
-			Title        string     `json:"title"`
-			Twistlock    bool       `json:"twistlock"`
-			Type         []string   `json:"type"`
-			VecStr       string     `json:"vecStr"`
-			VulnTagInfos []struct {
-				Color   string `json:"color"`
-				Comment string `json:"comment"`
-				Name    string `json:"name"`
-			} `json:"vulnTagInfos"`
-		} `json:"vulnerabilities"`
-	} `json:"history"`
-	HostDevices []struct {
-		Ip   string `json:"ip"`
-		Name string `json:"name"`
-	} `json:"hostDevices"`
-	Hostname string `json:"hostname"`
-	Hosts    struct {
-		Property1 struct {
-			AccountID   string    `json:"accountID"`
-			AppEmbedded bool      `json:"appEmbedded"`
-			Cluster     string    `json:"cluster"`
-			Modified    time.Time `json:"modified"`
-			Namespaces  []string  `json:"namespaces"`
-		} `json:"property1"`
-		Property2 struct {
-			AccountID   string    `json:"accountID"`
-			AppEmbedded bool      `json:"appEmbedded"`
-			Cluster     string    `json:"cluster"`
-			Modified    time.Time `json:"modified"`
-			Namespaces  []string  `json:"namespaces"`
-		} `json:"property2"`
-	} `json:"hosts"`
-	Id1   string `json:"id"`
-	Image struct {
-		Created     time.Time `json:"created"`
-		Entrypoint  []string  `json:"entrypoint"`
-		Env         []string  `json:"env"`
-		Healthcheck bool      `json:"healthcheck"`
-		History     []struct {
-			BaseLayer       bool     `json:"baseLayer"`
-			Created         int      `json:"created"`
-			EmptyLayer      bool     `json:"emptyLayer"`
-			Id              string   `json:"id"`
-			Instruction     string   `json:"instruction"`
-			SizeBytes       int      `json:"sizeBytes"`
-			Tags            []string `json:"tags"`
-			Vulnerabilities []struct {
-				ApplicableRules []string  `json:"applicableRules"`
-				BinaryPkgs      []string  `json:"binaryPkgs"`
-				Block           bool      `json:"block"`
-				Cause           string    `json:"cause"`
-				Cri             bool      `json:"cri"`
-				Custom          bool      `json:"custom"`
-				Cve             string    `json:"cve"`
-				Cvss            int       `json:"cvss"`
-				Description     string    `json:"description"`
-				Discovered      time.Time `json:"discovered"`
-				Exploit         []string  `json:"exploit"`
-				FixDate         int       `json:"fixDate"`
-				FixLink         string    `json:"fixLink"`
-				FunctionLayer   string    `json:"functionLayer"`
-				GracePeriodDays int       `json:"gracePeriodDays"`
-				Id              int       `json:"id"`
-				LayerTime       int       `json:"layerTime"`
-				Link            string    `json:"link"`
-				PackageName     string    `json:"packageName"`
-				PackageVersion  string    `json:"packageVersion"`
-				Published       int       `json:"published"`
-				RiskFactors     struct {
-					Property1 string `json:"property1"`
-					Property2 string `json:"property2"`
-				} `json:"riskFactors"`
-				Severity     string     `json:"severity"`
-				Status       string     `json:"status"`
-				Templates    [][]string `json:"templates"`
-				Text         string     `json:"text"`
-				Title        string     `json:"title"`
-				Twistlock    bool       `json:"twistlock"`
-				Type         []string   `json:"type"`
-				VecStr       string     `json:"vecStr"`
-				VulnTagInfos []struct {
-					Color   string `json:"color"`
-					Comment string `json:"comment"`
-					Name    string `json:"name"`
-				} `json:"vulnTagInfos"`
-			} `json:"vulnerabilities"`
-		} `json:"history"`
-		Id     string `json:"id"`
-		Labels struct {
-			Property1 string `json:"property1"`
-			Property2 string `json:"property2"`
-		} `json:"labels"`
-		Layers     []string `json:"layers"`
-		Os         string   `json:"os"`
-		RepoDigest []string `json:"repoDigest"`
-		RepoTags   []string `json:"repoTags"`
-		User       string   `json:"user"`
-		WorkingDir string   `json:"workingDir"`
-	} `json:"image"`
-	InstalledProducts struct {
-		Agentless                      bool   `json:"agentless"`
-		Apache                         string `json:"apache"`
-		AwsCloud                       bool   `json:"awsCloud"`
-		Crio                           bool   `json:"crio"`
-		Docker                         string `json:"docker"`
-		DockerEnterprise               bool   `json:"dockerEnterprise"`
-		HasPackageManager              bool   `json:"hasPackageManager"`
-		K8SApiServer                   bool   `json:"k8sApiServer"`
-		K8SControllerManager           bool   `json:"k8sControllerManager"`
-		K8SEtcd                        bool   `json:"k8sEtcd"`
-		K8SFederationApiServer         bool   `json:"k8sFederationApiServer"`
-		K8SFederationControllerManager bool   `json:"k8sFederationControllerManager"`
-		K8SKubelet                     bool   `json:"k8sKubelet"`
-		K8SProxy                       bool   `json:"k8sProxy"`
-		K8SScheduler                   bool   `json:"k8sScheduler"`
-		Kubernetes                     string `json:"kubernetes"`
-		Openshift                      bool   `json:"openshift"`
-		OpenshiftVersion               string `json:"openshiftVersion"`
-		OsDistro                       string `json:"osDistro"`
-		Serverless                     bool   `json:"serverless"`
-		SwarmManager                   bool   `json:"swarmManager"`
-		SwarmNode                      bool   `json:"swarmNode"`
-	} `json:"installedProducts"`
-	Instances []struct {
-		Host     string    `json:"host"`
-		Image    string    `json:"image"`
-		Modified time.Time `json:"modified"`
-		Registry string    `json:"registry"`
-		Repo     string    `json:"repo"`
-		Tag      string    `json:"tag"`
-	} `json:"instances"`
-	IsARM64                   bool     `json:"isARM64"`
-	K8SClusterAddr            string   `json:"k8sClusterAddr"`
-	Labels                    []string `json:"labels"`
-	Layers                    []string `json:"layers"`
-	MissingDistroVulnCoverage bool     `json:"missingDistroVulnCoverage"`
-	Namespaces                []string `json:"namespaces"`
-	OsDistro                  string   `json:"osDistro"`
-	OsDistroRelease           string   `json:"osDistroRelease"`
-	OsDistroVersion           string   `json:"osDistroVersion"`
-	PackageManager            bool     `json:"packageManager"`
-	Packages                  []struct {
-		Pkgs []struct {
-			BinaryIdx  []int    `json:"binaryIdx"`
-			BinaryPkgs []string `json:"binaryPkgs"`
-			CveCount   int      `json:"cveCount"`
-			Files      []struct {
-				Md5    string `json:"md5"`
-				Path   string `json:"path"`
-				Sha1   string `json:"sha1"`
-				Sha256 string `json:"sha256"`
-			} `json:"files"`
-			FunctionLayer string `json:"functionLayer"`
-			LayerTime     int    `json:"layerTime"`
-			License       string `json:"license"`
-			Name          string `json:"name"`
-			Path          string `json:"path"`
-			Version       string `json:"version"`
-		} `json:"pkgs"`
-		PkgsType []string `json:"pkgsType"`
-	} `json:"packages"`
-	PullDuration      int      `json:"pullDuration"`
-	RegistryNamespace string   `json:"registryNamespace"`
-	RepoDigests       []string `json:"repoDigests"`
-	RepoTag           struct {
-		Digest   string `json:"digest"`
-		Id       string `json:"id"`
-		Registry string `json:"registry"`
-		Repo     string `json:"repo"`
-		Tag      string `json:"tag"`
-	} `json:"repoTag"`
-	RhelRepos   []string `json:"rhelRepos"`
-	RiskFactors struct {
-		Property1 string `json:"property1"`
-		Property2 string `json:"property2"`
-	} `json:"riskFactors"`
-	ScanDuration    int       `json:"scanDuration"`
-	ScanID          int       `json:"scanID"`
-	ScanTime        time.Time `json:"scanTime"`
-	ScanVersion     string    `json:"scanVersion"`
-	StartupBinaries []struct {
-		Altered       bool     `json:"altered"`
-		CveCount      int      `json:"cveCount"`
-		Deps          []string `json:"deps"`
-		FunctionLayer string   `json:"functionLayer"`
-		Md5           string   `json:"md5"`
-		MissingPkg    bool     `json:"missingPkg"`
-		Name          string   `json:"name"`
-		Path          string   `json:"path"`
-		PkgRootDir    string   `json:"pkgRootDir"`
-		Services      []string `json:"services"`
-		Version       string   `json:"version"`
-	} `json:"startupBinaries"`
-	Stopped bool `json:"stopped"`
-	Tags    []struct {
-		Digest   string `json:"digest"`
-		Id       string `json:"id"`
-		Registry string `json:"registry"`
-		Repo     string `json:"repo"`
-		Tag      string `json:"tag"`
-	} `json:"tags"`
-	TopLayer    string `json:"topLayer"`
-	TrustResult struct {
-		Groups []struct {
-			Id           string    `json:"_id"`
-			Disabled     bool      `json:"disabled"`
-			Images       []string  `json:"images"`
-			Layers       []string  `json:"layers"`
-			Modified     time.Time `json:"modified"`
-			Name         string    `json:"name"`
-			Notes        string    `json:"notes"`
-			Owner        string    `json:"owner"`
-			PreviousName string    `json:"previousName"`
-		} `json:"groups"`
-		HostsStatuses []struct {
-			Host   string   `json:"host"`
-			Status []string `json:"status"`
-		} `json:"hostsStatuses"`
-	} `json:"trustResult"`
-	TrustStatus     []string `json:"trustStatus"`
-	TwistlockImage  bool     `json:"twistlockImage"`
-	Type            []string `json:"type"`
 	Vulnerabilities []struct {
-		ApplicableRules []string  `json:"applicableRules"`
-		BinaryPkgs      []string  `json:"binaryPkgs"`
-		Block           bool      `json:"block"`
-		Cause           string    `json:"cause"`
-		Cri             bool      `json:"cri"`
-		Custom          bool      `json:"custom"`
-		Cve             string    `json:"cve"`
-		Cvss            int       `json:"cvss"`
-		Description     string    `json:"description"`
-		Discovered      time.Time `json:"discovered"`
-		Exploit         []string  `json:"exploit"`
-		FixDate         int       `json:"fixDate"`
-		FixLink         string    `json:"fixLink"`
-		FunctionLayer   string    `json:"functionLayer"`
-		GracePeriodDays int       `json:"gracePeriodDays"`
-		Id              int       `json:"id"`
-		LayerTime       int       `json:"layerTime"`
-		Link            string    `json:"link"`
-		PackageName     string    `json:"packageName"`
-		PackageVersion  string    `json:"packageVersion"`
-		Published       int       `json:"published"`
-		RiskFactors     struct {
-			Property1 string `json:"property1"`
-			Property2 string `json:"property2"`
+		Text        string  `json:"text"`
+		Id          int     `json:"id"`
+		Severity    string  `json:"severity"`
+		Cvss        float64 `json:"cvss"`
+		Status      string  `json:"status"`
+		Cve         string  `json:"cve"`
+		Cause       string  `json:"cause"`
+		Description string  `json:"description"`
+		Title       string  `json:"title"`
+		VecStr      string  `json:"vecStr"`
+		Exploit     string  `json:"exploit"`
+		RiskFactors struct {
+			HasFix struct {
+			} `json:"Has fix,omitempty"`
+			MediumSeverity struct {
+			} `json:"Medium severity,omitempty"`
+			PackageInUse struct {
+			} `json:"Package in use,omitempty"`
+			HighSeverity struct {
+			} `json:"High severity,omitempty"`
+			CriticalSeverity struct {
+			} `json:"Critical severity,omitempty"`
+			AttackComplexityLow struct {
+			} `json:"Attack complexity: low,omitempty"`
+			AttackVectorNetwork struct {
+			} `json:"Attack vector: network,omitempty"`
+			RecentVulnerability struct {
+			} `json:"Recent vulnerability,omitempty"`
+			DoS struct {
+			} `json:"DoS,omitempty"`
 		} `json:"riskFactors"`
-		Severity     string     `json:"severity"`
-		Status       string     `json:"status"`
-		Templates    [][]string `json:"templates"`
-		Text         string     `json:"text"`
-		Title        string     `json:"title"`
-		Twistlock    bool       `json:"twistlock"`
-		Type         []string   `json:"type"`
-		VecStr       string     `json:"vecStr"`
-		VulnTagInfos []struct {
-			Color   string `json:"color"`
-			Comment string `json:"comment"`
-			Name    string `json:"name"`
-		} `json:"vulnTagInfos"`
+		Link            string      `json:"link"`
+		Type            string      `json:"type"`
+		PackageName     string      `json:"packageName"`
+		PackageVersion  string      `json:"packageVersion"`
+		LayerTime       int         `json:"layerTime"`
+		Templates       interface{} `json:"templates"`
+		Twistlock       bool        `json:"twistlock"`
+		Cri             bool        `json:"cri"`
+		Published       int         `json:"published"`
+		FixDate         int         `json:"fixDate"`
+		ApplicableRules []string    `json:"applicableRules"`
+		Discovered      time.Time   `json:"discovered"`
+		BinaryPkgs      []string    `json:"binaryPkgs,omitempty"`
+		FunctionLayer   string      `json:"functionLayer"`
 	} `json:"vulnerabilities"`
-	VulnerabilitiesCount      int `json:"vulnerabilitiesCount"`
+	RepoTag                   interface{}   `json:"repoTag"`
+	Tags                      []interface{} `json:"tags"`
+	RepoDigests               []interface{} `json:"repoDigests"`
+	CreationTime              time.Time     `json:"creationTime"`
+	VulnerabilitiesCount      int           `json:"vulnerabilitiesCount"`
+	ComplianceIssuesCount     int           `json:"complianceIssuesCount"`
 	VulnerabilityDistribution struct {
 		Critical int `json:"critical"`
 		High     int `json:"high"`
-		Low      int `json:"low"`
 		Medium   int `json:"medium"`
+		Low      int `json:"low"`
 		Total    int `json:"total"`
 	} `json:"vulnerabilityDistribution"`
-	VulnerabilityRiskScore int `json:"vulnerabilityRiskScore"`
-	WildFireUsage          struct {
-		Bytes   int `json:"bytes"`
-		Queries int `json:"queries"`
-		Uploads int `json:"uploads"`
-	} `json:"wildFireUsage"`
+	ComplianceDistribution struct {
+		Critical int `json:"critical"`
+		High     int `json:"high"`
+		Medium   int `json:"medium"`
+		Low      int `json:"low"`
+		Total    int `json:"total"`
+	} `json:"complianceDistribution"`
+	VulnerabilityRiskScore int    `json:"vulnerabilityRiskScore"`
+	ComplianceRiskScore    int    `json:"complianceRiskScore"`
+	EcsClusterName         string `json:"ecsClusterName"`
+	RiskFactors            struct {
+		AttackComplexityLow struct {
+		} `json:"Attack complexity: low"`
+		AttackVectorNetwork struct {
+		} `json:"Attack vector: network"`
+		CriticalSeverity struct {
+		} `json:"Critical severity"`
+		DoS struct {
+		} `json:"DoS"`
+		HasFix struct {
+		} `json:"Has fix"`
+		HighSeverity struct {
+		} `json:"High severity"`
+		MediumSeverity struct {
+		} `json:"Medium severity"`
+		PackageInUse struct {
+		} `json:"Package in use"`
+		RecentVulnerability struct {
+		} `json:"Recent vulnerability"`
+	} `json:"riskFactors"`
+	Labels            []string `json:"labels"`
+	InstalledProducts struct {
+		Docker            string `json:"docker"`
+		OsDistro          string `json:"osDistro"`
+		HasPackageManager bool   `json:"hasPackageManager"`
+	} `json:"installedProducts"`
+	HostDevices []struct {
+		Name string `json:"name"`
+		Ip   string `json:"ip"`
+	} `json:"hostDevices"`
+	FirstScanTime time.Time `json:"firstScanTime"`
+	CloudMetadata struct {
+		ResourceID string `json:"resourceID"`
+		Provider   string `json:"provider"`
+		Type       string `json:"type"`
+		Region     string `json:"region"`
+		AccountID  string `json:"accountID"`
+		Image      string `json:"image"`
+	} `json:"cloudMetadata"`
+	Clusters  []string      `json:"clusters"`
+	Instances []interface{} `json:"instances"`
+	Hosts     struct {
+	} `json:"hosts"`
+	Err                string   `json:"err"`
+	Collections        []string `json:"collections"`
+	ScanID             int      `json:"scanID"`
+	TrustStatus        string   `json:"trustStatus"`
+	FirewallProtection struct {
+		Enabled   bool `json:"enabled"`
+		Supported bool `json:"supported"`
+	} `json:"firewallProtection"`
+	AppEmbedded   bool        `json:"appEmbedded"`
+	WildFireUsage interface{} `json:"wildFireUsage"`
+	Agentless     bool        `json:"agentless"`
 }
