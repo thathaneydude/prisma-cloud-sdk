@@ -11,7 +11,7 @@ const (
 	DefaultSchema         = "https"
 )
 
-var APIVersions = []string{"22.01", "21.08", "1"}
+var APIVersions = []string{"22.06", "22.01", "21.08", "1"}
 var SupportedHttpMethods = []string{
 	http.MethodGet,
 	http.MethodPost,

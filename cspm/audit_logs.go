@@ -35,8 +35,7 @@ func (c *CspmClient) ListAuditLogs(q *AuditLogQuery) ([]AuditLog, error) {
 func NewAuditLogQuery(timeAmount string, timeUnit string) (*AuditLogQuery, error) {
 	possibleUnits := []string{"minute", "hour", "day", "week", "month", "year"}
 	if !slices.Contains(possibleUnits, timeUnit) {
-		return nil, &internal.GenericError{Msg: fmt.Sprintf("Incorrect time unit provided %v. "+
-			"Must be on of the following: %v", timeUnit, possibleUnits)}
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Incorrect time unit provided %v. Must be on of the following: %v", timeUnit, possibleUnits)}
 	}
 	return &AuditLogQuery{
 		TimeType:   timeType,
