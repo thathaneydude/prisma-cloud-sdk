@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/cs"
-	cspm2 "github.com/thathaneydude/prisma-cloud-sdk/cspm"
+	"github.com/thathaneydude/prisma-cloud-sdk/cspm"
 	"github.com/thathaneydude/prisma-cloud-sdk/cwpp"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
@@ -39,7 +39,7 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 	// Re-use the same base http client for each CSPM, CWPP, and CS clients
 	baseClient := client.NewBaseClient(o.SslVerify, o.MaxRetries, o.Schema)
 
-	cspmClient, err := cspm2.NewCSPMClient(&cspm2.ClientOptions{
+	cspmClient, err := cspm.NewCSPMClient(&cspm.ClientOptions{
 		ApiUrl:     o.ApiUrl,
 		SslVerify:  o.SslVerify,
 		Schema:     o.Schema,
@@ -50,7 +50,7 @@ func NewPrismaCloudClient(o *Options) (*PrismaCloudClient, error) {
 		return nil, err
 	}
 	cspmClient.OverwriteBaseClient(baseClient)
-	cspmLoginReq := &cspm2.LoginRequest{
+	cspmLoginReq := &cspm.LoginRequest{
 		Username: o.Username,
 		Password: o.Password,
 	}
