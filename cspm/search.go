@@ -35,14 +35,14 @@ type SearchConfigRequest struct {
 }
 
 type SearchConfigResponse struct {
-	AlertId        string                 `json:"alertId"`
-	Async          bool                   `json:"async"`
-	AsyncResultUrl string                 `json:"asyncResultUrl"`
-	CloudType      string                 `json:"cloudType"`
-	Cursor         int                    `json:"cursor"`
-	Data           map[string]interface{} `json:"data"`
-	Default        bool                   `json:"default"`
-	Description    string                 `json:"description"`
+	AlertId        string                   `json:"alertId"`
+	Async          bool                     `json:"async"`
+	AsyncResultUrl string                   `json:"asyncResultUrl"`
+	CloudType      string                   `json:"cloudType"`
+	Cursor         int                      `json:"cursor"`
+	Data           []map[string]interface{} `json:"data"`
+	Default        bool                     `json:"default"`
+	Description    string                   `json:"description"`
 	Filters        []struct {
 		Name     string `json:"name"`
 		Operator string `json:"operator"`
