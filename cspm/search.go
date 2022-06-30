@@ -4,7 +4,7 @@ import "github.com/thathaneydude/prisma-cloud-sdk/internal"
 
 const searchConfigEndpoint = "/search/config"
 
-func (c *CspmClient) SearchConfig(req ConfigSearchRequest) (*SearchConfigResponse, error) {
+func (c *CspmClient) SearchConfig(req SearchConfigRequest) (*SearchConfigResponse, error) {
 	var searchResponse SearchConfigResponse
 	err := c.postWithResponseInterface(searchConfigEndpoint, internal.ToBytes(req), &searchResponse)
 	if err != nil {
@@ -13,7 +13,7 @@ func (c *CspmClient) SearchConfig(req ConfigSearchRequest) (*SearchConfigRespons
 	return &searchResponse, nil
 }
 
-type ConfigSearchRequest struct {
+type SearchConfigRequest struct {
 	Id                string `json:"id"`
 	Limit             int    `json:"limit"`
 	Query             string `json:"query"`
