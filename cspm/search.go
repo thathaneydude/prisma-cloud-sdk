@@ -16,24 +16,24 @@ func (c *CspmClient) SearchConfig(req SearchConfigRequest) (*SearchConfigRespons
 }
 
 type SearchConfigRequest struct {
-	Id                string `json:"id"`
-	Limit             int    `json:"limit"`
-	Query             string `json:"query"`
-	SearchDescription string `json:"searchDescription"`
-	SearchName        string `json:"searchName"`
+	Id                string `json:"id,omitempty"`
+	Limit             int    `json:"limit,omitempty"`
+	Query             string `json:"query,omitempty"`
+	SearchDescription string `json:"searchDescription,omitempty"`
+	SearchName        string `json:"searchName,omitempty"`
 	Sort              []struct {
-		Direction string `json:"direction"`
-		Field     string `json:"field"`
-	} `json:"sort"`
+		Direction string `json:"direction,omitempty"`
+		Field     string `json:"field,omitempty"`
+	} `json:"sort,omitempty"`
 	TimeRange struct {
-		RelativeTimeType string `json:"relativeTimeType"`
-		Type             string `json:"type"`
+		RelativeTimeType string `json:"relativeTimeType,omitempty"`
+		Type             string `json:"type,omitempty"`
 		Value            struct {
-			Amount int    `json:"amount"`
-			Unit   string `json:"unit"`
-		} `json:"value"`
-	} `json:"timeRange"`
-	WithResourceJson bool `json:"withResourceJson"`
+			Amount int    `json:"amount,omitempty"`
+			Unit   string `json:"unit,omitempty"`
+		} `json:"value,omitempty"`
+	} `json:"timeRange,omitempty"`
+	WithResourceJson bool `json:"withResourceJson,omitempty"`
 }
 
 type SearchConfigResponse struct {
