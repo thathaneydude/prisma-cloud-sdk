@@ -9,6 +9,7 @@ const (
 	AuthHeader            = "x-redlock-auth"
 	SupportedAPIURLLink   = "https://prisma.pan.dev/api/cloud/api-urls"
 	DefaultSchema         = "https"
+	RequestIdHeader       = "X-Redlock-Request-Id"
 )
 
 var APIVersions = []string{"22.06", "22.01", "21.08", "1"}

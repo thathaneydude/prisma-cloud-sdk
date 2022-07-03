@@ -13,8 +13,7 @@ import (
 )
 
 const (
-	sleepDuration          = 5
-	redLockRequestIdHeader = "x-redlock-request-id"
+	sleepDuration = 5
 )
 
 type BaseClient struct {
@@ -40,10 +39,10 @@ func (c *BaseClient) DoWithRetry(req http.Request, currentAttempt int) (*http.Re
 		return nil, err
 	}
 	var respMsg string
-	if resp.Header.Get(redLockRequestIdHeader) != "" {
+	if resp.Header.Get(internal.RequestIdHeader) != "" {
 		respMsg = fmt.Sprintf("Response: Status [%v]", resp.Status)
 	} else {
-		respMsg = fmt.Sprintf("Response: Status [%v] Request-ID [%v]", resp.Status, resp.Header.Get(redLockRequestIdHeader))
+		respMsg = fmt.Sprintf("Response: Status [%v] Request-ID [%v]", resp.Status, resp.Header.Get(internal.RequestIdHeader))
 	}
 
 	logrus.Debugf(respMsg)
