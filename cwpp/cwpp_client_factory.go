@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
-	"golang.org/x/exp/slices"
 )
 
 type ClientOptions struct {
@@ -40,7 +39,14 @@ func buildBaseUrl(baseUrl string, apiVersion string) (string, error) {
 }
 
 func validateApiVersion(apiVersion string) (string, error) {
-	if !slices.Contains(internal.APIVersions, apiVersion) {
+	found := false
+	for _, allowedApiVersion := range internal.APIVersions {
+		if allowedApiVersion == apiVersion {
+			found = true
+			break
+		}
+	}
+	if found == false {
 		return "", &internal.GenericError{Msg: fmt.Sprintf("API version \"%v\" provided is not a valid option: %v", apiVersion, internal.APIVersions)}
 	}
 	return apiVersion, nil

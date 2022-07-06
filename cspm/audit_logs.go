@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	"golang.org/x/exp/slices"
 	"net/url"
 )
 
@@ -34,7 +33,15 @@ func (c *CspmClient) ListAuditLogs(q *AuditLogQuery) ([]AuditLog, error) {
 // NewAuditLogQuery creates a query used with ListAuditLogs
 func NewAuditLogQuery(timeAmount string, timeUnit string) (*AuditLogQuery, error) {
 	possibleUnits := []string{"minute", "hour", "day", "week", "month", "year"}
-	if !slices.Contains(possibleUnits, timeUnit) {
+	found := false
+	for _, unit := range possibleUnits {
+		if timeUnit == unit {
+			found = true
+			break
+		}
+	}
+
+	if found == false {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Incorrect time unit provided %v. Must be on of the following: %v", timeUnit, possibleUnits)}
 	}
 	return &AuditLogQuery{

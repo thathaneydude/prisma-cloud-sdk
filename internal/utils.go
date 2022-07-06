@@ -3,19 +3,18 @@ package internal
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/sirupsen/logrus"
 	"io"
 	"net/http"
 )
 
 // ToBytes is a generic utility which converts a struct to json bytes.
-func ToBytes[T any](obj T) []byte {
-	ret, err := json.Marshal(obj)
-	if err != nil {
-		logrus.Errorf("Failed to convert object to bytes: %v", err)
-	}
-	return ret
-}
+//func ToBytes[T any](obj T) []byte {
+//	ret, err := json.Marshal(obj)
+//	if err != nil {
+//		logrus.Errorf("Failed to convert object to bytes: %v", err)
+//	}
+//	return ret
+//}
 
 // UnmarshalResponse is a generic utility that reads a http response and attempts to unmarshal it to whatever
 // struct (interface) is provided

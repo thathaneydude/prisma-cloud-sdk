@@ -1,6 +1,7 @@
 package cspm
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/url"
@@ -28,7 +29,11 @@ func (c *CspmClient) ListAccountGroups(excludeCloudAccountDetails bool) ([]Accou
 // https://prisma.pan.dev/api/cloud/cspm/account-groups#operation/add-account-group
 func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupResponse, error) {
 	var accountGroupResp AccountGroupResponse
-	err := c.postWithResponseInterface(accountGroupsEndpoint, internal.ToBytes(accountGroup), &accountGroupResp)
+	marshalledRequest, err := json.Marshal(accountGroup)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal request body: %v", err)}
+	}
+	err = c.postWithResponseInterface(accountGroupsEndpoint, marshalledRequest, &accountGroupResp)
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +45,11 @@ func (c *CspmClient) AddAccountGroup(accountGroup AccountGroup) (*AccountGroupRe
 //
 // https://prisma.pan.dev/api/cloud/cspm/account-groups#operation/update-account-group
 func (c *CspmClient) UpdateAccountGroup(accountGroupId string, newAccountGroup AccountGroup) error {
-	_, err := c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), internal.ToBytes(newAccountGroup))
+	marshalledRequest, err := json.Marshal(newAccountGroup)
+	if err != nil {
+		return &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal request body: %v", err)}
+	}
+	_, err = c.Put(fmt.Sprintf("%v/%v", accountGroupsEndpoint, accountGroupId), marshalledRequest)
 	if err != nil {
 		return err
 	}

@@ -1,6 +1,8 @@
 package cspm
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 )
 
@@ -8,7 +10,11 @@ const searchConfigEndpoint = "/search/config"
 
 func (c *CspmClient) SearchConfig(req SearchConfigRequest) (*SearchConfigResponse, error) {
 	var searchResponse SearchConfigResponse
-	err := c.postWithResponseInterface(searchConfigEndpoint, internal.ToBytes(req), &searchResponse)
+	marshalledRequest, err := json.Marshal(req)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal request body: %v", err)}
+	}
+	err = c.postWithResponseInterface(searchConfigEndpoint, marshalledRequest, &searchResponse)
 	if err != nil {
 		return nil, err
 	}

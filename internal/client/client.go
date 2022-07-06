@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	"golang.org/x/exp/slices"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -81,7 +80,14 @@ func (c *BaseClient) DoWithRetry(req http.Request, currentAttempt int) (*http.Re
 }
 
 func (c *BaseClient) BuildRequest(baseUrl string, method string, endpoint string, params url.Values, data []byte) (*http.Request, error) {
-	if !slices.Contains(internal.SupportedHttpMethods, method) {
+	found := false
+	for _, supportedHttpMethod := range internal.SupportedHttpMethods {
+		if method == supportedHttpMethod {
+			found = true
+			break
+		}
+	}
+	if found == false {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Improper HTTP method provided: %v", method)}
 	}
 

@@ -1,6 +1,7 @@
 package cspm
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 )
@@ -28,7 +29,11 @@ func (c *CspmClient) ListUsersV3() ([]UserV3, error) {
 // https://prisma.pan.dev/api/cloud/cspm/user-profile#operation/add-user-v3
 func (c *CspmClient) AddUserV3(req AddUserV3Request) (*AddUserV3Response, error) {
 	var addUserV3 AddUserV3Response
-	err := c.postWithResponseInterface(listUserV3Endpoint, internal.ToBytes(req), &addUserV3)
+	marshalledRequest, err := json.Marshal(req)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal request body: %v", err)}
+	}
+	err = c.postWithResponseInterface(listUserV3Endpoint, marshalledRequest, &addUserV3)
 	if err != nil {
 		return nil, err
 	}

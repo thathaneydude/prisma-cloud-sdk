@@ -1,6 +1,7 @@
 package cwpp
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
@@ -25,7 +26,11 @@ func (c *CwppClient) Authenticate(username string, password string) (*Authentica
 	}
 
 	var authResponse AuthenticateResponse
-	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPost, authenticateEndpoint, nil, internal.ToBytes(authRequest))
+	marshalledRequest, err := json.Marshal(authRequest)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal login request body: %v", err)}
+	}
+	req, err := c.baseClient.BuildRequest(c.consoleUrl, http.MethodPost, authenticateEndpoint, nil, marshalledRequest)
 	resp, err := c.baseClient.Do(*req)
 	if err != nil {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to authenticate: %v", err.Error())}

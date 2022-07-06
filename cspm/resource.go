@@ -1,12 +1,20 @@
 package cspm
 
-import "github.com/thathaneydude/prisma-cloud-sdk/internal"
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
+)
 
 const resourceEndpoint = "/resource"
 
 func (c *CspmClient) GetResource(rrn string) (*Resource, error) {
 	var resource Resource
-	err := c.postWithResponseInterface(resourceEndpoint, internal.ToBytes(&ResourceRequest{Rrn: rrn}), &resource)
+	marshalledRequest, err := json.Marshal(&ResourceRequest{Rrn: rrn})
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal request body: %v", err)}
+	}
+	err = c.postWithResponseInterface(resourceEndpoint, marshalledRequest, &resource)
 	if err != nil {
 		return nil, err
 	}

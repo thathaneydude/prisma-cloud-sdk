@@ -1,6 +1,8 @@
 package cspm
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 )
 
@@ -11,7 +13,11 @@ const loginEndpoint = "/login"
 // https://prisma.pan.dev/api/cloud/cspm/login#operation/app-login
 func (c *CspmClient) Login(loginReq *LoginRequest) (*LoginResponse, error) {
 	var loginResponse LoginResponse
-	err := c.postWithResponseInterface(loginEndpoint, internal.ToBytes(loginReq), &loginResponse)
+	marshalledRequest, err := json.Marshal(loginReq)
+	if err != nil {
+		return nil, &internal.GenericError{Msg: fmt.Sprintf("Failed to marshal login request body: %v", err)}
+	}
+	err = c.postWithResponseInterface(loginEndpoint, marshalledRequest, &loginResponse)
 	if err != nil {
 		return nil, &internal.GenericError{Msg: err.Error()}
 	}

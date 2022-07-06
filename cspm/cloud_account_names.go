@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/gorilla/schema"
 	"github.com/thathaneydude/prisma-cloud-sdk/internal"
-	"golang.org/x/exp/slices"
 	"net/url"
 )
 
@@ -31,9 +30,17 @@ func (c *CspmClient) ListCloudAccountNames(query ListCloudAccountNamesQuery) ([]
 
 // NewListCloudAccountNamesQuery creates a query for use with ListCloudAccountNames
 func NewListCloudAccountNamesQuery(onlyActive bool, amountGroupIds []string, cloudType string) (*ListCloudAccountNamesQuery, error) {
-	if !slices.Contains(internal.CloudTypes, cloudType) {
+	found := false
+	for _, allowedCloudType := range internal.CloudTypes {
+		if cloudType == allowedCloudType {
+			found = true
+			break
+		}
+	}
+	if found == false {
 		return nil, &internal.GenericError{Msg: fmt.Sprintf("Cloud type %v provided is not supported. Must be one of the following: %v", cloudType, internal.CloudTypes)}
 	}
+
 	return &ListCloudAccountNamesQuery{
 		OnlyActive:     onlyActive,
 		AmountGroupIds: amountGroupIds,
