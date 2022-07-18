@@ -1,10 +1,11 @@
 package cwpp
 
 import (
-	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+
+	"github.com/sirupsen/logrus"
 )
 
 var (

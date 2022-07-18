@@ -1,10 +1,11 @@
 package cspm
 
 import (
-	"github.com/stretchr/testify/assert"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 )
 
 func TestCspmClient_ListAccountGroups(t *testing.T) {
