@@ -1,0 +1,855 @@
+[
+    {
+        "_id": "testname1",
+        "type": "image",
+        "hostname": "",
+        "scanTime": "2022-07-19T14:45:42.989Z",
+        "binaries": [
+            {
+                "name": "bash",
+                "path": "/bin/bash",
+                "md5": "ac56f4b8fac5739ccdb45777d313becf",
+                "cveCount": 0
+            },
+            {
+                "name": "bunzip2",
+                "path": "/bin/bunzip2",
+                "md5": "586dacc0caf2deadb746c452b2a2781d",
+                "cveCount": 0
+            },
+            {
+                "name": "bzcat",
+                "path": "/bin/bzcat",
+                "md5": "586dacc0caf2deadb746c452b2a2781d",
+                "cveCount": 0
+            }
+            
+        ],
+        "Secrets": [
+            "/etc/ssl/private/ssl-cert-snakeoil.key"
+        ],
+        "startupBinaries": [],
+        "osDistro": "debian",
+        "osDistroVersion": "9.5",
+        "osDistroRelease": "stretch",
+        "distro": "Debian GNU/Linux 9 (stretch)",
+        "packages": [
+            {
+                "pkgsType": "package",
+                "pkgs": [
+                    {
+                        "version": "6.11-1",
+                        "name": "libhttp-message-perl",
+                        "cveCount": 0,
+                        "license": "Artistic or GPL-1+",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "3.1.2-1+deb9u1",
+                        "name": "rsync",
+                        "cveCount": 213,
+                        "license": "GPL-3",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "1.05-1",
+                        "name": "libencode-locale-perl",
+                        "cveCount": 0,
+                        "license": "Artistic or GPL-1+",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "2018e-0+deb9u1",
+                        "name": "tzdata",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    
+                    
+                    
+                    {
+                        "version": "4.4-5",
+                        "name": "bash",
+                        "cveCount": 139,
+                        "license": "GPL-3",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "2.37-1",
+                        "name": "libterm-readkey-perl",
+                        "cveCount": 0,
+                        "license": "Artistic or GPL-1+",
+                        "layerTime": 0
+                    }
+               
+                ]
+            }
+        ],
+        "files": [],
+        "packageManager": true,
+        "applications": [
+            {
+                "name": "apache2",
+                "version": "2.4.25",
+                "path": "/usr/sbin/apache2",
+                "layerTime": 0,
+                "knownVulnerabilities": 61
+            },
+            {
+                "name": "go",
+                "version": "1.17.6",
+                "path": "/managed-agents/execute-command/amazon-ssm-agent",
+                "layerTime": 0,
+                "knownVulnerabilities": 58
+            },
+            {
+                "name": "go",
+                "version": "1.17.6",
+                "path": "/managed-agents/execute-command/ssm-agent-worker",
+                "layerTime": 0,
+                "knownVulnerabilities": 58
+            },
+            {
+                "name": "go",
+                "version": "1.17.6",
+                "path": "/managed-agents/execute-command/ssm-session-worker",
+                "layerTime": 0,
+                "knownVulnerabilities": 58
+            }
+        ],
+        "isARM64": false,
+        "image": {
+            "created": "0001-01-01T00:00:00Z"
+        },
+        "history": [],
+        "id": "sha256:dae203fe11646a86937bf04db0079adef295f426da68a92b40e3b181f337daa7",
+        "complianceIssues": [
+            {
+                "text": "",
+                "id": 425,
+                "severity": "high",
+                "cvss": 0,
+                "status": "",
+                "cve": "",
+                "cause": "Found: /etc/ssl/private/ssl-cert-snakeoil.key",
+                "description": "",
+                "title": "Private keys stored in image",
+                "vecStr": "",
+                "exploit": "",
+                "riskFactors": null,
+                "link": "",
+                "type": "image",
+                "packageName": "",
+                "packageVersion": "",
+                "layerTime": 0,
+                "templates": [
+                    "NIST SP 800-190",
+                    "GDPR"
+                ],
+                "twistlock": true,
+                "cri": false,
+                "published": 0,
+                "fixDate": 0,
+                "discovered": "0001-01-01T00:00:00Z",
+                "functionLayer": ""
+            }
+        ],
+        "allCompliance": {},
+        "vulnerabilities": [
+            {
+                "text": "",
+                "id": 46,
+                "severity": "critical",
+                "cvss": 9.8,
+                "status": "fixed in 3.1.2-1+deb9u2",
+                "cve": "CVE-2016-9843",
+                "cause": "",
+                "description": "The crc32_big function in crc32.c in zlib 1.2.8 might allow context-dependent attackers to have unspecified impact via vectors involving big-endian CRC calculation.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack complexity: low": {},
+                    "Attack vector: network": {},
+                    "Critical severity": {},
+                    "Has fix": {}
+                },
+                "link": "https://security-tracker.debian.org/tracker/CVE-2016-9843",
+                "type": "image",
+                "packageName": "rsync",
+                "packageVersion": "3.1.2-1+deb9u1",
+                "layerTime": 0,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1495513740,
+                "fixDate": 1495513740,
+                "applicableRules": [
+                    "<3.1.2-1+deb9u2"
+                ],
+                "discovered": "2021-10-17T13:01:31Z",
+                "vulnTagInfos": [
+                    {
+                        "name": "Prod Allowed",
+                        "color": "#DAC8EC"
+                    }
+                ],
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": 46,
+                "severity": "high",
+                "cvss": 8.8,
+                "status": "fixed in 3.1.2-1+deb9u2",
+                "cve": "CVE-2016-9842",
+                "cause": "",
+                "description": "The inflateMark function in inflate.c in zlib 1.2.8 might allow context-dependent attackers to have unspecified impact via vectors involving left shifts of negative integers.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack complexity: low": {},
+                    "Attack vector: network": {},
+                    "Has fix": {},
+                    "High severity": {}
+                },
+                "link": "https://security-tracker.debian.org/tracker/CVE-2016-9842",
+                "type": "image",
+                "packageName": "rsync",
+                "packageVersion": "3.1.2-1+deb9u1",
+                "layerTime": 0,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1495513740,
+                "fixDate": 1495513740,
+                "applicableRules": [
+                    "<3.1.2-1+deb9u2"
+                ],
+                "discovered": "2021-10-17T13:01:31Z",
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": 46,
+                "severity": "critical",
+                "cvss": 9.8,
+                "status": "fixed in 3.1.2-1+deb9u2",
+                "cve": "CVE-2016-9841",
+                "cause": "",
+                "description": "inffast.c in zlib 1.2.8 might allow context-dependent attackers to have unspecified impact by leveraging improper pointer arithmetic.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack complexity: low": {},
+                    "Attack vector: network": {},
+                    "Critical severity": {},
+                    "Has fix": {}
+                },
+                "link": "https://security-tracker.debian.org/tracker/CVE-2016-9841",
+                "type": "image",
+                "packageName": "rsync",
+                "packageVersion": "3.1.2-1+deb9u1",
+                "layerTime": 0,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1495513740,
+                "fixDate": 1495513740,
+                "applicableRules": [
+                    "<3.1.2-1+deb9u2"
+                ],
+                "discovered": "2021-10-17T13:01:31Z",
+                "vulnTagInfos": [
+                    {
+                        "name": "Prod Allowed",
+                        "color": "#DAC8EC"
+                    }
+                ],
+                "functionLayer": ""
+            }
+        ],
+        "repoTag": {
+            "registry": "",
+            "repo": "vulnerables/web-dvwa",
+            "tag": ""
+        },
+        "tags": [
+            {
+                "registry": "",
+                "repo": "vulnerables/web-dvwa",
+                "tag": ""
+            },
+            {
+                "registry": "",
+                "repo": "vulnerables/web-dvwa",
+                "tag": "latest"
+            }
+        ],
+        "repoDigests": [],
+        "creationTime": "0001-01-01T00:00:00Z",
+        "vulnerabilitiesCount": 552,
+        "complianceIssuesCount": 1,
+        "vulnerabilityDistribution": {
+            "critical": 68,
+            "high": 158,
+            "medium": 142,
+            "low": 184,
+            "total": 552
+        },
+        "complianceDistribution": {
+            "critical": 0,
+            "high": 1,
+            "medium": 0,
+            "low": 0,
+            "total": 1
+        },
+        "vulnerabilityRiskScore": 69594380,
+        "complianceRiskScore": 10000,
+        "riskFactors": {
+            "Attack complexity: low": {},
+            "Attack vector: network": {},
+            "Critical severity": {},
+            "DoS": {},
+            "Exploit exists": {},
+            "Has fix": {},
+            "High severity": {},
+            "Medium severity": {},
+            "Recent vulnerability": {},
+            "Remote execution": {}
+        },
+        "installedProducts": {
+            "osDistro": "Debian GNU/Linux 9 (stretch)",
+            "hasPackageManager": true
+        },
+        "scanVersion": "22.01.882",
+        "firstScanTime": "2021-10-17T13:01:31.281Z",
+        "cloudMetadata": {
+            "resourceID": "testid1",
+            "provider": "aws",
+            "name": "dvwa-app",
+            "region": "us-east-1",
+            "accountID": "testid1",
+            "image": "testimage"
+        },
+        "instances": [
+            {
+                "image": "vulnerables/web-dvwa",
+                "host": "ses-dvwa-task:44893f33ef3549a897e2fc14c2488a11",
+                "modified": "2022-07-19T14:45:42.989Z",
+                "tag": "",
+                "repo": "vulnerables/web-dvwa",
+                "registry": ""
+            }
+        ],
+        "hosts": {
+            "ses-dvwa-task:44893f33ef3549a897e2fc14c2488a11": {
+                "modified": "2022-07-19T14:45:42.989Z",
+                "appEmbedded": true,
+                "accountID": "575079478080"
+            }
+        },
+        "err": "",
+        "collections": [
+           
+            "test1",
+            "test2",
+            "test3"
+         
+        ],
+        "scanID": 0,
+        "trustStatus": "trusted",
+        "firewallProtection": {
+            "enabled": false,
+            "supported": false,
+            "outOfBandMode": ""
+        },
+        "appEmbedded": true,
+        "wildFireUsage": null,
+        "agentless": false
+    },
+    {
+        "_id": "testname2",
+        "type": "image",
+        "hostname": "",
+        "scanTime": "2022-07-19T17:50:13.817Z",
+        "binaries": [
+            {
+                "name": "busybox",
+                "path": "/bin/busybox",
+                "md5": "cf3b387ce2fd0304bb34b8662a2b1494",
+                "version": "1.24.2",
+                "cveCount": 0
+            },
+            {
+                "name": "apk",
+                "path": "/sbin/apk",
+                "md5": "ec1352838ccdb55c70d0972154d2bb72",
+                "cveCount": 0
+            },
+            {
+                "name": "mkmntdirs",
+                "path": "/sbin/mkmntdirs",
+                "md5": "dd58a431d3709ce1cb02a7ca4ecf6b1a",
+                "cveCount": 0
+            }
+          
+        ],
+        "osDistro": "alpine",
+        "osDistroVersion": "3.4.6",
+        "osDistroRelease": "3.4.6",
+        "distro": "Alpine Linux v3.4",
+        "packages": [
+            {
+                "pkgsType": "package",
+                "pkgs": [
+                    {
+                        "version": "2.25-r0",
+                        "name": "libcap",
+                        "cveCount": 0,
+                        "license": "GPL",
+                        "layerTime": 1488547087
+                    },
+                    {
+                        "version": "1.1.1-r3",
+                        "name": "alsa-lib",
+                        "cveCount": 5,
+                        "license": "LGPL2+",
+                        "layerTime": 1482863922
+                    }, 
+                    {
+                        "version": "5.3.0-r0",
+                        "name": "gcc",
+                        "binaryPkgs": [
+                            "libgcc"
+                        ],
+                        "cveCount": 57,
+                        "license": "GPL LGPL",
+                        "layerTime": 1482863922
+                    }
+                ]
+            },
+            {
+                "pkgsType": "jar",
+                "pkgs": [
+                    {
+                        "version": "1.6.1.RELEASE",
+                        "name": "spring-rabbit",
+                        "path": "/usr/src/app/app.jar/spring-rabbit-1.6.1.RELEASE.jar",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 1488549662
+                    },
+                    {
+                        "version": "1.7.21",
+                        "name": "org.slf4j_log4j-over-slf4j",
+                        "path": "/usr/src/app/app.jar/log4j-over-slf4j-1.7.21.jar",
+                        "cveCount": 0,
+                        "license": "Apache Software Licenses",
+                        "layerTime": 1488549662
+                    },
+                    {
+                        "version": "4.1.0.CR3",
+                        "name": "io.netty_netty-transport",
+                        "path": "/usr/src/app/app.jar/netty-transport-4.1.0.CR3.jar",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 1488549662
+                    },
+                    {
+                        "version": "1.10",
+                        "name": "commons-codec_commons-codec",
+                        "path": "/usr/src/app/app.jar/commons-codec-1.10.jar",
+                        "cveCount": 1,
+                        "license": "",
+                        "layerTime": 1488549662
+                    }
+                    
+                ]
+            }
+        ],
+        "files": [],
+        "packageManager": true,
+        "applications": [
+            {
+                "name": "busybox",
+                "version": "1.24.2",
+                "path": "/bin/busybox",
+                "layerTime": 1482862633,
+                "knownVulnerabilities": 28
+            },
+            {
+                "name": "java",
+                "version": "1.8.0_111",
+                "path": "/usr/lib/jvm/java-1.8-openjdk/bin/java",
+                "layerTime": 1482862633,
+                "knownVulnerabilities": 826
+            },
+            {
+                "name": "java",
+                "version": "1.8.0_111",
+                "path": "/usr/lib/jvm/java-1.8-openjdk/jre/bin/java",
+                "layerTime": 1482862633,
+                "knownVulnerabilities": 826
+            }
+        ],
+        "isARM64": false,
+        "image": {
+            "entrypoint": [
+                "/usr/local/bin/java.sh",
+                "-jar",
+                "./app.jar",
+                "--port=80"
+            ],
+            "created": "2017-03-03T14:01:02.961Z"
+        },
+        "history": [
+            {
+                "created": 1482862633,
+                "instruction": "ADD file:eeed5f514a35d18fcd9cbfe6c40c582211020bffdd53e4799018d33826fe5067 in / ",
+                "sizeBytes": 4802964,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1482863874,
+                "instruction": "ENV LANG=C.UTF-8",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1482863875,
+                "instruction": "RUN { \t\techo '#!/bin/sh'; \t\techo 'set -e'; \t\techo; \t\techo 'dirname \"$(dirname \"$(readlink -f \"$(which javac || which java)\")\")\"'; \t} > /usr/local/bin/docker-java-home \t&& chmod +x /usr/local/bin/docker-java-home",
+                "sizeBytes": 87,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1482863915,
+                "instruction": "ENV JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1482863916,
+                "instruction": "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/lib/jvm/java-1.8-openjdk/jre/bin:/usr/lib/jvm/java-1.8-openjdk/bin",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1482863916,
+                "instruction": "ENV JAVA_VERSION=8u111",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1482863917,
+                "instruction": "ENV JAVA_ALPINE_VERSION=8.111.14-r0",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1482863922,
+                "instruction": "RUN set -x \t&& apk add --no-cache \t\topenjdk8=\"$JAVA_ALPINE_VERSION\" \t&& [ \"$JAVA_HOME\" = \"$(docker-java-home)\" ]",
+                "sizeBytes": 140214250,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1488547086,
+                "instruction": "ENV SERVICE_USER=myuser SERVICE_UID=10001 SERVICE_GROUP=mygroup SERVICE_GID=10001",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1488547087,
+                "instruction": "RUN addgroup -g ${SERVICE_GID} ${SERVICE_GROUP} && \tadduser -g \"${SERVICE_NAME} user\" -D -H -G ${SERVICE_GROUP} -s /sbin/nologin -u ${SERVICE_UID} ${SERVICE_USER} && \tapk add --update libcap && \tmkdir /lib64 && \tln -s /usr/lib/jvm/java-1.8-openjdk/jre/lib/amd64/server/libjvm.so /lib/libjvm.so && \tln -s /usr/lib/jvm/java-1.8-openjdk/lib/amd64/jli/libjli.so /lib/libjli.so && \tsetcap 'cap_net_bind_service=+ep' $(readlink -f $(which java))",
+                "sizeBytes": 922075,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1488547087,
+                "instruction": "COPY file:791a724c5a7efd4243653d2d4989517f5777b06eb0e7c4a462deb753476b86d0 in /usr/local/bin/java.sh ",
+                "sizeBytes": 29,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1488547088,
+                "instruction": "RUN chmod +x /usr/local/bin/java.sh",
+                "sizeBytes": 29,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1488547088,
+                "instruction": "ARG BUILD_DATE",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1488547088,
+                "instruction": "ARG BUILD_VERSION",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1488547088,
+                "instruction": "ARG COMMIT",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1488549661,
+                "instruction": "WORKDIR /usr/src/app",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "created": 1488549662,
+                "instruction": "COPY file:912ccdd7c039dcb9ce5ad6b7d938f7c7fdc2de3028e8318a2a42378ecbf3f350 in ./app.jar ",
+                "sizeBytes": 32569141,
+                "id": "<missing>",
+                "emptyLayer": false
+            },
+            {
+                "created": 1488549662,
+                "instruction": "ENV JAVA_OPTS=-Djava.security.egd=file:/dev/urandom",
+                "id": "<missing>",
+                "emptyLayer": true
+            },
+            {
+                "tags": [
+                    "weaveworksdemos/queue-master:0.3.1"
+                ],
+                "created": 1488549662,
+                "instruction": "ENTRYPOINT [\"/usr/local/bin/java.sh\" \"-jar\" \"./app.jar\" \"--port=80\"]",
+                "id": "sha256:76f0de7a12acaa2bdbda36d1b7ddd0ec42204e9c0f4e8c59c329f07336cfa2dc",
+                "emptyLayer": true
+            }
+        ],
+        "id": "sha256:76f0de7a12acaa2bdbda36d1b7ddd0ec42204e9c0f4e8c59c329f07336cfa2dc",
+        "complianceIssues": [
+            {
+                "text": "",
+                "id": 406,
+                "severity": "medium",
+                "cvss": 0,
+                "status": "",
+                "cve": "",
+                "cause": "",
+                "description": "One of the important security triads is availability. Adding HEALTHCHECK instruction to your\ncontainer image ensures that the docker engine periodically checks the running container\ninstances against that instruction to ensure that the instances are still working",
+                "title": "(CIS_Docker_v1.3.1 - 4.6) Add HEALTHCHECK instruction to the container image",
+                "vecStr": "",
+                "exploit": "",
+                "riskFactors": null,
+                "link": "",
+                "type": "image",
+                "packageName": "",
+                "packageVersion": "",
+                "layerTime": 0,
+                "templates": [
+                    "GDPR",
+                    "DISA STIG"
+                ],
+                "twistlock": false,
+                "cri": false,
+                "published": 0,
+                "fixDate": 0,
+                "discovered": "0001-01-01T00:00:00Z",
+                "functionLayer": ""
+            }
+        ],
+        "allCompliance": {},
+        "vulnerabilities": [
+            {
+                "text": "",
+                "id": 47,
+                "severity": "medium",
+                "cvss": 6.1,
+                "status": "fixed in 6.0.18",
+                "cve": "CVE-2019-10219",
+                "cause": "",
+                "description": "A vulnerability was found in Hibernate-Validator. The SafeHtml validator annotation fails to properly sanitize payloads consisting of potentially malicious code in HTML comments and instructions. This vulnerability can result in an XSS attack.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack complexity: low": {},
+                    "Attack vector: network": {},
+                    "Has fix": {},
+                    "Medium severity": {}
+                },
+                "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-10219",
+                "type": "image",
+                "packageName": "org.hibernate_hibernate-validator",
+                "packageVersion": "5.2.4.Final",
+                "layerTime": 1488549662,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1573226100,
+                "fixDate": 1573226100,
+                "applicableRules": [
+                    "<6.0.18"
+                ],
+                "discovered": "2021-12-16T21:19:21Z",
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": 47,
+                "severity": "high",
+                "cvss": 7,
+                "status": "fixed in 5.2.5",
+                "cve": "CVE-2017-7536",
+                "cause": "",
+                "description": "In Hibernate Validator 5.2.x before 5.2.5 final, 5.3.x, and 5.4.x, it was found that when the security manager\\'s reflective permissions, which allows it to access the private members of the class, are granted to Hibernate Validator, a potential privilege escalation can occur. By allowing the calling code to access those private members without the permission an attacker may be able to validate an invalid instance and access the private member value via ConstraintViolation#getInvalidValue().",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Has fix": {},
+                    "High severity": {}
+                },
+                "link": "https://nvd.nist.gov/vuln/detail/CVE-2017-7536",
+                "type": "image",
+                "packageName": "org.hibernate_hibernate-validator",
+                "packageVersion": "5.2.4.Final",
+                "layerTime": 1488549662,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1515598140,
+                "fixDate": 1515598140,
+                "applicableRules": [
+                    "<5.2.5,5.2",
+                    ">=5.2.0,5.2"
+                ],
+                "discovered": "2021-12-16T21:19:21Z",
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": 47,
+                "severity": "critical",
+                "cvss": 9.8,
+                "status": "fixed in 2.8.9, 2.7.9.1, 2.6.7.1",
+                "cve": "CVE-2017-7525",
+                "cause": "",
+                "description": "A deserialization flaw was discovered in the jackson-databind, versions before 2.6.7.1, 2.7.9.1 and 2.8.9, which could allow an unauthenticated user to perform code execution by sending the maliciously crafted input to the readValue method of the ObjectMapper.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack complexity: low": {},
+                    "Attack vector: network": {},
+                    "Critical severity": {},
+                    "Has fix": {}
+                },
+                "link": "https://nvd.nist.gov/vuln/detail/CVE-2017-7525",
+                "type": "image",
+                "packageName": "com.fasterxml.jackson.core_jackson-databind",
+                "packageVersion": "2.8.1",
+                "layerTime": 1488549662,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1517930940,
+                "fixDate": 1517930940,
+                "applicableRules": [
+                    "<2.8.9,2.8",
+                    ">=2.8.0,2.8"
+                ],
+                "discovered": "2021-12-16T21:19:21Z",
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": 47,
+                "severity": "high",
+                "cvss": 8.1,
+                "status": "fixed in 2.9.10.8",
+                "cve": "CVE-2020-35490",
+                "cause": "",
+                "description": "FasterXML jackson-databind 2.x before 2.9.10.8 mishandles the interaction between serialization gadgets and typing, related to org.apache.commons.dbcp2.datasources.PerUserPoolDataSource.",
+                "title": "",
+                "vecStr": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                "exploit": "",
+                "riskFactors": {
+                    "Attack vector: network": {},
+                    "Has fix": {},
+                    "High severity": {}
+                },
+                "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-35490",
+                "type": "image",
+                "packageName": "com.fasterxml.jackson.core_jackson-databind",
+                "packageVersion": "2.8.1",
+                "layerTime": 1488549662,
+                "templates": null,
+                "twistlock": false,
+                "cri": false,
+                "published": 1608232500,
+                "fixDate": 1608232500,
+                "applicableRules": [
+                    "<2.9.10.8",
+                    ">=2.0.0"
+                ],
+                "discovered": "2021-12-16T21:19:21Z",
+                "functionLayer": ""
+            }
+           
+        ],
+        "clusters": [
+            "testcluster1",
+            "testcluster2",
+            "testcluster3"
+        ],
+        "instances": [
+            {
+                "image": "testimage",
+                "host": "ip-192-168-21-85.ec2.internal",
+                "modified": "2022-07-19T17:50:13.817Z",
+                "tag": "0.3.1",
+                "repo": "weaveworksdemos/queue-master",
+                "registry": ""
+            }
+        ],
+        "hosts": {
+            "ip-172-31-28-31.ec2.internal-i-0780e685f1b25a1f5": {
+                "modified": "2022-07-19T17:50:13.816Z",
+                "accountID": "886388100502"
+            },
+            "ip-192-168-21-85.ec2.internal": {
+                "modified": "2022-07-19T17:50:13.817Z",
+                "cluster": "SteBrown-EKS-Lab",
+                "namespaces": [
+                    "sock-shop"
+                ],
+                "accountID": "101145995244"
+            }
+        },
+        "err": "",
+        "collections": [
+            
+            "test1",
+            "test2",
+            "test3"
+     
+        ],
+        "scanID": 0,
+        "trustStatus": "untrusted",
+        "firewallProtection": {
+            "enabled": false,
+            "supported": false,
+            "outOfBandMode": ""
+        },
+        "appEmbedded": false,
+        "wildFireUsage": null,
+        "agentless": false
+    }
+]

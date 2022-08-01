@@ -1,0 +1,119 @@
+[
+    {
+        "hosts": [
+            "*"
+        ],
+        "images": [
+            "*"
+        ],
+        "labels": [
+            "*"
+        ],
+        "containers": [
+            "*"
+        ],
+        "functions": [
+            "*"
+        ],
+        "namespaces": [
+            "*"
+        ],
+        "appIDs": [
+            "*"
+        ],
+        "accountIDs": [
+            "testid1"
+        ],
+        "codeRepos": [
+            "*"
+        ],
+        "clusters": [
+            "*"
+        ],
+        "name": "test1",
+        "owner": "system",
+        "modified": "2021-01-31T08:41:10.697Z",
+        "color": "#000000",
+        "description": "System - cloud account test1 collection",
+        "system": true,
+        "prisma": false
+    },
+    {
+        "hosts": [
+            "*"
+        ],
+        "images": [
+            "*"
+        ],
+        "labels": [
+            "*"
+        ],
+        "containers": [
+            "*"
+        ],
+        "functions": [
+            "*"
+        ],
+        "namespaces": [
+            "*"
+        ],
+        "appIDs": [
+            "*"
+        ],
+        "accountIDs": [
+            "testid2"
+        ],
+        "codeRepos": [
+            "*"
+        ],
+        "clusters": [
+            "*"
+        ],
+        "name": "test2",
+        "owner": "system",
+        "modified": "2021-01-31T08:41:10.697Z",
+        "color": "#000000",
+        "description": "System - cloud account test2 collection",
+        "system": true,
+        "prisma": false
+    },
+    {
+        "hosts": [
+            "*"
+        ],
+        "images": [
+            "*"
+        ],
+        "labels": [
+            "*"
+        ],
+        "containers": [
+            "*"
+        ],
+        "functions": [
+            "*"
+        ],
+        "namespaces": [
+            "*"
+        ],
+        "appIDs": [
+            "*"
+        ],
+        "accountIDs": [
+            "testid3"
+        ],
+        "codeRepos": [
+            "*"
+        ],
+        "clusters": [
+            "*"
+        ],
+        "name": "test3",
+        "owner": "system",
+        "modified": "2021-01-31T08:41:10.697Z",
+        "color": "#000000",
+        "description": "System - cloud account test3 collection",
+        "system": true,
+        "prisma": false
+    }
+]

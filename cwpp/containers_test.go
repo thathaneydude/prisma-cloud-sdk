@@ -39,8 +39,8 @@ func TestCwppClient_ListContainers(t *testing.T) {
 
 	assert.Nil(t, err)
 	assert.Equal(t, 2, len(listResponse))
-	assert.Equal(t, "63cd10f066d4b4d6adb657a1ebe8f5478a88045549b607923c18a08e984a547b", listResponse[0].ID)
-	assert.Equal(t, "k8s_gce-pd-driver_pdcsi-node-klcrd_kube-system_a04f0156-558b-41a6-9d7e-8ebae60ada6f_0", listResponse[0].Info.Name)
+	assert.Equal(t, "testid1", listResponse[0].ID)
+	assert.Equal(t, "testname1", listResponse[0].Info.Name)
 	assert.Equal(t, 11, listResponse[1].Info.ComplianceIssuesCount)
 	assert.Equal(t, "annotation.io.kubernetes.pod.terminationGracePeriod:30", listResponse[1].Info.Labels[0])
 }

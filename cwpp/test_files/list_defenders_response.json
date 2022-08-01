@@ -1,0 +1,188 @@
+[
+    {
+        "hostname": "testname1",
+        "version": "22.06.184",
+        "lastModified": "2022-07-12T17:31:07.611Z",
+        "type": "serverWindows",
+        "category": "host",
+        "connected": true,
+        "features": {
+            "proxyListenerType": "none"
+        },
+        "status": {
+            "lastModified": "0001-01-01T00:00:00Z",
+            "filesystem": {},
+            "network": {},
+            "appFirewall": {
+                "enabled": true
+            },
+            "containerNetworkFirewall": {},
+            "hostNetworkFirewall": {},
+            "features": {},
+            "hostCustomCompliance": {}
+        },
+        "fqdn": "test1",
+        "collections": [
+            "test1",
+            "test2",
+            "test3"
+        ],
+        "cloudMetadata": {
+            "resourceID": "testid",
+            "provider": "aws",
+            "type": "t3a.medium",
+            "region": "us-east-2",
+            "accountID": "test1",
+            "image": "ami-0d74628ef4e6ed5b6",
+            "labels": [
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "Name",
+                    "value": "demo-vpc-ng-b56f569d-Node"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "alpha.eksctl.io/nodegroup-name",
+                    "value": "ng-b56f569d"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "alpha.eksctl.io/nodegroup-type",
+                    "value": "managed"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "aws:autoscaling:groupName",
+                    "value": "eks-ccbd1a32-c94f-99e4-7b50-68aa5695bb49"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "aws:ec2:fleet-id",
+                    "value": "fleet-44f7297f-f480-ce54-2c18-2b28771779f3"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "aws:ec2launchtemplate:id",
+                    "value": "lt-0f049de76cf0ed309"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "aws:ec2launchtemplate:version",
+                    "value": "1"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "eks:cluster-name",
+                    "value": "demo-vpc"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "eks:nodegroup-name",
+                    "value": "ng-b56f569d"
+                },
+                {
+                    "sourceType": "aws",
+                    "sourceName": "i-05812a1db5510bcf5",
+                    "timestamp": "2022-06-17T15:40:09.745Z",
+                    "key": "k8s.io/cluster-autoscaler/enabled",
+                    "value": "true"
+                }
+            ]
+        },
+        "clusterID": "ff642ddf-6350-3b8d-e404-59446620dc7f",
+        "cluster": "demo-vpc",
+        "certificateExpiration": "2122-06-25T18:23:24.556Z",
+        "systemInfo": {
+            "cpuCount": 2,
+            "kernelVersion": "5.4.117-58.216.amzn2.x86_64",
+            "totalDiskSpaceGB": 79,
+            "freeDiskSpaceGB": 41,
+            "memoryGB": 3.7958145141601562
+        },
+        "remoteMgmtSupported": false,
+        "remoteLoggingSupported": true,
+        "firewallProtection": {
+            "enabled": false,
+            "supported": false,
+            "outOfBandMode": ""
+        },
+        "proxy": {
+            "httpProxy": "",
+            "noProxy": "",
+            "ca": "",
+            "user": "",
+            "password": {
+                "encrypted": ""
+            }
+        },
+        "port": 443,
+        "compatibleVersion": true,
+        "usingOldCA": false,
+        "isARM64": false
+    },
+    {
+        "hostname": "testname2",
+        "version": "21.08.525",
+        "lastModified": "2022-07-19T17:57:25.627Z",
+        "type": "serverless",
+        "category": "serverless",
+        "connected": false,
+        "features": {
+            "proxyListenerType": ""
+        },
+        "status": {
+            "lastModified": "0001-01-01T00:00:00Z"
+        },
+        "fqdn": "test2",
+        "collections": [
+          
+            "test1",
+            "test2",
+            "test3"
+         
+        ],
+        "cloudMetadata": {
+            "provider": "aws"
+        },
+        "certificateExpiration": "0001-01-01T00:00:00Z",
+        "systemInfo": {},
+        "remoteMgmtSupported": false,
+        "remoteLoggingSupported": false,
+        "firewallProtection": {
+            "enabled": true,
+            "supported": true,
+            "outOfBandMode": ""
+        },
+        "proxy": {
+            "httpProxy": "",
+            "noProxy": "",
+            "ca": "",
+            "user": "",
+            "password": {
+                "encrypted": ""
+            }
+        },
+        "port": 0,
+        "compatibleVersion": true,
+        "usingOldCA": false,
+        "isARM64": false
+    }
+]
