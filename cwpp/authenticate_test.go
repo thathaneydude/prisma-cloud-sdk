@@ -9,7 +9,7 @@ import (
 	bc "github.com/thathaneydude/prisma-cloud-sdk/internal/client"
 )
 
-func TestCwppClient_Authenticate2(t *testing.T) {
+func TestCwppClient_Authenticate(t *testing.T) {
 	teardown := setup()
 	defer teardown()
 

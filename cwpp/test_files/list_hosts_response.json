@@ -224,7 +224,7 @@
         "complianceIssues": [
             {
                 "text": "",
-                "id": 200004,
+                "id": "testid1",
                 "severity": "critical",
                 "cvss": 0,
                 "status": "",
@@ -250,7 +250,7 @@
             },
             {
                 "text": "",
-                "id": 200006,
+                "id": "testid2",
                 "severity": "critical",
                 "cvss": 0,
                 "status": "",
@@ -313,11 +313,11 @@
         },
         "firstScanTime": "0001-01-01T00:00:00Z",
         "cloudMetadata": {
-            "resourceID": "i-0ce667178435bb0c1",
+            "resourceID": "testid1",
             "provider": "aws",
             "type": "t2.micro",
             "region": "eu-west-1",
-            "accountID": "242044481990",
+            "accountID": "testid1",
             "image": "ami-08eeb5a90cf59a66a"
         },
         "instances": [],

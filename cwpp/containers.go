@@ -65,40 +65,37 @@ type Container struct {
 	Info     struct {
 		AllCompliance struct {
 			Compliance []struct {
-				ApplicableRules []string  `json:"applicableRules"`
-				BinaryPkgs      []string  `json:"binaryPkgs"`
-				Block           bool      `json:"block"`
-				Cause           string    `json:"cause"`
-				Cri             bool      `json:"cri"`
-				Custom          bool      `json:"custom"`
-				Cve             string    `json:"cve"`
-				Cvss            int       `json:"cvss"`
-				Description     string    `json:"description"`
-				Discovered      time.Time `json:"discovered"`
-				Exploit         string    `json:"exploit"`
-				FixDate         int       `json:"fixDate"`
-				FixLink         string    `json:"fixLink"`
-				FunctionLayer   string    `json:"functionLayer"`
-				GracePeriodDays int       `json:"gracePeriodDays"`
-				ID              int       `json:"id"`
-				LayerTime       int       `json:"layerTime"`
-				Link            string    `json:"link"`
-				PackageName     string    `json:"packageName"`
-				PackageVersion  string    `json:"packageVersion"`
-				Published       int       `json:"published"`
-				RiskFactors     struct {
-					Property1 string `json:"property1"`
-					Property2 string `json:"property2"`
-				} `json:"riskFactors"`
-				Severity     string   `json:"severity"`
-				Status       string   `json:"status"`
-				Templates    []string `json:"templates"`
-				Text         string   `json:"text"`
-				Title        string   `json:"title"`
-				Twistlock    bool     `json:"twistlock"`
-				Type         []string `json:"type"`
-				VecStr       string   `json:"vecStr"`
-				VulnTagInfos []struct {
+				ApplicableRules []string          `json:"applicableRules"`
+				BinaryPkgs      []string          `json:"binaryPkgs"`
+				Block           bool              `json:"block"`
+				Cause           string            `json:"cause"`
+				Cri             bool              `json:"cri"`
+				Custom          bool              `json:"custom"`
+				Cve             string            `json:"cve"`
+				Cvss            int               `json:"cvss"`
+				Description     string            `json:"description"`
+				Discovered      time.Time         `json:"discovered"`
+				Exploit         string            `json:"exploit"`
+				FixDate         int               `json:"fixDate"`
+				FixLink         string            `json:"fixLink"`
+				FunctionLayer   string            `json:"functionLayer"`
+				GracePeriodDays int               `json:"gracePeriodDays"`
+				ID              int               `json:"id"`
+				LayerTime       int               `json:"layerTime"`
+				Link            string            `json:"link"`
+				PackageName     string            `json:"packageName"`
+				PackageVersion  string            `json:"packageVersion"`
+				Published       int               `json:"published"`
+				RiskFactors     map[string]string `json:"riskFactors"`
+				Severity        string            `json:"severity"`
+				Status          string            `json:"status"`
+				Templates       []string          `json:"templates"`
+				Text            string            `json:"text"`
+				Title           string            `json:"title"`
+				Twistlock       bool              `json:"twistlock"`
+				Type            []string          `json:"type"`
+				VecStr          string            `json:"vecStr"`
+				VulnTagInfos    []struct {
 					Color   string `json:"color"`
 					Comment string `json:"comment"`
 					Name    string `json:"name"`
@@ -134,40 +131,37 @@ type Container struct {
 			Total    int `json:"total"`
 		} `json:"complianceDistribution"`
 		ComplianceIssues []struct {
-			ApplicableRules []string  `json:"applicableRules"`
-			BinaryPkgs      []string  `json:"binaryPkgs"`
-			Block           bool      `json:"block"`
-			Cause           string    `json:"cause"`
-			Cri             bool      `json:"cri"`
-			Custom          bool      `json:"custom"`
-			Cve             string    `json:"cve"`
-			Cvss            int       `json:"cvss"`
-			Description     string    `json:"description"`
-			Discovered      time.Time `json:"discovered"`
-			Exploit         string    `json:"exploit"`
-			FixDate         int       `json:"fixDate"`
-			FixLink         string    `json:"fixLink"`
-			FunctionLayer   string    `json:"functionLayer"`
-			GracePeriodDays int       `json:"gracePeriodDays"`
-			ID              int       `json:"id"`
-			LayerTime       int       `json:"layerTime"`
-			Link            string    `json:"link"`
-			PackageName     string    `json:"packageName"`
-			PackageVersion  string    `json:"packageVersion"`
-			Published       int       `json:"published"`
-			RiskFactors     struct {
-				Property1 string `json:"property1"`
-				Property2 string `json:"property2"`
-			} `json:"riskFactors"`
-			Severity     string   `json:"severity"`
-			Status       string   `json:"status"`
-			Templates    []string `json:"templates"`
-			Text         string   `json:"text"`
-			Title        string   `json:"title"`
-			Twistlock    bool     `json:"twistlock"`
-			Type         string   `json:"type"`
-			VecStr       string   `json:"vecStr"`
-			VulnTagInfos []struct {
+			ApplicableRules []string          `json:"applicableRules"`
+			BinaryPkgs      []string          `json:"binaryPkgs"`
+			Block           bool              `json:"block"`
+			Cause           string            `json:"cause"`
+			Cri             bool              `json:"cri"`
+			Custom          bool              `json:"custom"`
+			Cve             string            `json:"cve"`
+			Cvss            int               `json:"cvss"`
+			Description     string            `json:"description"`
+			Discovered      time.Time         `json:"discovered"`
+			Exploit         string            `json:"exploit"`
+			FixDate         int               `json:"fixDate"`
+			FixLink         string            `json:"fixLink"`
+			FunctionLayer   string            `json:"functionLayer"`
+			GracePeriodDays int               `json:"gracePeriodDays"`
+			ID              int               `json:"id"`
+			LayerTime       int               `json:"layerTime"`
+			Link            string            `json:"link"`
+			PackageName     string            `json:"packageName"`
+			PackageVersion  string            `json:"packageVersion"`
+			Published       int               `json:"published"`
+			RiskFactors     map[string]string `json:"riskFactors"`
+			Severity        string            `json:"severity"`
+			Status          string            `json:"status"`
+			Templates       []string          `json:"templates"`
+			Text            string            `json:"text"`
+			Title           string            `json:"title"`
+			Twistlock       bool              `json:"twistlock"`
+			Type            string            `json:"type"`
+			VecStr          string            `json:"vecStr"`
+			VulnTagInfos    []struct {
 				Color   string `json:"color"`
 				Comment string `json:"comment"`
 				Name    string `json:"name"`
