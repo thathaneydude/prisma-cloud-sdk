@@ -1,0 +1,512 @@
+[
+    {
+        "_id": "testname1",
+        "type": "host",
+        "hostname": "EC2AMAZ-Burr",
+        "scanTime": "2022-07-19T17:18:46.156Z",
+        "binaries": [],
+        "Secrets": null,
+        "startupBinaries": [],
+        "osDistro": "windows",
+        "osDistroVersion": "",
+        "osDistroRelease": "Windows Server 2019",
+        "distro": "Microsoft Windows [Version 10.0.17763.1757]",
+        "packages": [
+            {
+                "pkgsType": "windows",
+                "pkgs": [
+                    {
+                        "version": "4601060",
+                        "name": "KB4601060",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4465664",
+                        "name": "KB4465664",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4470502",
+                        "name": "KB4470502",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4470788",
+                        "name": "KB4470788",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4480056",
+                        "name": "KB4480056",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4493510",
+                        "name": "KB4493510",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4494174",
+                        "name": "KB4494174",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4499728",
+                        "name": "KB4499728",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4504369",
+                        "name": "KB4504369",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4512577",
+                        "name": "KB4512577",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4512937",
+                        "name": "KB4512937",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4521862",
+                        "name": "KB4521862",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4523204",
+                        "name": "KB4523204",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4535680",
+                        "name": "KB4535680",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4539571",
+                        "name": "KB4539571",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4549947",
+                        "name": "KB4549947",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4558997",
+                        "name": "KB4558997",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4562562",
+                        "name": "KB4562562",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4566424",
+                        "name": "KB4566424",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4570332",
+                        "name": "KB4570332",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4577667",
+                        "name": "KB4577667",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4580325",
+                        "name": "KB4580325",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4587735",
+                        "name": "KB4587735",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4598480",
+                        "name": "KB4598480",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4601393",
+                        "name": "KB4601393",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4601345",
+                        "name": "KB4601345",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4.0",
+                        "name": "Microsoft .NET Framework",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    },
+                    {
+                        "version": "4.7.2",
+                        "name": "Microsoft .NET Framework",
+                        "cveCount": 0,
+                        "license": "",
+                        "layerTime": 0
+                    }
+                ]
+            }
+        ],
+        "files": null,
+        "packageManager": true,
+        "isARM64": false,
+        "image": {
+            "created": "0001-01-01T00:00:00Z"
+        },
+        "history": [],
+        "complianceIssues": [
+            {
+                "text": "",
+                "id": "testid1",
+                "severity": "critical",
+                "cvss": 0,
+                "status": "",
+                "cve": "",
+                "cause": "",
+                "description": "Windows antivirus signatures are overdue based on your update policy",
+                "title": "Verify antivirus signatures are up-to-date",
+                "vecStr": "",
+                "exploit": "",
+                "riskFactors": null,
+                "link": "",
+                "type": "windows",
+                "packageName": "",
+                "packageVersion": "",
+                "layerTime": 0,
+                "templates": null,
+                "twistlock": true,
+                "cri": false,
+                "published": 0,
+                "fixDate": 0,
+                "discovered": "0001-01-01T00:00:00Z",
+                "functionLayer": ""
+            },
+            {
+                "text": "",
+                "id": "testid2",
+                "severity": "critical",
+                "cvss": 0,
+                "status": "",
+                "cve": "",
+                "cause": "",
+                "description": "Windows antispyware signatures are overdue based on your update policy",
+                "title": "Verify antispyware signatures are up-to-date",
+                "vecStr": "",
+                "exploit": "",
+                "riskFactors": null,
+                "link": "",
+                "type": "windows",
+                "packageName": "",
+                "packageVersion": "",
+                "layerTime": 0,
+                "templates": null,
+                "twistlock": true,
+                "cri": false,
+                "published": 0,
+                "fixDate": 0,
+                "discovered": "0001-01-01T00:00:00Z",
+                "functionLayer": ""
+            }
+        ],
+        "repoTag": null,
+        "tags": [],
+        "repoDigests": [],
+        "creationTime": "0001-01-01T00:00:00Z",
+        "vulnerabilitiesCount": 761,
+        "complianceIssuesCount": 4,
+        "vulnerabilityDistribution": {
+            "critical": 22,
+            "high": 527,
+            "medium": 210,
+            "low": 2,
+            "total": 761
+        },
+        "complianceDistribution": {
+            "critical": 4,
+            "high": 0,
+            "medium": 0,
+            "low": 0,
+            "total": 4
+        },
+        "vulnerabilityRiskScore": 27291002,
+        "complianceRiskScore": 4000000,
+        "riskFactors": {
+            "Attack complexity: low": {},
+            "Attack vector: network": {},
+            "Critical severity": {},
+            "Exploit exists": {},
+            "Has fix": {},
+            "High severity": {},
+            "Medium severity": {},
+            "Recent vulnerability": {},
+            "Remote execution": {}
+        },
+        "installedProducts": {
+            "osDistro": "Windows Server 2019"
+        },
+        "firstScanTime": "0001-01-01T00:00:00Z",
+        "cloudMetadata": {
+            "resourceID": "testid1",
+            "provider": "aws",
+            "type": "t2.micro",
+            "region": "eu-west-1",
+            "accountID": "testid1",
+            "image": "ami-08eeb5a90cf59a66a"
+        },
+        "instances": [],
+        "hosts": {},
+        "err": "",
+        "collections": [
+            "test1",
+            "test2",
+            "test3"
+        ],
+        "scanID": 0,
+        "trustStatus": "",
+        "firewallProtection": {
+            "enabled": false,
+            "supported": false,
+            "outOfBandMode": ""
+        },
+        "appEmbedded": false,
+        "wildFireUsage": null,
+        "agentless": false
+    },
+    {
+        "_id": "testname2",
+        "type": "host",
+        "hostname": "ip-192-168-7-66.us-east-2.compute.internal",
+        "scanTime": "2022-07-19T17:18:35.948Z",
+        "binaries": [
+            {
+                "name": "sshd",
+                "path": "/usr/sbin/sshd",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "sshd"
+                ]
+            },
+            {
+                "name": "lvmetad",
+                "path": "/usr/sbin/lvmetad",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "lvm2-lvmetad"
+                ]
+            },
+            {
+                "name": "runc",
+                "path": "/usr/sbin/runc",
+                "md5": "",
+                "cveCount": 0
+            },
+            {
+                "name": "systemd-logind",
+                "path": "/usr/lib/systemd/systemd-logind",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "systemd-logind"
+                ]
+            },
+            {
+                "name": "containerd",
+                "path": "/usr/bin/containerd",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "containerd"
+                ]
+            },
+            {
+                "name": "qmgr",
+                "path": "/usr/libexec/postfix/qmgr",
+                "md5": "",
+                "cveCount": 0
+            },
+            {
+                "name": "systemd",
+                "path": "/usr/lib/systemd/systemd",
+                "md5": "",
+                "cveCount": 0
+            },
+            {
+                "name": "irqbalance",
+                "path": "/usr/sbin/irqbalance",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "irqbalance"
+                ]
+            },
+            {
+                "name": "rsyslogd",
+                "path": "/usr/sbin/rsyslogd",
+                "md5": "",
+                "cveCount": 0,
+                "services": [
+                    "rsyslog"
+                ]
+            }
+        ],
+        "repoTag": null,
+        "tags": [],
+        "repoDigests": [],
+        "creationTime": "0001-01-01T00:00:00Z",
+        "vulnerabilitiesCount": 296,
+        "complianceIssuesCount": 79,
+        "vulnerabilityDistribution": {
+            "critical": 13,
+            "high": 149,
+            "medium": 123,
+            "low": 11,
+            "total": 296
+        },
+        "complianceDistribution": {
+            "critical": 0,
+            "high": 17,
+            "medium": 49,
+            "low": 13,
+            "total": 79
+        },
+        "vulnerabilityRiskScore": 14502311,
+        "complianceRiskScore": 174913,
+        "k8sClusterAddr": "test",
+        "riskFactors": {
+            "Attack complexity: low": {},
+            "Attack vector: network": {},
+            "Critical severity": {},
+            "DoS": {},
+            "Has fix": {},
+            "High severity": {},
+            "Medium severity": {},
+            "Package in use": {},
+            "Recent vulnerability": {}
+        },
+        "labels": [
+            "osDistro:amzn",
+            "osVersion:2"
+        ],
+        "installedProducts": {
+            "docker": "19.03.13-ce",
+            "kubernetes": "1.19.6",
+            "osDistro": "AL2",
+            "k8sKubelet": true,
+            "k8sProxy": true,
+            "hasPackageManager": true
+        },
+        "hostDevices": [
+            {
+                "name": "eth0",
+                "ip": "192.168.7.66"
+            },
+            {
+                "name": "eth1",
+                "ip": "192.168.29.7"
+            },
+            {
+                "name": "eth2",
+                "ip": "192.168.8.160"
+            }
+        ],
+        "firstScanTime": "0001-01-01T00:00:00Z",
+        "cloudMetadata": {
+            "resourceID": "i-05812a1db5510bcf5",
+            "provider": "aws",
+            "type": "t3a.medium",
+            "region": "us-east-2",
+            "accountID": "386650976415",
+            "image": "ami-0d74628ef4e6ed5b6"
+        },
+        "clusters": [
+            "demo-vpc"
+        ],
+        "instances": [],
+        "hosts": {},
+        "err": "",
+        "collections": [
+            "test1",
+            "test2",
+            "test3"
+        ],
+        "scanID": 0,
+        "trustStatus": "",
+        "firewallProtection": {
+            "enabled": false,
+            "supported": false,
+            "outOfBandMode": ""
+        },
+        "appEmbedded": false,
+        "wildFireUsage": null,
+        "agentless": false
+    }
+]

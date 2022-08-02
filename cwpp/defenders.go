@@ -2,10 +2,11 @@ package cwpp
 
 import (
 	"fmt"
-	"github.com/gorilla/schema"
-	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 	"net/url"
 	"time"
+
+	"github.com/gorilla/schema"
+	"github.com/thathaneydude/prisma-cloud-sdk/internal"
 )
 
 const defendedEndpoint = "/defenders"
@@ -48,7 +49,7 @@ type DefenderQuery struct {
 }
 
 type Defender struct {
-	Category              []string  `json:"category,omitempty"`
+	Category              string    `json:"category,omitempty"`
 	CertificateExpiration time.Time `json:"certificateExpiration,omitempty"`
 	CloudMetadata         struct {
 		AccountID string `json:"accountID,omitempty"`
@@ -56,16 +57,16 @@ type Defender struct {
 		Labels    []struct {
 			Key        string    `json:"key,omitempty"`
 			SourceName string    `json:"sourceName,omitempty"`
-			SourceType []string  `json:"sourceType,omitempty"`
+			SourceType string    `json:"sourceType,omitempty"`
 			Timestamp  time.Time `json:"timestamp,omitempty"`
 			Value      string    `json:"value,omitempty"`
 		} `json:"labels,omitempty"`
-		Name        string   `json:"name,omitempty"`
-		Provider    []string `json:"provider,omitempty"`
-		Region      string   `json:"region,omitempty"`
-		ResourceID  string   `json:"resourceID,omitempty"`
-		ResourceURL string   `json:"resourceURL,omitempty"`
-		Type        string   `json:"type,omitempty"`
+		Name        string `json:"name,omitempty"`
+		Provider    string `json:"provider,omitempty"`
+		Region      string `json:"region,omitempty"`
+		ResourceID  string `json:"resourceID,omitempty"`
+		ResourceURL string `json:"resourceURL,omitempty"`
+		Type        string `json:"type,omitempty"`
 	} `json:"cloudMetadata,omitempty"`
 	Cluster           string   `json:"cluster,omitempty"`
 	ClusterID         string   `json:"clusterID,omitempty"`
@@ -73,8 +74,8 @@ type Defender struct {
 	CompatibleVersion bool     `json:"compatibleVersion,omitempty"`
 	Connected         bool     `json:"connected,omitempty"`
 	Features          struct {
-		ClusterMonitoring bool     `json:"clusterMonitoring,omitempty"`
-		ProxyListenerType []string `json:"proxyListenerType,omitempty"`
+		ClusterMonitoring bool   `json:"clusterMonitoring,omitempty"`
+		ProxyListenerType string `json:"proxyListenerType,omitempty"`
 	} `json:"features,omitempty"`
 	FirewallProtection struct {
 		Enabled              bool  `json:"enabled,omitempty"`
@@ -185,14 +186,14 @@ type Defender struct {
 		} `json:"upgrade,omitempty"`
 	} `json:"status,omitempty"`
 	SystemInfo struct {
-		CpuCount         int    `json:"cpuCount,omitempty"`
-		FreeDiskSpaceGB  int    `json:"freeDiskSpaceGB,omitempty"`
-		KernelVersion    string `json:"kernelVersion,omitempty"`
-		MemoryGB         int    `json:"memoryGB,omitempty"`
-		TotalDiskSpaceGB int    `json:"totalDiskSpaceGB,omitempty"`
+		CpuCount         int     `json:"cpuCount,omitempty"`
+		FreeDiskSpaceGB  float32 `json:"freeDiskSpaceGB,omitempty"`
+		KernelVersion    string  `json:"kernelVersion,omitempty"`
+		MemoryGB         float32 `json:"memoryGB,omitempty"`
+		TotalDiskSpaceGB float32 `json:"totalDiskSpaceGB,omitempty"`
 	} `json:"systemInfo,omitempty"`
-	TasClusterID string   `json:"tasClusterID,omitempty"`
-	Type         []string `json:"type,omitempty"`
-	UsingOldCA   bool     `json:"usingOldCA,omitempty"`
-	Version      string   `json:"version,omitempty"`
+	TasClusterID string `json:"tasClusterID,omitempty"`
+	Type         string `json:"type,omitempty"`
+	UsingOldCA   bool   `json:"usingOldCA,omitempty"`
+	Version      string `json:"version,omitempty"`
 }

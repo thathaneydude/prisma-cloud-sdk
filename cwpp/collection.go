@@ -28,4 +28,5 @@ type Collection struct {
 	Labels      []string `json:"labels,omitempty"`
 	Name        string   `json:"name,omitempty"`
 	Namespaces  []string `json:"namespaces,omitempty"`
+	Owner       string   `json:"owner,omitempty"`
 }
